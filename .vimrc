@@ -8,8 +8,11 @@ set softtabstop=4
 set smarttab
 " Tab width used by 'smarttab', and by '>>'/'<<'
 set shiftwidth=4
-" Enable line numbers
-set number
+
+" Enable line numbers (except for git commit messages)
+if (expand('%:t') !~ '^COMMIT_')
+    set number
+endif
 
 
 "" Rebindings ""
