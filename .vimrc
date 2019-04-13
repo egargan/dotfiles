@@ -27,6 +27,8 @@ nnoremap <C-H> <C-W><C-H>
 " 5-line up/down jumps
 nnoremap <S-k> 5k
 nnoremap <S-j> 5j
+vnoremap <S-k> 5k
+vnoremap <S-j> 5j
 
 "" Customisation ""
 
