@@ -12,20 +12,8 @@ set shiftwidth=4
 set number
 
 
-" Syntax highlighting
-syntax on
-
-" Download despacio if not installed
-silent ! [ -e ~/.vim/colors/despacio.vim ] || curl --create-dirs -o ~/.vim/colors/despacio.vim https://raw.githubusercontent.com/AlessandroYorba/Despacio/master/colors/despacio.vim
-
-" Set despacio colour scheme with dark bg
-let g:despacio_Midnight=1
-colorscheme despacio
-
-
 "" Rebindings ""
-" 'nnoremap' - n: normal mode (not visual, insert etc.), nore: non-recursive map,
-" other mappings to e.g. <C-J> do not map to <C-W><C-J>, map: map.
+" 'nnoremap' - n: normal mode (not visual, insert etc.), nore: non-recursive map, other mappings to e.g. <C-J> do not map to <C-W><C-J>, map: map.
 
 " Easier split navigation
 nnoremap <C-J> <C-W><C-J>
@@ -38,15 +26,41 @@ nnoremap <S-k> 5k
 nnoremap <S-j> 5j
 
 
+" Syntax highlighting
+syntax on
+
+" Download despacio if not installed
+silent ! [ -e ~/.vim/colors/despacio.vim ] || curl --create-dirs -o ~/.vim/colors/despacio.vim https://raw.githubusercontent.com/AlessandroYorba/Despacio/master/colors/despacio.vim
+
+" Set despacio colour scheme with dark bg
+let g:despacio_Midnight=1
+colorscheme despacio
+
+
 "" Plugins ""
-" Don't forget to run :PlugInstall (todo: run PlugInstall in here only if
-" some/all plugins aren't installed)
+" Install vimplug if not already installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent ! curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+let plugins = []
+
+call add(plugins, 'scrooloose/nerdcommenter')
+
+" Count files in .vim/plugged directory
+let num_plugged = len(split(globpath('~/.vim/plugged/', '*'), '\n'))
+
+" PlugInstall if missing plugins - 'VimEnter' -> plugins installed after .vimrc is read
+if num_plugged < len(plugins)
+    autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
+endif
 
 " Specify directory for vimplug plugins
 call plug#begin('~/.vim/plugged')
 
-" Code commenting - see :help nercommenter
-Plug 'scrooloose/nerdcommenter'
+for plugin in plugins
+    Plug plugin
+endfor
 
 " Initialise vimplug
 call plug#end()
