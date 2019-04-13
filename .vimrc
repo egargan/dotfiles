@@ -35,7 +35,7 @@ vnoremap <S-j> 5j
 " Syntax highlighting
 syntax on
 
-" Download despacio if not installed
+" Download colorscheme if not installed
 silent ! [ -e ~/.vim/colors/tomorrow-night.vim ] || curl --create-dirs -o ~/.vim/colors/tomorrow-night.vim https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim 
 " gruvbox instead? looks nice..
 colorscheme tomorrow-night
@@ -59,6 +59,8 @@ call add(plugins, 'scrooloose/nerdcommenter')
 " Nice status line
 call add(plugins, 'itchyny/lightline.vim')
 let g:lightline  = { 'colorscheme' : 'Tomorrow_Night' }
+" Hide vanilla mode status
+set noshowmode
 
 " Count files in .vim/plugged directory
 let num_plugged = len(split(globpath('~/.vim/plugged/', '*'), '\n'))
