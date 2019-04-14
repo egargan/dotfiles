@@ -1,0 +1,7 @@
+[color]
+ui = true
+[user]
+	email = edwgargan@gmail.com
+	name = egargan
+[core]
+	editor = vim
