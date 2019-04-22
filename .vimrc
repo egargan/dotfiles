@@ -9,6 +9,10 @@ set smarttab
 " Tab width used by 'smarttab', and by '>>'/'<<'
 set shiftwidth=4
 
+" Enable timeouts for keycode sequences, basically lets us more quickly esc from insert mode
+set ttimeout
+set ttimeoutlen=50
+
 " Enable line numbers (except for git commit messages)
 if (expand('%:t') !~ '^COMMIT_')
     set number
