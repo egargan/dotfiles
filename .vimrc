@@ -28,11 +28,18 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Easier tab navigation
+noremap <C-t>k :tabr<cr>
+noremap <C-t>j :tabl<cr>
+noremap <C-t>h :tabp<cr>
+noremap <C-t>l :tabn<cr>
+
 " 5-line up/down jumps
 nnoremap <S-k> 5k
 nnoremap <S-j> 5j
 vnoremap <S-k> 5k
 vnoremap <S-j> 5j
+
 
 "" Customisation ""
 
