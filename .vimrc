@@ -73,7 +73,14 @@ let g:lightline  = { 'colorscheme' : 'Tomorrow_Night' }
 " Hide vanilla mode status
 set noshowmode
 
+" Show git diff symbols in gutter
+call add(plugins, 'airblade/vim-gitgutter')
+" TODO: disable by default, check if current dir in git repo, then enable?
+" Tricky since we have our .dotfiles repo in the home dir :/
+
 " Count files in .vim/plugged directory
+" TODO: not reliable, old plugins can throw this count off - compare filenames
+" to vimplugged list somehow?
 let num_plugged = len(split(globpath('~/.vim/plugged/', '*'), '\n'))
 
 " PlugInstall if missing plugins - 'VimEnter' -> plugins installed after .vimrc is read
