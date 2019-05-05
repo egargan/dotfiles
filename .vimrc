@@ -40,6 +40,10 @@ nnoremap <S-j> 5j
 vnoremap <S-k> 5k
 vnoremap <S-j> 5j
 
+" Cuts to black hole buffer
+nnoremap <leader>d "_d
+nnoremap <leader>x "_x
+
 
 "" Customisation ""
 
