@@ -13,10 +13,6 @@ set shiftwidth=4
 set ttimeout
 set ttimeoutlen=50
 
-" Enable line numbers (except for git commit messages)
-if (expand('%:t') !~ '^COMMIT_')
-    set number
-endif
 
 
 "" Rebindings ""
@@ -58,6 +54,11 @@ colorscheme tomorrow-night
 " Always show status bar
 set laststatus=2
 
+" Enable line numbers (except for git commit messages)
+if (expand('%:t') !~ '^COMMIT_')
+    set number
+endif
+
 
 "" Plugins ""
 
@@ -79,8 +80,14 @@ set noshowmode
 
 " Show git diff symbols in gutter
 call add(plugins, 'airblade/vim-gitgutter')
-" TODO: disable by default, check if current dir in git repo, then enable?
-" Tricky since we have our .dotfiles repo in the home dir :/
+" Decrease time plugins take to respond to changes, from 4s default
+set updatetime=1000
+" Link highlight groups to existing ones in colorscheme
+" (gitgutter's default links don't exist in tomorrow-night, but these do)
+highlight link GitGutterAdd diffAdded
+" No 'diffChange' group, so just use arbitrary blue-coloured group instead
+highlight link GitGutterChange Function
+highlight link GitGutterDelete diffRemoved
 
 " Count files in .vim/plugged directory
 " TODO: not reliable, old plugins can throw this count off - compare filenames
