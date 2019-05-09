@@ -10,6 +10,7 @@ export PAGER=less
 export EDITOR=vim
 
 ## Aliases
+# Alias tmux to tmux w/ colours enabled
 alias tmux='tmux -2'
 
 # Git aliases
