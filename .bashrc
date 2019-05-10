@@ -13,6 +13,9 @@ export EDITOR=vim
 # Alias tmux to tmux w/ colours enabled
 alias tmux='tmux -2'
 
+# Print current SSH agent
+alias shocket='echo $(find /tmp -path '*/ssh-*' -name 'agent*' -uid $(id -u) 2>/dev/null | tail -n1)'
+
 # Git aliases
 alias gst='git status'
 alias  gd='git diff'
