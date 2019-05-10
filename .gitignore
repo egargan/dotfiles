@@ -8,4 +8,5 @@
 !.gitconfig
 !.bashrc
 !.gitattributes
+!.global-ignore
 
