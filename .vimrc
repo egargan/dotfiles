@@ -30,6 +30,10 @@ noremap <C-t>j :tabl<cr>
 noremap <C-t>h :tabp<cr>
 noremap <C-t>l :tabn<cr>
 
+" Open / quit tabs
+noremap <C-t>e :tabnew
+noremap <C-t>q :tabc
+
 " 5-line up/down jumps
 nnoremap <S-k> 5k
 nnoremap <S-j> 5j
