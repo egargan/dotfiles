@@ -14,7 +14,6 @@ set ttimeout
 set ttimeoutlen=50
 
 
-
 "" Rebindings ""
 
 " 'nnoremap' - n: normal mode (not visual, insert etc.), nore: non-recursive map, other mappings to e.g. <C-J> do not map to <C-W><C-J>, map: map.
@@ -43,6 +42,9 @@ vnoremap <S-j> 5j
 " Cuts to black hole buffer
 nnoremap <leader>d "_d
 nnoremap <leader>x "_x
+
+" TODO easier window resizing, e.g. resize 5 columns in one + allow repeated input
+" TODO set bash-style filename tabbing?
 
 
 "" Customisation ""
@@ -83,7 +85,8 @@ let g:lightline  = { 'colorscheme' : 'Tomorrow_Night' }
 set noshowmode
 
 " Show git diff symbols in gutter
-call add(plugins, 'airblade/vim-gitgutter')
+" TODO causes ghost characters - fix or delete
+" call add(plugins, 'airblade/vim-gitgutter')
 " Decrease time plugins take to respond to changes, from 4s default
 set updatetime=1000
 " Link highlight groups to existing ones in colorscheme
@@ -92,6 +95,11 @@ highlight link GitGutterAdd diffAdded
 " No 'diffChange' group, so just use arbitrary blue-coloured group instead
 highlight link GitGutterChange Function
 highlight link GitGutterDelete diffRemoved
+
+" File tree explorer
+" TODO disable / hide lightline for tree viewer
+" TODO get ctrl+j/k jump shortcuts working
+call add(plugins, 'scrooloose/nerdtree')
 
 " Count files in .vim/plugged directory
 " TODO: not reliable, old plugins can throw this count off - compare filenames
