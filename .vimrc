@@ -16,7 +16,7 @@ set ttimeoutlen=50
 
 "" Rebindings ""
 
-" 'nnoremap' - n: normal mode (not visual, insert etc.), nore: non-recursive map, other mappings to e.g. <C-J> do not map to <C-W><C-J>, map: map.
+" 'nnoremap' - n: normal mode (not visual, insert etc.), nore: non-recursive map, other mappings to e.g. <C-J> do not map to <C-W><C-J>
 " Easier split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -30,7 +30,7 @@ noremap <C-t>h :tabp<cr>
 noremap <C-t>l :tabn<cr>
 
 " Open / quit tabs
-noremap <C-t>e :tabnew
+noremap <C-t>e :tabnew<Space>
 noremap <C-t>q :tabc
 
 " 5-line up/down jumps
@@ -43,8 +43,13 @@ vnoremap <S-j> 5j
 nnoremap <leader>d "_d
 nnoremap <leader>x "_x
 
+" Bash-style filename tabbing
+set wildmenu
+" (on tab, complete to longest common path, or show options if not possible)
+set wildmode=longest,list
+set wildignore=.git,*.swp,*/tmp/*
+
 " TODO easier window resizing, e.g. resize 5 columns in one + allow repeated input
-" TODO set bash-style filename tabbing?
 
 
 "" Customisation ""
@@ -98,7 +103,6 @@ highlight link GitGutterDelete diffRemoved
 
 " File tree explorer
 " TODO disable / hide lightline for tree viewer
-" TODO get ctrl+j/k jump shortcuts working
 call add(plugins, 'scrooloose/nerdtree')
 
 " Count files in .vim/plugged directory
