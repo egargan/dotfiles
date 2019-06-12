@@ -5,6 +5,7 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+
 ## Env vars
 export PAGER=less
 export EDITOR=vim
@@ -21,5 +22,5 @@ alias gst='git status'
 alias  gd='git diff'
 alias gdc='git diff --cached'
 alias gcm='git commit'
-alias gck='git checkout'
+alias gco='git checkout'
 alias  ga='git add'
