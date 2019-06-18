@@ -49,6 +49,9 @@ set wildmenu
 set wildmode=longest,list
 set wildignore=.git,*.swp,*/tmp/*
 
+" Unhighlight searches with enter
+nnoremap <CR> :noh<CR><CR>
+
 " TODO easier window resizing, e.g. resize 5 columns in one + allow repeated input
 
 
@@ -58,7 +61,7 @@ set wildignore=.git,*.swp,*/tmp/*
 syntax on
 
 " Download colorscheme if not installed
-silent ! [ -e ~/.vim/colors/tomorrow-night.vim ] || curl --create-dirs -o ~/.vim/colors/tomorrow-night.vim https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim 
+silent ! [ -e ~/.vim/colors/tomorrow-night.vim ] || curl --create-dirs -o ~/.vim/colors/tomorrow-night.vim https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim
 " gruvbox instead? looks nice..
 colorscheme tomorrow-night
 
