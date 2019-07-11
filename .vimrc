@@ -87,6 +87,8 @@ let plugins = []
 call add(plugins, 'scrooloose/nerdcommenter')
 
 " Nice status line
+" TODO add git branch name?
+" TODO fix not working when first PlugInstalling?
 call add(plugins, 'itchyny/lightline.vim')
 let g:lightline  = { 'colorscheme' : 'Tomorrow_Night' }
 " Hide vanilla mode status
@@ -108,20 +110,20 @@ highlight link GitGutterDelete diffRemoved
 " TODO disable / hide lightline for tree viewer
 call add(plugins, 'scrooloose/nerdtree')
 
-" Count files in .vim/plugged directory
-" TODO: not reliable, old plugins can throw this count off - compare filenames
-" to vimplugged list somehow?
-let num_plugged = len(split(globpath('~/.vim/plugged/', '*'), '\n'))
-
-" PlugInstall if missing plugins - 'VimEnter' -> plugins installed after .vimrc is read
-if num_plugged < len(plugins)
-    autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
-endif
-
 " Specify directory for vimplug plugins
-call plug#begin('~/.vim/plugged')
+let plugin_dir = '~/.vim/plugged'
+call plug#begin(plugin_dir)
 
 for plugin in plugins
+    let plugin_name = split(plugin, '/')[-1]
+
+    " If plug isn't installed, manually PlugInstall after vim startup (autocmd VimEnter)
+    " (http://learnvimscriptthehardway.stevelosh.com/chapters/12.html#autocommand-structure)
+    if empty(glob(plugin_dir . '/' . plugin_name))
+        autocmd VimEnter * execute 'PlugInstall --sync ' . plugin_name . '| source ~/.vimrc'
+    endif
+
+    " Apply plugin to current session
     Plug plugin
 endfor
 
