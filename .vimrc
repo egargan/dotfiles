@@ -88,15 +88,14 @@ call add(plugins, 'scrooloose/nerdcommenter')
 
 " Nice status line
 " TODO add git branch name?
-" TODO fix not working when first PlugInstalling?
+" TODO fix no colours bug when PlugInstall-ing any plugin?
 call add(plugins, 'itchyny/lightline.vim')
 let g:lightline  = { 'colorscheme' : 'Tomorrow_Night' }
 " Hide vanilla mode status
 set noshowmode
 
 " Show git diff symbols in gutter
-" TODO causes ghost characters - fix or delete
-" call add(plugins, 'airblade/vim-gitgutter')
+call add(plugins, 'airblade/vim-gitgutter')
 " Decrease time plugins take to respond to changes, from 4s default
 set updatetime=1000
 " Link highlight groups to existing ones in colorscheme
@@ -106,9 +105,6 @@ highlight link GitGutterAdd diffAdded
 highlight link GitGutterChange Function
 highlight link GitGutterDelete diffRemoved
 
-" File tree explorer
-" TODO disable / hide lightline for tree viewer
-call add(plugins, 'scrooloose/nerdtree')
 
 " Specify directory for vimplug plugins
 let plugin_dir = '~/.vim/plugged'
@@ -117,8 +113,8 @@ call plug#begin(plugin_dir)
 for plugin in plugins
     let plugin_name = split(plugin, '/')[-1]
 
-    " If plug isn't installed, manually PlugInstall after vim startup (autocmd VimEnter)
-    " (http://learnvimscriptthehardway.stevelosh.com/chapters/12.html#autocommand-structure)
+    " If plug isn't installed, manually PlugInstall after vim startup (autocmd VimEnter,
+    " http://learnvimscriptthehardway.stevelosh.com/chapters/12.html#autocommand-structure)
     if empty(glob(plugin_dir . '/' . plugin_name))
         autocmd VimEnter * execute 'PlugInstall --sync ' . plugin_name . '| source ~/.vimrc'
     endif
