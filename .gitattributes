@@ -1,2 +1,0 @@
-# Apply hide filter to dotfiles
-.* filter=remove_hidden

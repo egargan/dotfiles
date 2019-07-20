@@ -6,6 +6,3 @@ ui = true
 [core]
 	editor = vim
     excludesfile = ~/.global-ignore
-# Clean filter to remove lines ending in given 'hide' token
-[filter "remove_hidden"]
-	clean = sed \"/^.*&HIDE$/d\"

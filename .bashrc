@@ -5,6 +5,10 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+# source machine-specific bashrc not for tracking with git
+if [ -f ~/.bashrc.private ]; then
+    . ~/.bashrc.private
+fi
 
 ## Env vars
 export PAGER=less
