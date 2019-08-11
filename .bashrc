@@ -8,7 +8,6 @@ export HISTSIZE=10000
 export HISTFILESIZE=2000
 export HISTCONTROL=ignoreboth   # Don't save duplicate subsequent commands / those beginning with space
 
-
 ## Aliases
 alias tmux='tmux -2'            # Alias tmux to tmux w/ colours enabled
 alias sctl='sudo systemctl'
@@ -33,6 +32,14 @@ alias gcm='git commit'
 alias gco='git checkout'
 alias  ga='git add'
 
+# Display tmux sessions, if any exist
+if hash tmux &>/dev/null; then
+    TMUX_LS=$(tmux ls &>/dev/null)
+    if [[ $TMUX_LS =~ ^[0-9]: && ! $TMUX_LS =~ \(attached\)$ ]]; then
+        echo "Active tmux sessions:"
+        echo "$TMUX_LS"
+    fi
+fi
 
 # Source machine-specific bashrc not for tracking with git
 if [ -f ~/.bashrc.private ]; then
