@@ -50,7 +50,7 @@ set wildmode=longest,list
 set wildignore=.git,*.swp,*/tmp/*
 
 " Unhighlight searches with enter
-nnoremap <CR> :noh<CR><CR>
+nnoremap <CR> :noh<CR>
 
 " TODO easier window resizing, e.g. resize 5 columns in one + allow repeated input
 
