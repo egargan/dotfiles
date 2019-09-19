@@ -39,6 +39,12 @@ nnoremap <S-j> 5j
 vnoremap <S-k> 5k
 vnoremap <S-j> 5j
 
+" 5-char jumps
+nnoremap <S-h> 5h
+nnoremap <S-l> 5l
+vnoremap <S-h> 5h
+vnoremap <S-l> 5l
+
 " Cuts to black hole buffer
 nnoremap <leader>d "_d
 nnoremap <leader>x "_x
