@@ -1,3 +1,16 @@
+"" General ""
+
+" Syntax highlighting
+syntax on
+
+" Always show status bar
+set laststatus=2
+
+" Enable line numbers (except for git commit messages)
+if (expand('%:t') !~ '^COMMIT_')
+    set number
+endif
+
 " Converts existing tab chars to spaces on file open
 set expandtab
 " How many spaces existing tabs are converted to
@@ -13,8 +26,22 @@ set shiftwidth=4
 set ttimeout
 set ttimeoutlen=50
 
+" Bash-style filename tabbing
+set wildmenu
+" (on tab, complete to longest common path, or show options if not possible)
+set wildmode=longest,list
+set wildignore=.git,*.swp,*/tmp/*
 
-"" Rebindings ""
+
+"" Aesthetic "" 
+
+" Download colorscheme if not installed
+silent ! [ -e ~/.vim/colors/tomorrow-night.vim ] || curl --create-dirs -o ~/.vim/colors/tomorrow-night.vim https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim
+" gruvbox instead? looks nice..
+colorscheme tomorrow-night
+
+
+"" Remappings ""
 
 " 'nnoremap' - n: normal mode (not visual, insert etc.), nore: non-recursive map, other mappings to e.g. <C-J> do not map to <C-W><C-J>
 " Easier split navigation
@@ -49,35 +76,10 @@ vnoremap <S-l> 5l
 nnoremap <leader>d "_d
 nnoremap <leader>x "_x
 
-" Bash-style filename tabbing
-set wildmenu
-" (on tab, complete to longest common path, or show options if not possible)
-set wildmode=longest,list
-set wildignore=.git,*.swp,*/tmp/*
-
 " Unhighlight searches with enter
 nnoremap <CR> :noh<CR>
 
 " TODO easier window resizing, e.g. resize 5 columns in one + allow repeated input
-
-
-"" Customisation ""
-
-" Syntax highlighting
-syntax on
-
-" Download colorscheme if not installed
-silent ! [ -e ~/.vim/colors/tomorrow-night.vim ] || curl --create-dirs -o ~/.vim/colors/tomorrow-night.vim https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim
-" gruvbox instead? looks nice..
-colorscheme tomorrow-night
-
-" Always show status bar
-set laststatus=2
-
-" Enable line numbers (except for git commit messages)
-if (expand('%:t') !~ '^COMMIT_')
-    set number
-endif
 
 
 "" Plugins ""
@@ -90,6 +92,7 @@ endif
 let plugins = []
 
 " Code commenting plugin
+" TODO disable comment continuation when new-lining (is this even nerdcommenter?)
 call add(plugins, 'scrooloose/nerdcommenter')
 
 " Nice status line
