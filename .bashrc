@@ -1,6 +1,9 @@
 # .bashrc
 
-# Source global definitions
+export HISTSIZE=10000
+export HISTFILESIZE=2000
+
+# Source global bashrc if any
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
@@ -20,6 +23,8 @@ alias tmux='tmux -2'
 
 # Print current SSH agent
 alias shocket='echo $(find /tmp -path '*/ssh-*' -name 'agent*' -uid $(id -u) 2>/dev/null | tail -n1)'
+
+alias ls='ls --color'
 
 # Git aliases
 alias gst='git status'
