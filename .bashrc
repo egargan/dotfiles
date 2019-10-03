@@ -2,6 +2,8 @@
 
 export HISTSIZE=10000
 export HISTFILESIZE=2000
+# Don't save duplicate subsequent commands + commands beginning with space
+export HISTCONTROL=ignoreboth
 
 # Source global bashrc if any
 if [ -f /etc/bashrc ]; then
