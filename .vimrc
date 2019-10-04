@@ -22,6 +22,11 @@ set laststatus=2                    " Always show status bar
 
 set autoread                        " Re-read open files modified outside of vim
 
+set undofile                        " Lave undo history to file
+set undoreload=1000                 " Limit history to 1k lines
+set undodir=~/.vim/undo             " Set loc for undo history
+silent ! mkdir -p ~/.vim/undo       " mkdir if it doesn't exist
+
 autocmd BufWritePre * :%s/\s\+$//e  " Remove trailing whitespace on save
 
 
