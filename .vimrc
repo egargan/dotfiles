@@ -1,24 +1,26 @@
 "" General ""
 
-syntax on                          " Syntax highlighting
-set number                         " Line numbers
+syntax on                           " Syntax highlighting
+set number                          " Line numbers
 
-set expandtab                      " Converts existing tab chars to spaces on file open
-set tabstop=4                      " How many spaces existing tabs are converted to
-set softtabstop=4                  " Number of spaces inserted on tab press
-set smarttab                       " If spaces already in line, only insert enough to meet tab width
-set shiftwidth=4                   " Tab width used by 'smarttab', and by '>>'/'<<
+set expandtab                       " Converts existing tab chars to spaces on file open
+set tabstop=4                       " How many spaces existing tabs are converted to
+set softtabstop=4                   " Number of spaces inserted on tab press
+set smarttab                        " If spaces already in line, only insert enough to meet tab width
+set shiftwidth=4                    " Tab width used by 'smarttab', and by '>>'/'<<
 
-set ttimeout                       " Enable timeouts for keycode seqs, ~lets us esc quicker from insert mode
+set ttimeout                        " Enable timeouts for keycode seqs, ~lets us esc quicker from insert mode
 set ttimeoutlen=50
 
-set wildmenu                       " Bash-style filename tabbing
-set wildmode=longest,list          " (on tab, complete to longest common path, or show options if not possible)
+set scrolloff=4                     " Always keep cursor >= 4 lines away from top and bottom of screen
+
+set wildmenu                        " Bash-style filename tabbing
+set wildmode=longest,list           " (on tab, complete to longest common path, or show options if not possible)
 set wildignore=.git,*.swp,*/tmp/*
 
-set laststatus=2                   " Always show status bar
+set laststatus=2                    " Always show status bar
 
-set autoread                       " Re-read open files modified outside of vim
+set autoread                        " Re-read open files modified outside of vim
 
 
 "" Filetype Specific ""
@@ -90,8 +92,6 @@ set noshowmode                                  " Hide vanilla mode status
 let g:lightline = {
 \   'colorscheme' : 'Tomorrow_Night'
 \}
-" TODO add git branch name? need git plugin, but fugitive's a chunky boy
-" TODO fix no colours bug when PlugInstall-ing any plugin?
 
 call add(plugins, 'airblade/vim-gitgutter')     " Show git diff symbols in gutter
 set updatetime=1000                             " Time plugins take to respond to changes, 4s default
