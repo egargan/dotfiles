@@ -2,6 +2,7 @@
 
 syntax on                           " Syntax highlighting
 set number                          " Line numbers
+set hlsearch                        " Highlight strings matching searches
 
 set expandtab                       " Converts existing tab chars to spaces on file open
 set tabstop=4                       " How many spaces existing tabs are converted to
@@ -49,37 +50,40 @@ colorscheme tomorrow-night
 
 
 "" Remappings ""
-" 'nnoremap' - n: normal mode (not visual, insert etc.), nore: non-recursive map,
-" other mappings to e.g. <C-J> do not map to <C-W><C-J>
+" 'nnoremap' - n: normal mode (not visual, insert etc.),
+" nore: non-recursive map, other mappings to e.g. <C-J> do not map to <C-W><C-J>
 " TODO easier window resizing, e.g. resize 5 columns in one + allow repeated input
 
-nnoremap <C-J> <C-W><C-J>      " Easier split navigation
+nnoremap <C-J> <C-W><C-J>           " Easier split navigation
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-noremap <C-t>k :tabr<cr>       " Easier tab navigation
+noremap <C-t>k :tabr<cr>            " Easier tab navigation
 noremap <C-t>j :tabl<cr>
 noremap <C-t>h :tabp<cr>
 noremap <C-t>l :tabn<cr>
 
-noremap <C-t>e :tabnew<Space>  " Open / quit tabs
+noremap <C-t>e :tabnew<Space>       " Open / quit tabs
 noremap <C-t>q :tabc
 
-nnoremap <S-k> 5k              " 5-line up/down jumps
+nnoremap <S-k> 5k                   " 5-line up/down jumps
 nnoremap <S-j> 5j
 vnoremap <S-k> 5k
 vnoremap <S-j> 5j
 
-nnoremap <S-h> 5h              " 5-char jumps
+nnoremap <S-h> 5h                   " 5-char jumps
 nnoremap <S-l> 5l
 vnoremap <S-h> 5h
 vnoremap <S-l> 5l
 
-nnoremap <leader>d "_d         " Cuts to black hole buffer
+nnoremap <leader>d "_d              " Cuts to black hole buffer
 nnoremap <leader>x "_x
 
-nnoremap <CR> :noh<CR>         " Unhighlight searches with enter
+nnoremap * *``                      " Don't jump to next match when *ing
+noremap <leader><leader> :noh<CR>   " Easy remove highlights over search matches
+
+noremap <leader>r :%s/\<<C-r><C-w>\>//g<left><left>     " %s///g macro for word under cursor
 
 
 "" Plugins ""
