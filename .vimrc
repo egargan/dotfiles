@@ -22,6 +22,8 @@ set laststatus=2                    " Always show status bar
 
 set autoread                        " Re-read open files modified outside of vim
 
+autocmd BufWritePre * :%s/\s\+$//e  " Remove trailing whitespace on save
+
 
 "" Filetype Specific ""
 " TODO markdown editing customisations - linebreak, map gj, gk, to j, k; etc.
