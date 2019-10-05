@@ -1,4 +1,4 @@
-"" General ""
+"" General
 
 syntax on                           " Syntax highlighting
 set number                          " Line numbers
@@ -14,6 +14,7 @@ set ttimeout                        " Enable timeouts for keycode seqs, ~lets us
 set ttimeoutlen=50
 
 set scrolloff=4                     " Always keep cursor >= 4 lines away from top and bottom of screen
+set linebreak                       " Don't wrap lines in the middle of words
 
 set wildmenu                        " Bash-style filename tabbing
 set wildmode=longest,list           " (on tab, complete to longest common path, or show options if not possible)
@@ -26,13 +27,15 @@ set autoread                        " Re-read open files modified outside of vim
 set undofile                        " Lave undo history to file
 set undoreload=1000                 " Limit history to 1k lines
 set undodir=~/.vim/undo             " Set loc for undo history
-silent ! mkdir -p ~/.vim/undo       " mkdir if it doesn't exist
 
-autocmd BufWritePre * :%s/\s\+$//e  " Remove trailing whitespace on save
+" mkdir if it doesn't exist
+silent ! [ -d ~/.vim/undo ] || mkdir ~/.vim/undo
+
+au BufWritePre * :%s/\s\+$//e       " Remove trailing whitespace on save
 
 
 "" Filetype Specific ""
-" TODO markdown editing customisations - linebreak, map gj, gk, to j, k; etc.
+" TODO markdown editing customisations - map gj, gk, to j, k; etc.
 
 if (expand('%:t') =~ '^COMMIT_')   " nonumber for git commit messages
     set nonumber
