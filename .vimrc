@@ -37,7 +37,8 @@ au BufWritePre * :%s/\s\+$//e       " Remove trailing whitespace on save
 "" Filetype Specific ""
 " TODO markdown editing customisations - map gj, gk, to j, k; etc.
 
-if (expand('%:t') =~ '^COMMIT_')   " nonumber for git commit messages
+" nonumber for git commit messages
+if (expand('%:t') =~ '^COMMIT_')
     set nonumber
 endif
 
@@ -57,36 +58,46 @@ colorscheme tomorrow-night
 " nore: non-recursive map, other mappings to e.g. <C-J> do not map to <C-W><C-J>
 " TODO easier window resizing, e.g. resize 5 columns in one + allow repeated input
 
-nnoremap <C-J> <C-W><C-J>           " Easier split navigation
+" Easier split navigation
+nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-noremap <C-t>k :tabr<cr>            " Easier tab navigation
+" Easier tab navigation
+noremap <C-t>k :tabr<cr>
 noremap <C-t>j :tabl<cr>
 noremap <C-t>h :tabp<cr>
 noremap <C-t>l :tabn<cr>
 
-noremap <C-t>e :tabnew<Space>       " Open / quit tabs
+" Open / quit tabs
+noremap <C-t>e :tabnew<Space>
 noremap <C-t>q :tabc
 
-nnoremap <S-k> 5k                   " 5-line up/down jumps
+" 5-line up/down jumps
+nnoremap <S-k> 5k
 nnoremap <S-j> 5j
 vnoremap <S-k> 5k
 vnoremap <S-j> 5j
 
-nnoremap <S-h> 5h                   " 5-char jumps
+" 5-char jumps
+nnoremap <S-h> 5h
 nnoremap <S-l> 5l
 vnoremap <S-h> 5h
 vnoremap <S-l> 5l
 
-nnoremap <leader>d "_d              " Cuts to black hole buffer
+" Cuts to black hole buffer
+nnoremap <leader>d "_d
 nnoremap <leader>x "_x
 
-nnoremap * *``                      " Don't jump to next match when *ing
-noremap <leader><leader> :noh<CR>   " Easy remove highlights over search matches
+" Don't jump to next match when *ing
+nnoremap * *``
 
-noremap <leader>r :%s/\<<C-r><C-w>\>//g<left><left>     " %s///g macro for word under cursor
+" Easy remove highlights over search matches
+noremap <leader><leader> :noh<CR>
+
+" %s///g macro for word under cursor
+noremap <leader>r :%s/\<<C-r><C-w>\>//g<left><left>
 
 
 "" Plugins ""
