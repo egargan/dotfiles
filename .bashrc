@@ -1,36 +1,29 @@
 # .bashrc
 
-export HISTSIZE=10000
-export HISTFILESIZE=2000
-# Don't save duplicate subsequent commands + commands beginning with space
-export HISTCONTROL=ignoreboth
-
-# Source global bashrc if any
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
-
-# source machine-specific bashrc not for tracking with git
-if [ -f ~/.bashrc.private ]; then
-    . ~/.bashrc.private
-fi
-
 ## Env vars
 export PAGER=less
 export EDITOR=vim
 
-## Aliases
-# Alias tmux to tmux w/ colours enabled
-alias tmux='tmux -2'
+export HISTSIZE=10000
+export HISTFILESIZE=2000
+export HISTCONTROL=ignoreboth   # Don't save duplicate subsequent commands / those beginning with space
 
-alias   ls='ls --color=auto'
+
+## Aliases
+alias tmux='tmux -2'            # Alias tmux to tmux w/ colours enabled
 alias sctl='sudo systemctl'
 alias   se='sudoedit'
 
 # Print current SSH agent
 alias shocket='echo $(find /tmp -path '*/ssh-*' -name 'agent*' -uid $(id -u) 2>/dev/null | tail -n1)'
 
-# Git aliases
+# Colour ls output
+if [[ "$OSTYPE" == darwin* ]]; then
+    alias ls='ls -G'
+else
+    alias ls='ls --color=auto'
+fi
+
 alias gst='git status'
 alias  gd='git diff'
 alias gdc='git diff --cached'
@@ -38,8 +31,19 @@ alias gcm='git commit'
 alias gco='git checkout'
 alias  ga='git add'
 
+
+# Source machine-specific bashrc not for tracking with git
+if [ -f ~/.bashrc.private ]; then
+    . ~/.bashrc.private
+fi
+
+# Source global bashrc if any
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
 # Get + run git command auto-completion script
-# Is sometimes already installed with git, but it's a faff looking through different distro's install locs
+# Is sometimes already installed with git, but it's a faff looking through different distros' install locs
 if [ ! -f ~/.git-completion.bash ]; then
     echo 'Downloading git-completion script..';
     curl -s -o ~/.git-completion.bash \
