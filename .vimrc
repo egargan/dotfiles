@@ -104,8 +104,8 @@ noremap <leader>r :%s/\<<C-r><C-w>\>//g<left><left>
 
 " Install vimplug if not already installed
 if empty(glob('~/.vim/autoload/plug.vim'))
-    silent ! curl --create-dirs -fLo ~/.vim/autoload/plug.vim \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    silent ! curl --create-dirs -fLo ~/.vim/autoload/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
 let plugins = []
