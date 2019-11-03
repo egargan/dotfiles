@@ -10,7 +10,7 @@ set softtabstop=4                   " Number of spaces inserted on tab press
 set smarttab                        " If spaces already in line, only insert enough to meet tab width
 set shiftwidth=4                    " Tab width used by 'smarttab', and by '>>'/'<<
 
-set ttimeout                        " Enable timeouts for keycode seqs, ~lets us esc quicker from insert mode
+set ttimeout                        " Enable timeouts for keycode seqs, ~lets us esc quicker from i mode
 set ttimeoutlen=50
 
 set scrolloff=4                     " Always keep cursor >= 4 lines away from top and bottom of screen
@@ -115,7 +115,7 @@ call add(plugins, 'tpope/vim-commentary')       " Code commenting plugin
 call add(plugins, 'itchyny/lightline.vim')      " Nice status line
 set noshowmode                                  " Hide vanilla mode status
 let g:lightline = {
-\   'colorscheme' : 'Tomorrow_Night'
+\   'colorscheme' : 'Tomorrow_Night',
 \}
 
 call add(plugins, 'airblade/vim-gitgutter')     " Show git diff symbols in gutter
@@ -127,20 +127,24 @@ highlight link GitGutterDelete diffRemoved
 call add(plugins, 'tpope/vim-surround')         " Easy surrounding quotes, tags, parens, etc.
 
 let plugin_dir = '~/.vim/plugged'    " Specify directory for vimplug plugins
+let plugin_names_string = ''
+
 call plug#begin(plugin_dir)
 
 for plugin in plugins
+    Plug plugin    " Apply plugin to current session
+
     let plugin_name = split(plugin, '/')[-1]
 
-    " TODO fix - this isn't working all the time
-    " If plug isn't installed, manually PlugInstall after vim startup (autocmd VimEnter,
-    " http://learnvimscriptthehardway.stevelosh.com/chapters/12.html#autocommand-structure)
     if empty(glob(plugin_dir . '/' . plugin_name))
-        autocmd VimEnter * execute 'PlugInstall --sync ' . plugin_name . '| source ~/.vimrc'
+        let plugin_names_string = plugin_names_string . ' ' . plugin_name
     endif
-
-    Plug plugin    " Apply plugin to current session
 endfor
+
+" If any plugs not installed, manually PlugInstall on vim startup
+if plugin_names_string != ''
+    autocmd VimEnter * execute 'PlugInstall --sync ' . plugin_names_string . '| source ~/.vimrc'
+endif
 
 call plug#end()    " Initialise vimplug
 
