@@ -1,5 +1,10 @@
 # .bashrc
 
+# Source global bashrc if any
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
 ## Env vars
 export PAGER=less
 export EDITOR=vim
@@ -41,16 +46,6 @@ if hash tmux &>/dev/null; then
     fi
 fi
 
-# Source machine-specific bashrc not for tracking with git
-if [ -f ~/.bashrc.private ]; then
-    . ~/.bashrc.private
-fi
-
-# Source global bashrc if any
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
-fi
-
 # Get + run git command auto-completion script
 # Is sometimes already installed with git, but it's a faff looking through different distros' install locs
 if [ ! -f ~/.git-completion.bash ]; then
@@ -59,3 +54,8 @@ if [ ! -f ~/.git-completion.bash ]; then
     https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
 fi
 source ~/.git-completion.bash
+
+# Source machine-specific bashrc not for tracking with git
+if [ -f ~/.bashrc.private ]; then
+    . ~/.bashrc.private
+fi
