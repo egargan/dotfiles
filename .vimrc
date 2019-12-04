@@ -15,6 +15,7 @@ set ttimeoutlen=50
 
 set scrolloff=4                     " Always keep cursor >= 4 lines away from top and bottom of screen
 set linebreak                       " Don't wrap lines in the middle of words
+set colorcolumn=80                  " Show line length boundary at line 80
 
 set wildmenu                        " Bash-style filename tabbing
 set wildmode=longest,list           " (on tab, complete to longest common path, or show options if not possible)
