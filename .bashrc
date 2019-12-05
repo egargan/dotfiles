@@ -39,7 +39,7 @@ alias  ga='git add'
 
 # Display tmux sessions, if any exist
 if hash tmux &>/dev/null; then
-    TMUX_LS=$(tmux ls &>/dev/null)
+    TMUX_LS=$(tmux ls 2>/dev/null)
     if [[ $TMUX_LS =~ ^[0-9]: && ! $TMUX_LS =~ \(attached\)$ ]]; then
         echo "Active tmux sessions:"
         echo "$TMUX_LS"
