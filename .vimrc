@@ -58,13 +58,16 @@ colorscheme tomorrow-night
 "" Remappings ""
 " 'nnoremap' - n: normal mode (not visual, insert etc.),
 " nore: non-recursive map, other mappings to e.g. <C-J> do not map to <C-W><C-J>
-" TODO easier window resizing, e.g. resize 5 columns in one + allow repeated input
 
 " Easier split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Larger split resizing
+nnoremap <C-w>m <C-w>10<
+nnoremap <C-w>/ <C-w>10>
 
 " Easier tab navigation
 noremap <C-t>k :tabr<cr>
