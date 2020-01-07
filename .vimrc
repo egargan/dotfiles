@@ -95,7 +95,7 @@ vnoremap <leader>x "_x
 nnoremap * *``
 
 " Easy remove highlights over search matches
-noremap <leader><leader> :noh<CR>
+noremap <Bs> :noh<CR>
 
 " %s///g macro for word under cursor
 noremap <leader>r :%s/\<<C-r><C-w>\>//g<left><left>
