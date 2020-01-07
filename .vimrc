@@ -128,6 +128,8 @@ highlight link GitGutterDelete diffRemoved
 call add(plugins, 'tpope/vim-surround')         " Easy surrounding quotes, tags, parens, etc.
 
 call add(plugins, 'junegunn/vim-easy-align')    " Easy alignment for rows of words, vars, etc.
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 
 let plugin_dir = '~/.vim/plugged'    " Specify directory for vimplug plugins
 let plugin_names_string = ''
