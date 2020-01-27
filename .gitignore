@@ -3,5 +3,6 @@
 !.gitignore
 
 # except these dotfiles
-.vimrc
+!.vimrc
+!.tmux.conf
 
