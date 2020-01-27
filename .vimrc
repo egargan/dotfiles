@@ -25,20 +25,16 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <S-k> 5k
 nnoremap <S-j> 5j
 
-
 "" Customisation ""
 
 " Syntax highlighting
 syntax on
 
 " Download despacio if not installed
-silent ! [ -e ~/.vim/colors/despacio.vim ] || curl --create-dirs -o ~/.vim/colors/despacio.vim https://raw.githubusercontent.com/AlessandroYorba/Despacio/master/colors/despacio.vim
+silent ! [ -e ~/.vim/colors/tomorrow-night.vim ] || curl --create-dirs -o ~/.vim/colors/tomorrow-night.vim https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim 
+colorscheme tomorrow-night
 
-" Set despacio colour scheme with dark bg
-let g:despacio_Midnight=1
-colorscheme despacio
-
-" Always show status bar 
+" Always show status bar
 set laststatus=2
 
 
@@ -72,6 +68,5 @@ endfor
 call plug#end()
 
 " Lets plugins configure themselves based on filetype, important for e.g. code
-" commenting where filetype determines the comment string 
+" commenting where filetype determines the comment string
 filetype plugin on
-
