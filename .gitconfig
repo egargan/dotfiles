@@ -1,5 +1,5 @@
 [color]
-ui = true
+    ui = true
 [core]
 	editor = vim
     excludesfile = ~/.global-ignore
