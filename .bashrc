@@ -33,9 +33,10 @@ alias gst='git status'
 alias  gd='git diff'
 alias gdn='git diff --name-only'
 alias gdc='git diff --cached'
-alias gcm='git commit'
 alias gco='git checkout'
-alias  ga='git add'
+alias gad='git add'
+alias  gc='git commit'
+alias gca='git commit --amend'
 
 # Display tmux sessions, if any exist
 if hash tmux &>/dev/null; then
