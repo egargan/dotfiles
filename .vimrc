@@ -89,6 +89,8 @@ vnoremap <S-l> 5l
 " Cuts to black hole buffer
 nnoremap <leader>d "_d
 nnoremap <leader>x "_x
+vnoremap <leader>d "_d
+vnoremap <leader>x "_x
 
 " Don't jump to next match when *ing
 nnoremap * *``

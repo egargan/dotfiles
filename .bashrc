@@ -24,8 +24,10 @@ else
     alias ls='ls --color=auto'
 fi
 
+# Git aliases
 alias gst='git status'
 alias  gd='git diff'
+alias gdn='git diff --name-only'
 alias gdc='git diff --cached'
 alias gcm='git commit'
 alias gco='git checkout'
