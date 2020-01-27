@@ -37,6 +37,7 @@ syntax on
 
 " Download despacio if not installed
 silent ! [ -e ~/.vim/colors/tomorrow-night.vim ] || curl --create-dirs -o ~/.vim/colors/tomorrow-night.vim https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim 
+" gruvbox instead? looks nice..
 colorscheme tomorrow-night
 
 " Always show status bar
@@ -52,7 +53,12 @@ endif
 
 let plugins = []
 
+" Code commenting plugin
 call add(plugins, 'scrooloose/nerdcommenter')
+
+" Nice status line
+call add(plugins, 'itchyny/lightline.vim')
+let g:lightline  = { 'colorscheme' : 'Tomorrow_Night' }
 
 " Count files in .vim/plugged directory
 let num_plugged = len(split(globpath('~/.vim/plugged/', '*'), '\n'))
