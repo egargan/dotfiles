@@ -13,8 +13,8 @@ set number
 
 
 "" Rebindings ""
-" 'nnoremap' - n: normal mode (not visual, insert etc.), nore: non-recursive map, other mappings to e.g. <C-J> do not map to <C-W><C-J>, map: map.
 
+" 'nnoremap' - n: normal mode (not visual, insert etc.), nore: non-recursive map, other mappings to e.g. <C-J> do not map to <C-W><C-J>, map: map.
 " Easier split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -26,6 +26,8 @@ nnoremap <S-k> 5k
 nnoremap <S-j> 5j
 
 
+"" Customisation ""
+
 " Syntax highlighting
 syntax on
 
@@ -36,8 +38,12 @@ silent ! [ -e ~/.vim/colors/despacio.vim ] || curl --create-dirs -o ~/.vim/color
 let g:despacio_Midnight=1
 colorscheme despacio
 
+" Always show status bar 
+set laststatus=2
+
 
 "" Plugins ""
+
 " Install vimplug if not already installed
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent ! curl --create-dirs -fLo ~/.vim/autoload/plug.vim https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
