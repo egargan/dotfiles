@@ -47,8 +47,12 @@ if hash tmux &>/dev/null; then
     fi
 fi
 
+# Disable 'XON/XOFF flow control' bindings to give us back Ctrl-S for i-search
+stty -ixon
+
 # Get + run git command auto-completion script
 # Is sometimes already installed with git, but it's a faff looking through different distros' install locs
+# TODO: just use 'locate'?
 if [ ! -f ~/.git-completion.bash ]; then
     echo 'Downloading git-completion script..';
     curl -s -o ~/.git-completion.bash \
