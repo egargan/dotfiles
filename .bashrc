@@ -37,6 +37,8 @@ alias gco='git checkout'
 alias gad='git add'
 alias  gc='git commit'
 alias gca='git commit --amend'
+alias gri='git rebase -i'
+alias grc='git rebase --continue'
 
 # Display tmux sessions, if any exist
 if hash tmux &>/dev/null; then
