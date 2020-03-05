@@ -135,6 +135,9 @@ call add(plugins, 'junegunn/vim-easy-align')    " Easy alignment for rows of wor
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 
+call add(plugins, 'ctrlpvim/ctrlp.vim')         " Fuzzy file finding
+
+
 let plugin_dir = '~/.vim/plugged'    " Specify directory for vimplug plugins
 let plugin_names_string = ''
 
