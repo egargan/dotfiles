@@ -30,6 +30,10 @@ set undofile                        " Lave undo history to file
 set undoreload=1000                 " Limit history to 1k lines
 set undodir=~/.vim/undo             " Set loc for undo history
 
+set incsearch                       " Perform searches as they're typed
+set ignorecase                      " Ignore case in searches by default
+set smartcase                       " Enable case sensitivity if capital entered
+
 " mkdir if it doesn't exist
 silent ! [ -d ~/.vim/undo ] || mkdir ~/.vim/undo
 
