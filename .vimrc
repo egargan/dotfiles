@@ -9,6 +9,7 @@ set tabstop=4                       " How many spaces existing tabs are converte
 set softtabstop=4                   " Number of spaces inserted on tab press
 set smarttab                        " If spaces already in line, only insert enough to meet tab width
 set shiftwidth=4                    " Tab width used by 'smarttab', and by '>>'/'<<
+set shiftround                      " Round '>>/'<<' indents to nearest tabstop
 
 set ttimeout                        " Enable timeouts for keycode seqs, ~lets us esc quicker from i mode
 set ttimeoutlen=50
