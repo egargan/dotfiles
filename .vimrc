@@ -42,7 +42,6 @@ au BufWritePre * :%s/\s\+$//e       " Remove trailing whitespace on save
 
 
 "" Filetype Specific ""
-" TODO markdown editing customisations - map gj, gk, to j, k; etc.
 
 " nonumber for git commit messages
 if (expand('%:t') =~ '^COMMIT_')
@@ -95,6 +94,10 @@ nnoremap <leader>d "_d
 nnoremap <leader>x "_x
 vnoremap <leader>d "_d
 vnoremap <leader>x "_x
+
+" Stop j/k working linewise
+noremap j gj
+noremap k gk
 
 " Don't jump to next match when *ing
 nnoremap * *``
