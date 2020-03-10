@@ -37,6 +37,8 @@ set undodir=~/.vim/undo             " Set loc for undo history
 set ignorecase                      " Ignore case in searches by default
 set smartcase                       " Enable case sensitivity if capital entered
 
+set relativenumber                  " Line numbers are relative to cursor's line
+
 " mkdir if it doesn't exist
 silent ! [ -d ~/.vim/undo ] || mkdir ~/.vim/undo
 
