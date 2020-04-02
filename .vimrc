@@ -39,6 +39,8 @@ set smartcase                       " Enable case sensitivity if capital entered
 
 set relativenumber                  " Line numbers are relative to cursor's line
 
+set formatoptions-=ro               " Disable comment block continuation on <Enter>/o/O
+
 " mkdir if it doesn't exist
 silent ! [ -d ~/.vim/undo ] || mkdir ~/.vim/undo
 
