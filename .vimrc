@@ -115,6 +115,9 @@ noremap <Bs> :noh<CR>
 " %s///g macro for word under cursor
 noremap <leader>r :%s/\<<C-r><C-w>\>//g<left><left>
 
+" Join current and below lines (should be <S-j>, but I've remapped this)
+noremap <C-j> :join!<Enter>
+
 
 "" Plugins ""
 
