@@ -112,8 +112,10 @@ nnoremap * *``
 " Easy remove highlights over search matches
 noremap <Bs> :noh<CR>
 
-" %s///g macro for word under cursor
-noremap <leader>r :%s/\<<C-r><C-w>\>//g<left><left>
+" s///g macro for word under cursor - applies to whole file in
+" normal mode, or to selection only in visual mode
+nnoremap <leader>r :%s/\<<C-r><C-w>\>//g<left><left>
+vnoremap <leader>r :s/\<<C-r><C-w>\>//g<left><left>
 
 " Join current and below lines (should be <S-j>, but I've remapped this)
 noremap <C-j> :join!<Enter>
