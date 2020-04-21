@@ -149,7 +149,11 @@ call add(plugins, 'junegunn/vim-easy-align')    " Easy alignment for rows of wor
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 
-call add(plugins, 'ctrlpvim/ctrlp.vim')         " Fuzzy file finding
+" TODO: potentially installing duplicate fzf if already installed e.g. via
+" dnf, check 'hash fzf' before installing?
+call add(plugins, 'junegunn/fzf')               " Fuzzy file finding (CLI package)
+call add(plugins, 'junegunn/fzf.vim')           " Vim wrapper for CL fzf
+nnoremap <Leader>f :Files<Enter>
 
 
 let plugin_dir = '~/.vim/plugged'    " Specify directory for vimplug plugins
