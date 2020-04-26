@@ -47,6 +47,8 @@ silent ! [ -d ~/.vim/undo ] || mkdir ~/.vim/undo
 
 au BufWritePre * :%s/\s\+$//e       " Remove trailing whitespace on save
 
+let g:netrw_liststyle=3             " Set default netrw liststyle to 'tree' mode
+
 
 "" Filetype Specific ""
 
@@ -119,6 +121,9 @@ vnoremap <leader>r :s/\<<C-r><C-w>\>//g<left><left>
 
 " Join current and below lines (should be <S-j>, but I've remapped this)
 noremap <C-j> :join!<Enter>
+
+" Macro for netrw file explorer, displayed NERDTree style
+nnoremap <Leader>e :20Vex<Enter>
 
 
 "" Plugins ""
