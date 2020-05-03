@@ -48,6 +48,8 @@ bindkey -e                              # Enable emacs bindings (ctrl-w, ctrl-r,
 
 autoload -Uz compinit && compinit       # Initialize zsh tab completion
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Enable fzf bindings
+
 # Display unattached tmux sessions, if any exist
 if hash tmux &>/dev/null; then
     local TMUX_LS=$(tmux ls 2>/dev/null)
