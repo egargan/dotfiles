@@ -1,4 +1,4 @@
-# Ignore everything, 
+# Ignore everything,
 *
 !.gitignore
 
@@ -9,4 +9,5 @@
 !.bashrc
 !.gitattributes
 !.global-ignore
+!.zshrc
 
