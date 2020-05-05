@@ -82,12 +82,6 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <C-w>m <C-w>10<
 nnoremap <C-w>/ <C-w>10>
 
-" Easier tab navigation
-noremap <C-t>k :tabr<cr>
-noremap <C-t>j :tabl<cr>
-noremap <C-t>h :tabp<cr>
-noremap <C-t>l :tabn<cr>
-
 " Open / quit tabs
 noremap <C-t>e :tabnew<Space>
 noremap <C-t>q :tabc
