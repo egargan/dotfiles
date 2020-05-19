@@ -3,14 +3,17 @@ if [ -f /etc/zshrc ]; then
     . /etc/zshrc
 fi
 
-## Env vars
+## Env vars and options
 
 export PAGER=less
 export EDITOR=vim
 
-export HISTSAVE=10000           # Max number of entries in command history
+export HISTFILE=~/.zsh_history
+
+export SAVEHIST=10000           # Max number of entries in command history
 export HISTSIZE=10000           # Number of entries read into session history
 
+setopt INC_APPEND_HISTORY_TIME  # Share history file between multiple shells
 setopt HIST_IGNORE_SPACE        # Don't record space-prefixed commands
 setopt HIST_FIND_NO_DUPS        # Ignore duplicates when searching history
 
