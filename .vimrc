@@ -32,9 +32,7 @@ set undofile                        " Lave undo history to file
 set undoreload=1000                 " Limit history to 1k lines
 set undodir=~/.vim/undo             " Set loc for undo history
 
-" Only Vim 8 supports highlighting all incsearch matches, but no official
-" repos in my usual distros offer it :/
-" set incsearch                       " Perform searches as they're typed
+set incsearch                       " Perform searches as they're typed
 set ignorecase                      " Ignore case in searches by default
 set smartcase                       " Enable case sensitivity if capital entered
 
