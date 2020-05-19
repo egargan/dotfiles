@@ -51,6 +51,8 @@ bindkey -e                              # Enable emacs bindings (ctrl-w, ctrl-r,
 
 autoload -Uz compinit && compinit       # Initialize zsh tab completion
 
+export PROMPT='%2~ %F{7}%# %f'          # Customise prompt
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Enable fzf bindings
 
 # Display unattached tmux sessions, if any exist
