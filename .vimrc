@@ -86,10 +86,10 @@ noremap <C-t>e :tabnew<Space>
 noremap <C-t>q :tabc
 
 " 5-line up/down jumps
-nnoremap <S-k> 5k
-nnoremap <S-j> 5j
-vnoremap <S-k> 5k
-vnoremap <S-j> 5j
+nmap <S-k> 5k
+nmap <S-j> 5j
+vmap <S-k> 5k
+vmap <S-j> 5j
 
 " Cuts to black hole buffer
 nnoremap <leader>d "_d
