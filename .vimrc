@@ -41,6 +41,8 @@ set relativenumber                  " Line numbers are relative to cursor's line
 set formatoptions-=o                " Disable comment block continuation on o/O
 set formatoptions+=r                " But enable on <Enter> in insert mode
 
+set shortmess-=S                    " Show match counter when searching
+
 " mkdir if it doesn't exist
 silent ! [ -d ~/.vim/undo ] || mkdir ~/.vim/undo
 
