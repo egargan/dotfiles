@@ -118,7 +118,7 @@ vnoremap <leader>r :s/\<<C-r><C-w>\>//g<left><left>
 noremap <C-j> :join!<Enter>
 
 " Macro for netrw file explorer, displayed NERDTree style
-nnoremap <Leader>e :20Vex<Enter>
+nnoremap <Leader>e :Lex <Bar> vertical resize 35<Enter>
 
 
 "" Plugins ""
