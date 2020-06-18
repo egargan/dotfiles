@@ -4,11 +4,10 @@ syntax on                           " Syntax highlighting
 set number                          " Line numbers
 set hlsearch                        " Highlight strings matching searches
 
-set expandtab                       " Converts existing tab chars to spaces on file open
-set tabstop=4                       " How many spaces existing tabs are converted to
-set softtabstop=4                   " Number of spaces inserted on tab press
+set expandtab                       " Always enter spaces on <Tab>
+set softtabstop=2                   " How many spaces are entered on <Tab>
+set shiftwidth=2                    " Tab width used by 'smarttab', and '>>'/'<<
 set smarttab                        " If spaces already in line, only insert enough to meet tab width
-set shiftwidth=4                    " Tab width used by 'smarttab', and by '>>'/'<<
 set shiftround                      " Round '>>/'<<' indents to nearest tabstop
 
 set ttimeout                        " Enable timeouts for keycode seqs, ~lets us esc quicker from i mode
