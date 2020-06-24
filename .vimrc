@@ -31,6 +31,9 @@ set undofile                        " Lave undo history to file
 set undoreload=1000                 " Limit history to 1k lines
 set undodir=~/.vim/undo             " Set loc for undo history
 
+" mkdir if it doesn't exist
+silent ! [ -d ~/.vim/undo ] || mkdir ~/.vim/undo
+
 set incsearch                       " Perform searches as they're typed
 set ignorecase                      " Ignore case in searches by default
 set smartcase                       " Enable case sensitivity if capital entered
@@ -41,9 +44,6 @@ set formatoptions-=o                " Disable comment block continuation on o/O
 set formatoptions+=r                " But enable on <Enter> in insert mode
 
 set shortmess-=S                    " Show match counter when searching
-
-" mkdir if it doesn't exist
-silent ! [ -d ~/.vim/undo ] || mkdir ~/.vim/undo
 
 au BufWritePre * :%s/\s\+$//e       " Remove trailing whitespace on save
 
