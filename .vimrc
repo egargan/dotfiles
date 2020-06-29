@@ -31,8 +31,13 @@ set undofile                        " Lave undo history to file
 set undoreload=1000                 " Limit history to 1k lines
 set undodir=~/.vim/undo             " Set loc for undo history
 
-" mkdir if it doesn't exist
+ " create undo dir if !exists
 silent ! [ -d ~/.vim/undo ] || mkdir ~/.vim/undo
+
+set directory=~/.vim/swap//         " Keep swaps in home dir (trailing '//' creates full-path-name .swps)
+
+ " create swap dir if !exists
+silent ! [ -d ~/.vim/swap ] || mkdir ~/.vim/swap
 
 set incsearch                       " Perform searches as they're typed
 set ignorecase                      " Ignore case in searches by default
