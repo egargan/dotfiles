@@ -24,6 +24,8 @@ alias tmux='tmux -2'            # Alias tmux to tmux w/ colours enabled
 alias sctl='sudo systemctl'
 alias   se='sudo -e'
 
+alias   cb='xclip -selection clipboard'
+
 alias gst='git status'
 alias  gd='git diff'
 alias gdn='git diff --name-only'
