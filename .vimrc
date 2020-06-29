@@ -1,5 +1,7 @@
 "" General
 
+let mapleader=" "                   " Set <Leader> to space - '\' is too awkward
+
 syntax on                           " Syntax highlighting
 set number                          " Line numbers
 set hlsearch                        " Highlight strings matching searches
