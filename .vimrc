@@ -89,10 +89,6 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <C-w>m <C-w>10<
 nnoremap <C-w>/ <C-w>10>
 
-" Open / quit tabs
-noremap <C-t>e :tabnew<Space>
-noremap <C-t>q :tabc
-
 " 5-line up/down jumps
 nmap <S-k> 5k
 nmap <S-j> 5j
