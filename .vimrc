@@ -161,7 +161,14 @@ xmap ga <Plug>(EasyAlign)
 " dnf, check 'hash fzf' before installing?
 call add(plugins, 'junegunn/fzf')               " Fuzzy file finding (CLI package)
 call add(plugins, 'junegunn/fzf.vim')           " Vim wrapper for CL fzf
-nnoremap <Leader>f :Files<Enter>
+" File name search from working directory
+nnoremap <C-T> :Files<Enter>
+" Full text search from working directory
+nnoremap \ :Rg<Enter>
+" Search open buffer names
+nnoremap <Leader>b :Buffers<Enter>
+" Text search current buffer
+nnoremap <Leader>s :BLines<Enter>
 
 
 let plugin_dir = '~/.vim/plugged'    " Specify directory for vimplug plugins
