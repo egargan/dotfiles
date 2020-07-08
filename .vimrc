@@ -167,6 +167,7 @@ nnoremap <C-T> :Files<Enter>
 nnoremap \ :Rg<Enter>
 " Search open buffer names
 nnoremap <Leader>b :Buffers<Enter>
+let g:fzf_buffers_jump = 1                      " Jump to buffer when selecting
 " Text search current buffer
 nnoremap <Leader>s :BLines<Enter>
 
