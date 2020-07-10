@@ -57,6 +57,9 @@ export PROMPT='%2~ %F{7}%# %f'          # Customise prompt
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Enable fzf bindings
 
+# Have fzf use ripgrep
+export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
+
 # Display unattached tmux sessions, if any exist
 if hash tmux &>/dev/null; then
     local TMUX_LS=$(tmux ls 2>/dev/null)
