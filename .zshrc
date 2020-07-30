@@ -29,6 +29,7 @@ alias   cb='xclip -selection clipboard'
 alias gst='git status'
 alias  gd='git diff'
 alias gdn='git diff --name-only'
+alias gdu='git diff --name-only --diff-filter=U'  # List files w/ merge conflicts
 alias gdc='git diff --cached'
 alias gco='git checkout'
 alias gad='git add'
