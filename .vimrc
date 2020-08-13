@@ -1,4 +1,122 @@
-"" General
+" == Plugins =================================================================
+
+" Install vimplug if not already installed
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent ! curl --create-dirs -fLo ~/.vim/autoload/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+let plugins = []
+
+
+" Code commenting plugin
+call add(plugins, 'tpope/vim-commentary')
+
+" Pretty status line
+call add(plugins, 'itchyny/lightline.vim')
+
+" Show git diff symbols in gutter
+call add(plugins, 'airblade/vim-gitgutter')
+
+" Easy surrounding quotes, tags, parens, etc.
+call add(plugins, 'tpope/vim-surround')
+
+" Easy alignment for rows of words, vars, etc.
+call add(plugins, 'junegunn/vim-easy-align')
+
+" Fuzzy file finding (CLI package + vim wrapper)
+" TODO: potentially installing duplicate fzf if already installed e.g. via
+" dnf, check 'hash fzf' before installing?
+call add(plugins, 'junegunn/fzf')
+call add(plugins, 'junegunn/fzf.vim')
+
+
+let plugin_dir = '~/.vim/plugged'
+let plugin_names_string = ''
+
+call plug#begin(plugin_dir)
+
+for plugin in plugins
+    " Apply plugin to current session
+    Plug plugin
+
+    let plugin_name = split(plugin, '/')[-1]
+
+    if empty(glob(plugin_dir . '/' . plugin_name))
+        let plugin_names_string = plugin_names_string . ' ' . plugin_name
+    endif
+endfor
+
+" If any plugs not installed, manually PlugInstall on vim startup
+if plugin_names_string != ''
+    autocmd VimEnter * execute 'PlugInstall --sync ' . plugin_names_string . '| source ~/.vimrc'
+endif
+
+ " Initialise vimplug
+call plug#end()
+
+
+" == Plugin Settings + Mappings ==============================================
+
+" -- itchyny/lightline -------------------------------------------------------
+
+" Hide vanilla mode status
+set noshowmode
+
+let g:lightline = {
+\   'colorscheme' : 'Tomorrow_Night',
+\}
+
+" -- airblade/vim-gitgutter --------------------------------------------------
+
+" Time plugins take to respond to changes, 4s default
+set updatetime=1000
+
+" Link highlight groups to existing ones in colorscheme
+highlight link GitGutterAdd diffAdded
+
+" No 'diffChange' group, so just use arbitrary blue group
+highlight link GitGutterChange Function
+highlight link GitGutterDelete diffRemoved
+
+" -- junegunn/vim-easy-align -------------------------------------------------
+
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+
+" -- junegunn/fzf ------------------------------------------------------------
+
+nnoremap <C-T> :Files<Enter>
+
+" Full text search from working directory
+nnoremap \ :Rg<Enter>
+
+" Search open buffer names
+nnoremap <Leader>b :Buffers<Enter>
+
+" Jump to buffer when selecting
+let g:fzf_buffers_jump = 1
+
+" Text search current buffer
+nnoremap <Leader>s :BLines<Enter>
+
+" Redefine fzf's Rg command to exclude filenames from search
+command! -bang -nargs=* Rg
+      \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case "
+      \ .shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
+
+" === Theme ==================================================================
+
+" Download colorscheme if not installed
+silent ! [ -e ~/.vim/colors/tomorrow-night.vim ] ||
+    \ curl --create-dirs -o ~/.vim/colors/tomorrow-night.vim
+    \ https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim
+
+colorscheme tomorrow-night
+
+
+" === General Settings  ======================================================
 
 let mapleader=" "                   " Set <Leader> to space - '\' is too awkward
 
@@ -45,40 +163,17 @@ silent ! [ -d ~/.vim/swap ] || mkdir ~/.vim/swap
 set incsearch                       " Perform searches as they're typed
 set ignorecase                      " Ignore case in searches by default
 set smartcase                       " Enable case sensitivity if capital entered
+set shortmess-=S                    " Show match counter when searching
 
 set relativenumber                  " Line numbers are relative to cursor's line
 
 set formatoptions-=r                " Disable comment block continuation on <Enter>
 set formatoptions-=o                " Disable comment block continuation on o/O
 
-set shortmess-=S                    " Show match counter when searching
-
-au BufWritePre * :%s/\s\+$//e       " Remove trailing whitespace on save
-
 let g:netrw_liststyle=3             " Set default netrw liststyle to 'tree' mode
 
 
-"" Filetype Specific ""
-
-" nonumber for git commit messages
-if (expand('%:t') =~ '^COMMIT_')
-    set nonumber
-endif
-
-
-"" Aesthetic ""
-
-" Download colorscheme if not installed
-silent ! [ -e ~/.vim/colors/tomorrow-night.vim ] ||
-    \ curl --create-dirs -o ~/.vim/colors/tomorrow-night.vim
-    \ https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim
-
-colorscheme tomorrow-night
-
-
-"" Remappings ""
-" 'nnoremap' - n: normal mode (not visual, insert etc.),
-" nore: non-recursive map, other mappings to e.g. <C-J> do not map to <C-W><C-J>
+" === General Mappings  ======================================================
 
 " Easier split navigation
 nnoremap <C-J> <C-W><C-J>
@@ -131,77 +226,11 @@ noremap <C-j> :join!<Enter>
 nnoremap <Leader>e :Lex <Bar> vertical resize 35<Enter>
 
 
-"" Plugins ""
+" === Autocommands  ==========================================================
 
-" Install vimplug if not already installed
-if empty(glob('~/.vim/autoload/plug.vim'))
-    silent ! curl --create-dirs -fLo ~/.vim/autoload/plug.vim
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-endif
+" Remove trailing whitespace on save
+au BufWritePre * :%s/\s\+$//e
 
-let plugins = []
+" === TODO ===================================================================
 
-call add(plugins, 'tpope/vim-commentary')       " Code commenting plugin
-
-call add(plugins, 'itchyny/lightline.vim')      " Nice status line
-set noshowmode                                  " Hide vanilla mode status
-let g:lightline = {
-\   'colorscheme' : 'Tomorrow_Night',
-\}
-
-call add(plugins, 'airblade/vim-gitgutter')     " Show git diff symbols in gutter
-set updatetime=1000                             " Time plugins take to respond to changes, 4s default
-highlight link GitGutterAdd diffAdded           " Link highlight groups to existing ones in colorscheme
-highlight link GitGutterChange Function         " No 'diffChange' group, so just use arbitrary blue group
-highlight link GitGutterDelete diffRemoved
-
-call add(plugins, 'tpope/vim-surround')         " Easy surrounding quotes, tags, parens, etc.
-
-call add(plugins, 'junegunn/vim-easy-align')    " Easy alignment for rows of words, vars, etc.
-nmap ga <Plug>(EasyAlign)
-xmap ga <Plug>(EasyAlign)
-
-" TODO: potentially installing duplicate fzf if already installed e.g. via
-" dnf, check 'hash fzf' before installing?
-call add(plugins, 'junegunn/fzf')               " Fuzzy file finding (CLI package)
-call add(plugins, 'junegunn/fzf.vim')           " Vim wrapper for CL fzf
-" File name search from working directory
-nnoremap <C-T> :Files<Enter>
-" Full text search from working directory
-nnoremap \ :Rg<Enter>
-" Search open buffer names
-nnoremap <Leader>b :Buffers<Enter>
-let g:fzf_buffers_jump = 1                      " Jump to buffer when selecting
-" Text search current buffer
-nnoremap <Leader>s :BLines<Enter>
-" Redefine fzf's Rg command to exclude filenames from search
-command! -bang -nargs=* Rg
-      \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case "
-      \ .shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
-
-
-let plugin_dir = '~/.vim/plugged'    " Specify directory for vimplug plugins
-let plugin_names_string = ''
-
-call plug#begin(plugin_dir)
-
-for plugin in plugins
-    Plug plugin    " Apply plugin to current session
-
-    let plugin_name = split(plugin, '/')[-1]
-
-    if empty(glob(plugin_dir . '/' . plugin_name))
-        let plugin_names_string = plugin_names_string . ' ' . plugin_name
-    endif
-endfor
-
-" If any plugs not installed, manually PlugInstall on vim startup
-if plugin_names_string != ''
-    autocmd VimEnter * execute 'PlugInstall --sync ' . plugin_names_string . '| source ~/.vimrc'
-endif
-
-call plug#end()    " Initialise vimplug
-
-" Lets plugins configure themselves based on filetype, important for e.g. code
-" commenting where filetype determines the comment string
-filetype plugin on
+" - Make markdown editing prettier (need to add 'filetype-specific' area')
