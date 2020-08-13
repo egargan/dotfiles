@@ -30,6 +30,9 @@ call add(plugins, 'junegunn/vim-easy-align')
 call add(plugins, 'junegunn/fzf')
 call add(plugins, 'junegunn/fzf.vim')
 
+" Language server framework
+call add(plugins, 'prabirshrestha/vim-lsp')
+
 
 let plugin_dir = '~/.vim/plugged'
 let plugin_names_string = ''
@@ -105,6 +108,52 @@ command! -bang -nargs=* Rg
       \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case "
       \ .shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
+" -- prabirshrestha/vim-lsp --------------------------------------------------
+
+if executable('rust-analyzer')
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'rust-analyzer',
+      \ 'cmd': {server_info->['rust-analyzer']},
+      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Cargo.toml'))},
+      \ 'whitelist': ['rust'],
+      \ 'blacklist': [],
+      \ 'workspace_config': {},
+      \ 'semantic_highlight': {},
+      \ })
+  function! s:rust_analyzer_apply_source_change(context)
+      let l:command = get(a:context, 'command', {})
+      let l:workspace_edit = get(l:command['arguments'][0], 'workspaceEdit', {})
+      if !empty(l:workspace_edit)
+          call lsp#utils#workspace_edit#apply_workspace_edit(l:workspace_edit)
+      endif
+      let l:cursor_position = get(l:command['arguments'][0], 'cursorPosition', {})
+      if !empty(l:cursor_position)
+          call cursor(lsp#utils#position#lsp_to_vim('%', l:cursor_position))
+      endif
+  endfunction
+  call lsp#register_command('rust-analyzer.applySourceChange', function('s:rust_analyzer_apply_source_change'))
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> <leader>rn <plug>(lsp-rename)
+  nmap <buffer> [e <Plug>(lsp-previous-error)
+  nmap <buffer> ]e <Plug>(lsp-next-error)
+  nmap <buffer> [w <Plug>(lsp-previous-warning)
+  nmap <buffer> ]w <Plug>(lsp-next-warning)
+
+  highlight link LspWarningHighlight
+
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
 " === Theme ==================================================================
 
