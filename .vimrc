@@ -28,6 +28,7 @@ set wildignore=.git,*.swp,*/tmp/*
 set complete-=i                     " Don't look in included src files for word completion
 
 set autoread                        " Re-read open files modified outside of vim
+set hidden                          " Don't require :w when leaving modified buffers
 
 set undofile                        " Lave undo history to file
 set undoreload=1000                 " Limit history to 1k lines
