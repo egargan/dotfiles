@@ -112,6 +112,15 @@ command! -bang -nargs=* Rg
 
 " -- prabirshrestha/vim-lsp --------------------------------------------------
 
+" Show diagnostic message under cursor in status line
+let g:lsp_diagnostics_echo_cursor = 1
+
+" Enable 'W', 'E', etc. 'signs' in gutter
+let g:lsp_signs_enabled = 1
+
+" Highlight references to symbol under cursor
+let g:lsp_highlight_references_enabled = 1
+
 if executable('rust-analyzer')
   au User lsp_setup call lsp#register_server({
       \ 'name': 'rust-analyzer',
@@ -146,9 +155,6 @@ function! s:on_lsp_buffer_enabled() abort
   nmap <buffer> ]e <Plug>(lsp-next-error)
   nmap <buffer> [w <Plug>(lsp-previous-warning)
   nmap <buffer> ]w <Plug>(lsp-next-warning)
-
-  highlight link LspWarningHighlight
-
 endfunction
 
 augroup lsp_install
