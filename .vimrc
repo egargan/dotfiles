@@ -174,6 +174,10 @@ nnoremap <Leader>b :Buffers<Enter>
 let g:fzf_buffers_jump = 1                      " Jump to buffer when selecting
 " Text search current buffer
 nnoremap <Leader>s :BLines<Enter>
+" Redefine fzf's Rg command to exclude filenames from search
+command! -bang -nargs=* Rg
+      \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case "
+      \ .shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 
 let plugin_dir = '~/.vim/plugged'    " Specify directory for vimplug plugins
