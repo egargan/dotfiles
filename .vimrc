@@ -33,6 +33,8 @@ call add(plugins, 'junegunn/fzf.vim')
 " Language server framework
 call add(plugins, 'prabirshrestha/vim-lsp')
 
+" YAML formatting + highlighting
+call add(plugins, 'mrk21/yaml-vim')
 
 let plugin_dir = '~/.vim/plugged'
 let plugin_names_string = ''
