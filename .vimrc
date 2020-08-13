@@ -113,6 +113,9 @@ noremap k gk
 " Don't jump to next match when *ing
 nnoremap * *``
 
+" ripgrep the word under the cursor
+nnoremap <leader>* :Rg <C-r><C-w><Enter>
+
 " Easy remove highlights over search matches
 noremap <Bs> :noh<CR>
 
