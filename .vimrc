@@ -1,3 +1,5 @@
+let mapleader=" "                   " Set <Leader> to space - '\' is too awkward
+
 " == Plugins =================================================================
 
 " Install vimplug if not already installed
@@ -174,8 +176,6 @@ colorscheme tomorrow-night
 
 
 " === General Settings  ======================================================
-
-let mapleader=" "                   " Set <Leader> to space - '\' is too awkward
 
 syntax on                           " Syntax highlighting
 set number                          " Line numbers
