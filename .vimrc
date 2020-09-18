@@ -165,15 +165,6 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
-" === Theme ==================================================================
-
-" Download colorscheme if not installed
-silent ! [ -e ~/.vim/colors/tomorrow-night.vim ] ||
-    \ curl --create-dirs -o ~/.vim/colors/tomorrow-night.vim
-    \ https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim
-
-colorscheme tomorrow-night
-
 
 " === General Settings  ======================================================
 
@@ -228,6 +219,16 @@ set formatoptions-=r                " Disable comment block continuation on <Ent
 set formatoptions-=o                " Disable comment block continuation on o/O
 
 let g:netrw_liststyle=3             " Set default netrw liststyle to 'tree' mode
+
+
+" === Theme ==================================================================
+
+" Download colorscheme if not installed
+silent ! [ -e ~/.vim/colors/tomorrow-night.vim ] ||
+    \ curl --create-dirs -o ~/.vim/colors/tomorrow-night.vim
+    \ https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim
+
+colorscheme tomorrow-night
 
 
 " === General Mappings  ======================================================
