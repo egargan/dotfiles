@@ -38,6 +38,9 @@ call add(plugins, 'prabirshrestha/vim-lsp')
 " YAML formatting + highlighting
 call add(plugins, 'mrk21/yaml-vim')
 
+" Svelte language support
+call add(plugins, 'evanleck/vim-svelte')
+
 let plugin_dir = '~/.vim/plugged'
 let plugin_names_string = ''
 
