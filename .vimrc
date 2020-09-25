@@ -41,6 +41,9 @@ call add(plugins, 'mrk21/yaml-vim')
 " Svelte language support
 call add(plugins, 'evanleck/vim-svelte')
 
+" Indentation indicators
+call add(plugins, 'Yggdroot/indentLine')
+
 let plugin_dir = '~/.vim/plugged'
 let plugin_names_string = ''
 
@@ -168,6 +171,12 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
+" -- Yggdroot/indentLine -----------------------------------------------------
+
+" Disable indent lines by default
+let g:indentLine_enabled = 0
+
+nmap <Leader>i :IndentLinesToggle<Enter>
 
 " === General Settings  ======================================================
 
