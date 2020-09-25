@@ -116,7 +116,7 @@ nnoremap <Leader>s :BLines<Enter>
 " Redefine fzf's Rg command to exclude filenames from search
 command! -bang -nargs=* Rg
       \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case "
-      \ .shellescape(<q-args>), 1, {'options': '--delimiter : --nth 4..'}, <bang>0)
+      \ .shellescape(<q-args>), 1, fzf#vim#with_preview({ 'options': '--delimiter : --nth 4..' }), <bang>0)
 
 " -- prabirshrestha/vim-lsp --------------------------------------------------
 
