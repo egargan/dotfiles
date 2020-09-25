@@ -56,7 +56,9 @@ autoload -Uz compinit && compinit       # Initialize zsh tab completion
 
 export PROMPT='%2~ %F{7}%# %f'          # Customise prompt
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # Enable fzf bindings
+# Make sure to install fzf via git, AFAIK this is the only way to get this handy
+# '.fzf.zsh' file that initialises bindings and autocompletions
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Have fzf use ripgrep
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
