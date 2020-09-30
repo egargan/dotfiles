@@ -8,53 +8,51 @@ if empty(glob('~/.vim/autoload/plug.vim'))
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 endif
 
-let plugins = []
+let plugin_dir = '~/.vim/plugged'
 
+call plug#begin(plugin_dir)
+
+" ----------------------------------------------------------------------------
 
 " Code commenting plugin
-call add(plugins, 'tpope/vim-commentary')
+Plug 'tpope/vim-commentary'
 
 " Pretty status line
-call add(plugins, 'itchyny/lightline.vim')
+Plug 'itchyny/lightline.vim'
 
 " Show git diff symbols in gutter
-call add(plugins, 'airblade/vim-gitgutter')
+Plug 'airblade/vim-gitgutter'
 
 " Easy surrounding quotes, tags, parens, etc.
-call add(plugins, 'tpope/vim-surround')
+Plug 'tpope/vim-surround'
 
 " Easy alignment for rows of words, vars, etc.
-call add(plugins, 'junegunn/vim-easy-align')
+Plug 'junegunn/vim-easy-align'
 
 " Fuzzy file finding (CLI package + vim wrapper)
 " TODO: potentially installing duplicate fzf if already installed e.g. via
 " dnf, check 'hash fzf' before installing?
-call add(plugins, 'junegunn/fzf')
-call add(plugins, 'junegunn/fzf.vim')
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " Language server framework
-call add(plugins, 'prabirshrestha/vim-lsp')
+Plug 'prabirshrestha/vim-lsp'
 
 " YAML formatting + highlighting
-call add(plugins, 'mrk21/yaml-vim')
+Plug 'mrk21/yaml-vim'
 
 " Svelte language support
-call add(plugins, 'evanleck/vim-svelte')
+Plug 'evanleck/vim-svelte'
 
 " Indentation indicators
-call add(plugins, 'Yggdroot/indentLine')
+Plug 'Yggdroot/indentLine'
 
-let plugin_dir = '~/.vim/plugged'
+" ----------------------------------------------------------------------------
+
 let plugin_names_string = ''
 
-call plug#begin(plugin_dir)
-
-for plugin in plugins
-    " Apply plugin to current session
-    Plug plugin
-
-    let plugin_name = split(plugin, '/')[-1]
-
+" Create list of plugged plugins that aren't installed
+for plugin_name in g:plugs_order
     if empty(glob(plugin_dir . '/' . plugin_name))
         let plugin_names_string = plugin_names_string . ' ' . plugin_name
     endif
