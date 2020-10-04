@@ -42,7 +42,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mrk21/yaml-vim'
 
 " Svelte language support
-Plug 'evanleck/vim-svelte'
+Plug 'evanleck/vim-svelte', { 'branch': 'main' }
 
 " Indentation indicators
 Plug 'Yggdroot/indentLine'
