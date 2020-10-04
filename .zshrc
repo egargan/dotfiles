@@ -41,6 +41,8 @@ alias grc='git rebase --continue'
 # Print current SSH agent
 alias shocket='echo $(find /tmp -path "*/ssh-*" -name "agent*" -uid $(id -u) 2>/dev/null | tail -n1)'
 
+alias rg='rg --no-ignore-vcs'
+
 # Colour ls output
 if [[ "$OSTYPE" == darwin* ]]; then
     alias ls='ls -G'
