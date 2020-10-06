@@ -67,6 +67,11 @@ export PROMPT='%2~ %F{7}%# %f'          # Customise prompt
 # Have fzf use ripgrep
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 
+# Enable Ctrl-x Ctrl-e to edit current command line
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
 # Display unattached tmux sessions, if any exist
 if hash tmux &>/dev/null; then
     local TMUX_LS=$(tmux ls 2>/dev/null)
