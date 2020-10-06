@@ -45,6 +45,11 @@ alias shocket='echo $(find /tmp -path "*/ssh-*" -name "agent*" -uid $(id -u) 2>/
 
 alias rg='rg --no-ignore-vcs'
 
+# If vimx is installed (vim with X11-y feature support, notably clipboard), alias it
+if [[ "$(command -v vimx)" ]]; then
+    alias vim='vimx'
+fi
+
 # Colour ls output
 if [[ "$OSTYPE" == darwin* ]]; then
     alias ls='ls -G'
