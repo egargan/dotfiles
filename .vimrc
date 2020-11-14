@@ -82,28 +82,57 @@ let g:lightline = {
 \   'active': {
 \     'left': [ [ 'mode', 'paste' ],
 \                [ 'readonly', 'filename' ],
-\                [ 'hashbuf' ] ],
+\                [ 'lastbuf' ]],
 \     'right': [ [ 'lineinfo' ],
 \                [ 'percent' ],
 \                [ 'filetype' ] ]
 \   },
 \   'component_function': {
-\     'hashbuf': 'LightlineHashBuf',
-\     'filename': 'LightlineFilename'
-\   }
+\     'filename': 'LightlineFilename',
+\     'lastbuf': 'LightlineLastBuffer'
+\   },
 \}
-
-" Returns the formatted name of the '#' buffer, or an empty string if it doesn't exist
-function! LightlineHashBuf()
-  let l:bufnr = bufnr('#')
-  return (l:bufnr == -1 ? '' : '# ' . bufname(l:bufnr))
-endfunction
 
 " Returns Lightline's usual 'filename' string, but without the '|' separating
 " the filename and the modified indicator
 function! LightlineFilename()
   let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
   return filename . (&modified ? ' +' : '')
+endfunction
+
+" Returns the filename of the most-recently-open buffer before the current.
+" I'm using fzf's time-sorted buffer list here over just 'bufnr('#')', since
+" the latter can refer to buffers that have been closed.
+function! LightlineLastBuffer()
+  let sorted_bufs = fzf#vim#_buflisted_sorted()
+  let g:last_buffer = len(sorted_bufs) > 1 ? fzf#vim#_buflisted_sorted()[1] : -1
+  return bufname(g:last_buffer)
+endfunction
+
+" Shortcut for opening the most-recently-open buffer
+nnoremap <S-Tab> :execute g:last_buffer == -1 ? '' : 'b' . g:last_buffer<Enter>
+
+" Returns a list of buffer names, ordered by most-recently opened
+"
+" TODO: this is unused for the time being, I'm on the fence about whether I
+" want to show this in the tabline or statusline...
+" See github.com/mengelbrecht/lightline-bufferline#integration for how to tell
+" lightline to use this.
+function! LightlineRecentBufs()
+  " N.b. if fzf leaves the picture for some reason, we'll need our own version of this!
+  let g:recent_bufs = fzf#vim#_buflisted_sorted()
+  " Filter current buffer from list
+  call filter(g:recent_bufs, 'v:val != bufnr(''%'')')
+
+  let current_buf_str = bufnr('%') . ' ' . bufname(bufnr('%'))
+  let recent_buf_strs = []
+
+  for bufnr in g:recent_bufs
+    let buf_str = (bufnr == bufnr('#') ? '#' : '') . bufnr . ' ' .bufname(bufnr)
+    call add(recent_buf_strs, buf_str)
+  endfor
+
+  return [ [], [ current_buf_str ], recent_buf_strs ]
 endfunction
 
 " -- airblade/vim-gitgutter --------------------------------------------------
@@ -285,9 +314,6 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <C-w>m <C-w>10<
 nnoremap <C-w>/ <C-w>10>
 
-" Shortcut to the previously open buffer
-nnoremap # :b #<Enter>
-
 " Speedy tab navigation
 nnoremap ]t :tabnext<Enter>
 nnoremap [t :tabprev<Enter>
@@ -334,3 +360,6 @@ au BufWritePre * :%s/\s\+$//e
 " === TODO ===================================================================
 
 " - Make markdown editing prettier (need to add 'filetype-specific' area')
+" - Rethink buffer management solution. fzf's :Buffers works OK, but I'd
+"   prefer a solution where I only have to <Tab> then a buffer number, vs
+"   <Tab> + number + <Enter>. It also occupies a lot of screen space.
