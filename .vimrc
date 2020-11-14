@@ -47,6 +47,9 @@ Plug 'evanleck/vim-svelte', { 'branch': 'main' }
 " Indentation indicators
 Plug 'Yggdroot/indentLine'
 
+" Filesystem explorer
+Plug 'preservim/nerdtree'
+
 " ----------------------------------------------------------------------------
 
 let plugin_names_string = ''
@@ -91,7 +94,7 @@ let g:lightline = {
 \}
 
 " Returns the formatted name of the '#' buffer, or an empty string if it doesn't exist
-function! LightkineHashBuf()
+function! LightlineHashBuf()
   let l:bufnr = bufnr('#')
   return (l:bufnr == -1 ? '' : '# ' . bufname(l:bufnr))
 endfunction
@@ -200,6 +203,10 @@ augroup END
 let g:indentLine_enabled = 0
 
 nmap <Leader>i :IndentLinesToggle<Enter>
+
+" -- preservim/nerdtree ------------------------------------------------------
+
+map <Leader>e :NERDTreeToggle<CR>
 
 " === General Settings  ======================================================
 
@@ -317,9 +324,6 @@ vnoremap <leader>r :s/\<<C-r><C-w>\>//g<left><left>
 
 " Join current and below lines (should be <S-j>, but I've remapped this)
 noremap <C-j> :join!<Enter>
-
-" Macro for netrw file explorer, displayed NERDTree style
-nnoremap <Leader>e :Lex <Bar> vertical resize 35<Enter>
 
 
 " === Autocommands  ==========================================================
