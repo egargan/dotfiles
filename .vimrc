@@ -76,7 +76,32 @@ set noshowmode
 
 let g:lightline = {
 \   'colorscheme' : 'Tomorrow_Night',
+\   'active': {
+\     'left': [ [ 'mode', 'paste' ],
+\                [ 'readonly', 'filename' ],
+\                [ 'hashbuf' ] ],
+\     'right': [ [ 'lineinfo' ],
+\                [ 'percent' ],
+\                [ 'filetype' ] ]
+\   },
+\   'component_function': {
+\     'hashbuf': 'LightlineHashBuf',
+\     'filename': 'LightlineFilename'
+\   }
 \}
+
+" Returns the formatted name of the '#' buffer, or an empty string if it doesn't exist
+function! LightkineHashBuf()
+  let l:bufnr = bufnr('#')
+  return (l:bufnr == -1 ? '' : '# ' . bufname(l:bufnr))
+endfunction
+
+" Returns Lightline's usual 'filename' string, but without the '|' separating
+" the filename and the modified indicator
+function! LightlineFilename()
+  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  return filename . (&modified ? ' +' : '')
+endfunction
 
 " -- airblade/vim-gitgutter --------------------------------------------------
 
@@ -103,7 +128,7 @@ nnoremap <C-T> :Files<Enter>
 nnoremap \ :Rg<Enter>
 
 " Search open buffer names
-nnoremap <Leader>b :Buffers<Enter>
+nnoremap <Tab> :Buffers<Enter>
 
 " Jump to buffer when selecting
 let g:fzf_buffers_jump = 1
@@ -253,9 +278,12 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <C-w>m <C-w>10<
 nnoremap <C-w>/ <C-w>10>
 
-" Easier tab navigation
-nnoremap <Tab> gt
-nnoremap <S-Tab> gT
+" Shortcut to the previously open buffer
+nnoremap # :b #<Enter>
+
+" Speedy tab navigation
+nnoremap ]t :tabnext<Enter>
+nnoremap [t :tabprev<Enter>
 
 " 5-line up/down jumps
 nmap <S-k> 5k
