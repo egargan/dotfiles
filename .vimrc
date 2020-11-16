@@ -110,7 +110,7 @@ function! LightlineLastBuffer()
 endfunction
 
 " Shortcut for opening the most-recently-open buffer
-nnoremap <S-Tab> :execute g:last_buffer == -1 ? '' : 'b' . g:last_buffer<Enter>
+nnoremap <silent> <S-Tab> :execute g:last_buffer == -1 ? '' : 'b' . g:last_buffer<Enter>
 
 " Returns a list of buffer names, ordered by most-recently opened
 "
