@@ -51,7 +51,7 @@ fi
 alias gst='git status'
 alias  gd='git diff'
 alias gdn='git diff --name-only'
-alias gdu='git diff --name-only --diff-filter=U'  # List files w/ merge conflicts
+alias gdu='git diff --name-only --diff-filter=U'     # List files w/ merge conflicts
 alias gdc='git diff --cached'
 alias gco='git checkout'
 alias gad='git add'
@@ -59,6 +59,8 @@ alias  gc='git commit'
 alias gca='git commit --amend'
 alias gri='git rebase -i'
 alias grc='git rebase --continue'
+alias  gs='git show'
+alias gsn='git show --pretty=format:'' --name-only'  # List filenames only
 
 
 # == Bindings + Functions =====================================================
