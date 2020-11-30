@@ -41,14 +41,20 @@ Plug 'prabirshrestha/vim-lsp'
 " YAML formatting + highlighting
 Plug 'mrk21/yaml-vim'
 
-" Svelte language support
-Plug 'evanleck/vim-svelte', { 'branch': 'main' }
-
 " Indentation indicators
 Plug 'Yggdroot/indentLine'
 
 " Filesystem explorer
 Plug 'preservim/nerdtree'
+
+" Svelte language support
+Plug 'leafOfTree/vim-svelte-plugin', { 'for': ['svelte'] }
+
+" SCSS syntax support
+Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
+
+" Typescript langauge support
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
 " ----------------------------------------------------------------------------
 
@@ -236,6 +242,12 @@ nmap <Leader>i :IndentLinesToggle<Enter>
 " -- preservim/nerdtree ------------------------------------------------------
 
 map <Leader>e :NERDTreeToggle<CR>
+
+" -- leafOfTree/vim-svelte-plugin --------------------------------------------
+
+" Enable optional language support
+let g:vim_svelte_plugin_use_typescript=1
+let g:vim_svelte_plugin_use_sass=1
 
 " === General Settings  ======================================================
 
