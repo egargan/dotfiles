@@ -243,6 +243,9 @@ nmap <Leader>i :IndentLinesToggle<Enter>
 
 map <Leader>e :NERDTreeToggle<CR>
 
+" Navigates to % in NERDTree, opening it if not already open
+map <Leader>% :NERDTreeFind<CR>
+
 " -- leafOfTree/vim-svelte-plugin --------------------------------------------
 
 " Enable optional language support
