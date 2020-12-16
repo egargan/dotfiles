@@ -55,6 +55,7 @@ alias gdu='git diff --name-only --diff-filter=U'     # List files w/ merge confl
 alias gdc='git diff --cached'
 alias gco='git checkout'
 alias gad='git add'
+alias grs='git reset'
 alias  gc='git commit'
 alias gca='git commit --amend'
 alias gri='git rebase -i'
