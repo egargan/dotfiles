@@ -56,6 +56,9 @@ Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
 " Typescript langauge support
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 
+" Commands for closing buffers without closing windows
+Plug 'moll/vim-bbye'
+
 " ----------------------------------------------------------------------------
 
 let plugin_names_string = ''
