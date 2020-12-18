@@ -49,6 +49,7 @@ fi
 # -- Git ----------------------------------------------------------------------
 
 alias gst='git status'
+alias tsg='tig status'
 alias  gd='git diff'
 alias gdn='git diff --name-only'
 alias gdu='git diff --name-only --diff-filter=U'     # List files w/ merge conflicts
