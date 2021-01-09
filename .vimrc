@@ -163,10 +163,13 @@ xmap ga <Plug>(EasyAlign)
 
 " -- junegunn/fzf ------------------------------------------------------------
 
-nnoremap <C-T> :Files<Enter>
+" Search files from wd. 'GitFiles' looks for tracked files, 'Files' looks everywhere.
+nnoremap <C-T> :GitFiles<Enter>
+nnoremap <S-T> :Files<Enter>
 
-" Full text search from working directory
-nnoremap \ :Rg<Enter>
+" Full text search from wd. Ditto 'GitRg' / 'Rg'.
+nnoremap \ :GitRg<Enter>
+nnoremap <Bar> :Rg<Enter>
 
 " Search open buffer names
 nnoremap <Tab> :Buffers<Enter>
@@ -174,10 +177,17 @@ nnoremap <Tab> :Buffers<Enter>
 " Text search current buffer
 nnoremap <Leader>s :BLines<Enter>
 
-" Redefine fzf's Rg command to exclude filenames from search
-command! -bang -nargs=* Rg
-      \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case "
-      \ .shellescape(<q-args>), 1, fzf#vim#with_preview({ 'options': '--delimiter : --nth 4..' }), <bang>0)
+let rg_command = 'rg --column --line-number --no-heading --smart-case '
+
+" Ensures Rg/GitRg don't match filenames shown in preview window
+let preview_dict = { 'options':  '--delimiter : --nth 4..' }
+
+command! -bang -nargs=* GitRg call fzf#vim#grep(rg_command
+    \ .shellescape(<q-args>), 1, fzf#vim#with_preview(preview_dict), <bang>0)
+
+command! -bang -nargs=* Rg call fzf#vim#grep(rg_command . ' --no-ignore-vcs '
+    \ .shellescape(<q-args>), 1, fzf#vim#with_preview(preview_dict), <bang>0)
+
 
 " -- prabirshrestha/vim-lsp --------------------------------------------------
 
@@ -245,6 +255,9 @@ map <Leader>e :NERDTreeToggle<CR>
 
 " Navigates to % in NERDTree, opening it if not already open
 map <Leader>% :NERDTreeFind<CR>
+
+" Disable NERDTree's <S-T> mapping, which we use for :Files
+let g:NERDTreeMapOpenInTabSilent=0
 
 " -- leafOfTree/vim-svelte-plugin --------------------------------------------
 

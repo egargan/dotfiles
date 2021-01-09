@@ -81,8 +81,7 @@ bindkey '^x^e' edit-command-line
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Have fzf use ripgrep
-export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
-
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --follow --glob '!.git'"
 
 # == Status Messages ==========================================================
 
