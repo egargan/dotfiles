@@ -376,8 +376,8 @@ noremap <Bs> :noh<CR>
 nnoremap <leader>r :%s/\<<C-r><C-w>\>//g<left><left>
 vnoremap <leader>r :s/\<<C-r><C-w>\>//g<left><left>
 
-" Join current and below lines (should be <S-j>, but I've remapped this)
-noremap <C-j> :join!<Enter>
+" Delete everything between cursor and end of above line
+noremap <C-j> :norm hvk$"_d<Enter>
 
 
 " === Autocommands  ==========================================================
