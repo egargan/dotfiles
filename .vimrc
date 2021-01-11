@@ -109,40 +109,15 @@ function! LightlineFilename()
   return filename . (&modified ? ' +' : '')
 endfunction
 
-" Returns the filename of the most-recently-open buffer before the current.
-" I'm using fzf's time-sorted buffer list here over just 'bufnr('#')', since
-" the latter can refer to buffers that have been closed.
+" Returns the filename of the 'alternate' buffer, essentially that
+" most-recently opened
+" TODO: can we fix #'s behavior so it doesn't refer to deleted buffers?
 function! LightlineLastBuffer()
-  let sorted_bufs = fzf#vim#_buflisted_sorted()
-  let g:last_buffer = len(sorted_bufs) > 1 ? fzf#vim#_buflisted_sorted()[1] : -1
-  return bufname(g:last_buffer)
+  return bufname('#')
 endfunction
 
 " Shortcut for opening the most-recently-open buffer
-nnoremap <silent> <S-Tab> :execute g:last_buffer == -1 ? '' : 'b' . g:last_buffer<Enter>
-
-" Returns a list of buffer names, ordered by most-recently opened
-"
-" TODO: this is unused for the time being, I'm on the fence about whether I
-" want to show this in the tabline or statusline...
-" See github.com/mengelbrecht/lightline-bufferline#integration for how to tell
-" lightline to use this.
-function! LightlineRecentBufs()
-  " N.b. if fzf leaves the picture for some reason, we'll need our own version of this!
-  let g:recent_bufs = fzf#vim#_buflisted_sorted()
-  " Filter current buffer from list
-  call filter(g:recent_bufs, 'v:val != bufnr(''%'')')
-
-  let current_buf_str = bufnr('%') . ' ' . bufname(bufnr('%'))
-  let recent_buf_strs = []
-
-  for bufnr in g:recent_bufs
-    let buf_str = (bufnr == bufnr('#') ? '#' : '') . bufnr . ' ' .bufname(bufnr)
-    call add(recent_buf_strs, buf_str)
-  endfor
-
-  return [ [], [ current_buf_str ], recent_buf_strs ]
-endfunction
+nnoremap <silent> <S-Tab> :execute bufnr('#') == -1 ? '' : 'b' . bufnr('#')<Enter>
 
 " -- airblade/vim-gitgutter --------------------------------------------------
 
