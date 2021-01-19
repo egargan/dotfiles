@@ -146,6 +146,9 @@ nnoremap <S-T> :Files<Enter>
 nnoremap \ :GitRg<Enter>
 nnoremap <Bar> :Rg<Enter>
 
+" GitRg search for word under cursor
+nnoremap <Leader>* :GitRg <C-r><C-w><Enter>
+
 " Search open buffer names
 nnoremap <Tab> :Buffers<Enter>
 
@@ -339,9 +342,6 @@ noremap k gk
 
 " Don't jump to next match when *ing
 nnoremap * *``
-
-" ripgrep the word under the cursor
-nnoremap <leader>* :Rg <C-r><C-w><Enter>
 
 " Easy remove highlights over search matches
 noremap <Bs> :noh<CR>
