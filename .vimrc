@@ -59,6 +59,9 @@ Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 " Commands for closing buffers without closing windows
 Plug 'moll/vim-bbye'
 
+" In-vim Git handiness
+Plug 'tpope/vim-fugitive'
+
 " ----------------------------------------------------------------------------
 
 let plugin_names_string = ''
