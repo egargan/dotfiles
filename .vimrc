@@ -232,7 +232,7 @@ nmap <Leader>i :IndentLinesToggle<Enter>
 map <Leader>e :NERDTreeToggle<CR>
 
 " Navigates to % in NERDTree, opening it if not already open
-map <Leader>% :NERDTreeFind<CR>
+map <Leader>5 :NERDTreeFind<CR>
 
 " Disable NERDTree's <S-T> mapping, which we use for :Files
 let g:NERDTreeMapOpenInTabSilent=0
