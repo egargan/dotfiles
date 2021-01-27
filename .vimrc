@@ -355,7 +355,7 @@ nnoremap <leader>r :%s/\<<C-r><C-w>\>//g<left><left>
 vnoremap <leader>r :s/\<<C-r><C-w>\>//g<left><left>
 
 " Delete everything between cursor and end of above line
-noremap <C-j> :norm hvk$"_d<Enter>
+noremap <C-j> :norm "_d0kgJ"<Enter>
 
 
 " === Autocommands  ==========================================================
