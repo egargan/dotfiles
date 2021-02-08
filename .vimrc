@@ -322,16 +322,12 @@ nnoremap ]t :tabnext<Enter>
 nnoremap [t :tabprev<Enter>
 
 " 5-line up/down jumps
-nmap <S-k> 5k
-nmap <S-j> 5j
-vmap <S-k> 5k
-vmap <S-j> 5j
+noremap <S-k> 5k
+noremap <S-j> 5j
 
 " Cuts to black hole buffer
-nnoremap <leader>d "_d
-nnoremap <leader>x "_x
-vnoremap <leader>d "_d
-vnoremap <leader>x "_x
+noremap <leader>d "_d
+noremap <leader>x "_x
 
 " Stop j/k working linewise
 noremap j gj
