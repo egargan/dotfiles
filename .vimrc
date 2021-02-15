@@ -158,6 +158,9 @@ nnoremap <Tab> :Buffers<Enter>
 " Text search current buffer
 nnoremap <Leader>s :BLines<Enter>
 
+" Enable FZF search history
+let g:fzf_history_dir = '~/.local/share/vim_fzf_history'
+
 let rg_command = 'rg --column --line-number --no-heading --smart-case '
 
 " Ensures Rg/GitRg don't match filenames shown in preview window
