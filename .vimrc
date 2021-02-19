@@ -324,6 +324,9 @@ nnoremap <C-w>/ <C-w>10>
 nnoremap ]t :tabnext<Enter>
 nnoremap [t :tabprev<Enter>
 
+" Faster new tab
+nnoremap ]T :tabnew<Enter>
+
 " 5-line up/down jumps
 noremap <S-k> 5k
 noremap <S-j> 5j
