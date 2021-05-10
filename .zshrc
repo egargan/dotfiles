@@ -73,6 +73,8 @@ alias gsn='git show --pretty=format:'' --name-only'  # List filenames only
 
 bindkey -e                            # Enable emacs bindings (ctrl-w, ctrl-r, etc.)
 
+bindkey \^U backward-kill-line        # Don't delete entire line on ctrl-u
+
 autoload -Uz compinit && compinit       # Initialize zsh tab completion
 
 # Enable Ctrl-x Ctrl-e to edit current command line
