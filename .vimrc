@@ -208,16 +208,27 @@ if executable('rust-analyzer')
   call lsp#register_command('rust-analyzer.applySourceChange', function('s:rust_analyzer_apply_source_change'))
 endif
 
+" if executable('svelteserver')
+"   au User lsp_setup call lsp#register_server({
+"     \ 'name': 'svelteserver',
+"     \ 'cmd': {server_info->[&shell, &shellcmdflag, 'NODE_OPTIONS=--max-old-space-size=4096 svelteserver --stdio']},
+"     \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+"     \ 'whitelist': ['svelte'],
+"     \ })
+" endif
+
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
   if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-  nmap <buffer> gd <plug>(lsp-definition)
-  nmap <buffer> <leader>rn <plug>(lsp-rename)
-  nmap <buffer> [e <Plug>(lsp-previous-error)
-  nmap <buffer> ]e <Plug>(lsp-next-error)
-  nmap <buffer> [w <Plug>(lsp-previous-warning)
-  nmap <buffer> ]w <Plug>(lsp-next-warning)
+  nnoremap <buffer> gd <plug>(lsp-definition)
+  nnoremap <buffer> <leader>r <plug>(lsp-rename)
+  nnoremap <buffer> [e <Plug>(lsp-previous-error)
+  nnoremap <buffer> ]e <Plug>(lsp-next-error)
+  nnoremap <buffer> [w <Plug>(lsp-previous-warning)
+  nnoremap <buffer> ]w <Plug>(lsp-next-warning)
+  nnoremap <buffer> [d <Plug>(lsp-previous-diagnostic)
+  nnoremap <buffer> ]d <Plug>(lsp-document-diagnostic)
 endfunction
 
 augroup lsp_install
