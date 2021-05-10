@@ -62,6 +62,7 @@ Plug 'moll/vim-bbye'
 " In-vim Git handiness
 Plug 'tpope/vim-fugitive'
 
+
 " ----------------------------------------------------------------------------
 
 let plugin_names_string = ''
@@ -183,6 +184,9 @@ let g:lsp_signs_enabled = 1
 
 " Highlight references to symbol under cursor
 let g:lsp_highlight_references_enabled = 1
+
+" Log LSP's doings for when things go wrong
+let g:lsp_log_file = expand('~/.vim-lsp.log')
 
 if executable('rust-analyzer')
   au User lsp_setup call lsp#register_server({
