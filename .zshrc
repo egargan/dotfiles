@@ -37,6 +37,7 @@ alias shocket='echo $(find /tmp -path "*/ssh-*" -name "agent*" -uid $(id -u) 2>/
 # If vimx is installed (vim with X11-y feature support, notably clipboard), alias it
 if [[ "$(command -v vimx)" ]]; then
   alias vim='vimx'
+  alias vi='vimx'
 fi
 
 # Alias ls to ls with colours enabled (of course macOS' uses a different option)
