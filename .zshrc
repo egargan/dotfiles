@@ -46,22 +46,26 @@ else
   alias ls='ls --color=auto'
 fi
 
+alias pj='python -m json.tool'
+
+
 # -- Git ----------------------------------------------------------------------
 
 alias gst='git status'
 alias tsg='tig status'
-alias  gd='git diff'
+alias gd='git diff'
 alias gdn='git diff --name-only'
 alias gdu='git diff --name-only --diff-filter=U'     # List files w/ merge conflicts
 alias gdc='git diff --cached'
+alias gdcn='git diff --cached --name-only'
 alias gco='git checkout'
 alias gad='git add'
 alias grs='git reset'
-alias  gc='git commit'
+alias gc='git commit'
 alias gca='git commit --amend'
 alias gri='git rebase -i'
 alias grc='git rebase --continue'
-alias  gs='git show'
+alias gs='git show'
 alias gsn='git show --pretty=format:'' --name-only'  # List filenames only
 
 
