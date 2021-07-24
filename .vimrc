@@ -37,6 +37,9 @@ Plug 'junegunn/fzf.vim'
 
 " Language server framework
 Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " YAML formatting + highlighting
 Plug 'mrk21/yaml-vim'
@@ -174,7 +177,7 @@ command! -bang -nargs=* Rg call fzf#vim#grep(rg_command . ' --no-ignore-vcs '
     \ .shellescape(<q-args>), 1, fzf#vim#with_preview(preview_dict), <bang>0)
 
 
-" -- prabirshrestha/vim-lsp --------------------------------------------------
+" -- prabirshrestha/vim-lsp + friends ----------------------------------------
 
 " Show diagnostic message under cursor in status line
 let g:lsp_diagnostics_echo_cursor = 1
@@ -188,38 +191,7 @@ let g:lsp_highlight_references_enabled = 1
 " Log LSP's doings for when things go wrong
 let g:lsp_log_file = expand('~/.vim-lsp.log')
 
-if executable('rust-analyzer')
-  au User lsp_setup call lsp#register_server({
-      \ 'name': 'rust-analyzer',
-      \ 'cmd': {server_info->['rust-analyzer']},
-      \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'Cargo.toml'))},
-      \ 'whitelist': ['rust'],
-      \ 'blacklist': [],
-      \ 'workspace_config': {},
-      \ 'semantic_highlight': {},
-      \ })
-  function! s:rust_analyzer_apply_source_change(context)
-      let l:command = get(a:context, 'command', {})
-      let l:workspace_edit = get(l:command['arguments'][0], 'workspaceEdit', {})
-      if !empty(l:workspace_edit)
-          call lsp#utils#workspace_edit#apply_workspace_edit(l:workspace_edit)
-      endif
-      let l:cursor_position = get(l:command['arguments'][0], 'cursorPosition', {})
-      if !empty(l:cursor_position)
-          call cursor(lsp#utils#position#lsp_to_vim('%', l:cursor_position))
-      endif
-  endfunction
-  call lsp#register_command('rust-analyzer.applySourceChange', function('s:rust_analyzer_apply_source_change'))
-endif
-
-" if executable('svelteserver')
-"   au User lsp_setup call lsp#register_server({
-"     \ 'name': 'svelteserver',
-"     \ 'cmd': {server_info->[&shell, &shellcmdflag, 'NODE_OPTIONS=--max-old-space-size=4096 svelteserver --stdio']},
-"     \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-"     \ 'whitelist': ['svelte'],
-"     \ })
-" endif
+let g:lsp_settings_servers_dir = '~/.vim/lsp/servers'
 
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
