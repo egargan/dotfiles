@@ -204,7 +204,10 @@ function! s:on_lsp_buffer_enabled() abort
   nnoremap <buffer> [w <Plug>(lsp-previous-warning)
   nnoremap <buffer> ]w <Plug>(lsp-next-warning)
   nnoremap <buffer> [d <Plug>(lsp-previous-diagnostic)
-  nnoremap <buffer> ]d <Plug>(lsp-document-diagnostic)
+  nnoremap <buffer> ]d <Plug>(lsp-next-diagnostic)
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 endfunction
 
 augroup lsp_install
