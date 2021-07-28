@@ -266,6 +266,12 @@ let g:NERDTreeMapOpenInTabSilent=0
 let g:vim_svelte_plugin_use_typescript=1
 let g:vim_svelte_plugin_use_sass=1
 
+" -- moll/vim-bbye -----------------------------------------------------------
+
+" Hotkey friendly delete buffer
+nnoremap - :Bd<Enter>
+
+
 " === General Settings  ======================================================
 
 syntax on                           " Syntax highlighting
