@@ -145,9 +145,18 @@ xmap ga <Plug>(EasyAlign)
 
 " -- junegunn/fzf ------------------------------------------------------------
 
+" Returns the currently-selected 'dir node' if NERDTree is focused, '.' otherwise.
+function! GetSearchRootDir()
+  if getbufvar(bufnr(), '&filetype') == 'nerdtree' && has_key(g:NERDTreeDirNode.GetSelected(), 'path')
+    return g:NERDTreeDirNode.GetSelected().path.str()
+  else
+    return '.'
+  endif
+endfunction
+
 " Search files from wd. 'GitFiles' looks for tracked files, 'Files' looks everywhere.
-nnoremap <C-T> :GitFiles<Enter>
-nnoremap <S-T> :Files<Enter>
+nnoremap <C-T> :silent execute 'GitFiles ' . GetSearchRootDir()<Enter>
+nnoremap <S-T> :silent execute 'Files ' . GetSearchRootDir()<Enter>
 
 " Full text search from wd. Ditto 'GitRg' / 'Rg'.
 nnoremap \ :GitRg<Enter>
@@ -167,14 +176,18 @@ let g:fzf_history_dir = '~/.local/share/vim_fzf_history'
 
 let rg_command = 'rg --column --line-number --no-heading --smart-case '
 
-" Ensures Rg/GitRg don't match filenames shown in preview window
-let preview_dict = { 'options':  '--delimiter : --nth 4..' }
+" Returns config for 'fzf#vim#with_preview' function, telling it where to
+" search from, and to not match filenames in Rg output.
+function! GetWithPreviewDict()
+  return { 'dir': GetSearchRootDir(), 'options':  '--delimiter : --nth 4..' }
+endfunction
 
+" TODO: have this not fail when there aren't any files to search
 command! -bang -nargs=* GitRg call fzf#vim#grep(rg_command
-    \ .shellescape(<q-args>), 1, fzf#vim#with_preview(preview_dict), <bang>0)
+  \ .shellescape(<q-args>), 1, fzf#vim#with_preview(GetWithPreviewDict()), <bang>0)
 
 command! -bang -nargs=* Rg call fzf#vim#grep(rg_command . ' --no-ignore-vcs '
-    \ .shellescape(<q-args>), 1, fzf#vim#with_preview(preview_dict), <bang>0)
+  \ .shellescape(<q-args>), 1, fzf#vim#with_preview(GetWithPreviewDict()), <bang>0)
 
 
 " -- prabirshrestha/vim-lsp + friends ----------------------------------------
@@ -348,6 +361,14 @@ noremap <C-j> :norm "_d0kgJ"<Enter>
 
 " Remove trailing whitespace on save
 au BufWritePre * :%s/\s\+$//e
+
+
+" === Host-specific config ===================================================
+
+if filereadable(expand('~/.vimrc.private'))
+  source ~/.vimrc.private
+endif
+
 
 " === TODO ===================================================================
 
