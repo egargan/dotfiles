@@ -174,7 +174,9 @@ nnoremap <Leader>s :BLines<Enter>
 " Enable FZF search history
 let g:fzf_history_dir = '~/.local/share/vim_fzf_history'
 
-let rg_command = 'rg --column --line-number --no-heading --smart-case '
+" TODO: play with these colours
+let rg_command = 'rg --line-number --no-heading --smart-case --color=always '
+  \. '--colors "path:fg:105,128,161" --colors "line:fg:74,85,120" '
 
 " Returns config for 'fzf#vim#with_preview' function, telling it where to
 " search from, and to not match filenames in Rg output.
