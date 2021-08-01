@@ -163,7 +163,7 @@ nnoremap \ :GitRg<Enter>
 nnoremap <Bar> :Rg<Enter>
 
 " GitRg search for word under cursor
-nnoremap <Leader>* :GitRg <C-r><C-w><Enter>
+nnoremap <Leader>* :StarRg <C-r><C-w><Enter>
 
 " Search open buffer names
 nnoremap <Tab> :Buffers<Enter>
@@ -180,16 +180,28 @@ let rg_command = 'rg --line-number --no-heading --smart-case --color=always '
 
 " Returns config for 'fzf#vim#with_preview' function, telling it where to
 " search from, and to not match filenames in Rg output.
-function! GetWithPreviewDict()
-  return { 'dir': GetSearchRootDir(), 'options':  '--delimiter : --nth 3.. --bind="CTRL-p:toggle-preview"' }
+function! GetRgOpts()
+  return { 'dir': GetSearchRootDir(), 'options': '--delimiter : --nth 3.. --bind="CTRL-p:toggle-preview"' }
+endfunction
+
+" Returns the above config with an extra 'query' option, the initial query string
+function! GetStarRgOpts(query)
+  let rg_opts = GetRgOpts()
+  let rg_opts['options'] = rg_opts['options'] . ' --query ''' . a:query . ''''
+  return rg_opts
 endfunction
 
 " TODO: have this not fail when there aren't any files to search
 command! -bang -nargs=* GitRg call fzf#vim#grep(rg_command
-  \ .shellescape(<q-args>), 1, fzf#vim#with_preview(GetWithPreviewDict()), <bang>0)
+  \ .shellescape(<q-args>), 1, fzf#vim#with_preview(GetRgOpts()), <bang>0)
 
 command! -bang -nargs=* Rg call fzf#vim#grep(rg_command . ' --no-ignore-vcs '
-  \ .shellescape(<q-args>), 1, fzf#vim#with_preview(GetWithPreviewDict()), <bang>0)
+  \ .shellescape(<q-args>), 1, fzf#vim#with_preview(GetRgOpts()), <bang>0)
+
+" TODO: why do we need the 'shellescape()' bit for this to work? It just
+" returns '', but trying to just concat '' to rg_command doesn't work??
+command! -bang -nargs=* StarRg call fzf#vim#grep(rg_command
+  \ .shellescape(''), 1, fzf#vim#with_preview(GetStarRgOpts(<q-args>)), <bang>0)
 
 
 " -- prabirshrestha/vim-lsp + friends ----------------------------------------
