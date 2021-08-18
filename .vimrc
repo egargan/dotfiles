@@ -229,18 +229,23 @@ let g:lsp_settings = {
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
-  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-  nnoremap <buffer> gd <plug>(lsp-definition)
-  nnoremap <buffer> <leader>r <plug>(lsp-rename)
-  nnoremap <buffer> [e <Plug>(lsp-previous-error)
-  nnoremap <buffer> ]e <Plug>(lsp-next-error)
-  nnoremap <buffer> [w <Plug>(lsp-previous-warning)
-  nnoremap <buffer> ]w <Plug>(lsp-next-warning)
-  nnoremap <buffer> [d <Plug>(lsp-previous-diagnostic)
-  nnoremap <buffer> ]d <Plug>(lsp-next-diagnostic)
-  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-  inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+  " <buffer> here means the mapping only applies to Python buffers
+  nmap <buffer> <silent> gd <Plug>(lsp-definition)
+  nmap <buffer> <silent> <leader>r <Plug>(lsp-rename)
+  nmap <buffer> <silent> [e <Plug>(lsp-previous-error)
+  nmap <buffer> <silent> ]e <Plug>(lsp-next-error)
+  nmap <buffer> <silent> [w <Plug>(lsp-previous-warning)
+  nmap <buffer> <silent> ]w <Plug>(lsp-next-warning)
+  nmap <buffer> <silent> [d <Plug>(lsp-previous-diagnostic)
+  nmap <buffer> <silent> ]d <Plug>(lsp-next-diagnostic)
+  imap <expr> <silent> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  imap <expr> <silent> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  imap <expr> <silent> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
+  if exists('+tagfunc')
+    setlocal tagfunc=lsp#tagfunc
+  endif
 endfunction
 
 augroup lsp_install
