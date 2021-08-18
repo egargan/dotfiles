@@ -220,6 +220,12 @@ let g:lsp_log_file = expand('~/.vim-lsp.log')
 
 let g:lsp_settings_servers_dir = '~/.vim/lsp/servers'
 
+" The LSP settings plugin has a hard time with Python's LSP for some reason,
+" had to install it + its optional deps manually
+let g:lsp_settings = {
+\  'pyls': {'cmd': ['pyls']},
+\}
+
 function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
