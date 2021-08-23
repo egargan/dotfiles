@@ -181,7 +181,7 @@ let rg_command = 'rg --line-number --no-heading --smart-case --color=always '
 " Returns config for 'fzf#vim#with_preview' function, telling it where to
 " search from, and to not match filenames in Rg output.
 function! GetRgOpts()
-  return { 'dir': GetSearchRootDir(), 'options': '--delimiter : --nth 3.. --bind="CTRL-p:toggle-preview"' }
+  return { 'dir': GetSearchRootDir(), 'options': '--delimiter : --nth 3.. --bind="CTRL-k:toggle-preview"' }
 endfunction
 
 " Returns the above config with an extra 'query' option, the initial query string
