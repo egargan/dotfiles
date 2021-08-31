@@ -4,6 +4,29 @@ if [ -f /etc/zshrc ]; then
 fi
 
 
+# == Bindings + Functions =====================================================
+
+autoload -U colors                    # Enable 'colors[..]' for setting term colors
+
+bindkey -e                            # Enable emacs bindings (ctrl-w, ctrl-r, etc.)
+
+bindkey \^U backward-kill-line        # Don't delete entire line on ctrl-u
+
+autoload -Uz compinit && compinit       # Initialize zsh tab completion
+
+# Enable Ctrl-x Ctrl-e to edit current command line
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
+# Make sure to install fzf via git, AFAIK this is the only way to get this handy
+# '.fzf.zsh' file that initialises bindings and autocompletions
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Have fzf use ripgrep
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --follow --glob '!.git'"
+
+
 # == Env ======================================================================
 
 export PROMPT='%2~ %F{7}%# %f'        # Customise prompt string
@@ -69,26 +92,6 @@ alias grc='git rebase --continue'
 alias gs='git show'
 alias gsn='git show --pretty=format:'' --name-only'  # List filenames only
 
-
-# == Bindings + Functions =====================================================
-
-bindkey -e                            # Enable emacs bindings (ctrl-w, ctrl-r, etc.)
-
-bindkey \^U backward-kill-line        # Don't delete entire line on ctrl-u
-
-autoload -Uz compinit && compinit       # Initialize zsh tab completion
-
-# Enable Ctrl-x Ctrl-e to edit current command line
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey '^x^e' edit-command-line
-
-# Make sure to install fzf via git, AFAIK this is the only way to get this handy
-# '.fzf.zsh' file that initialises bindings and autocompletions
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Have fzf use ripgrep
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --follow --glob '!.git'"
 
 # == Status Messages ==========================================================
 
