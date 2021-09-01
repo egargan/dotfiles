@@ -6,30 +6,71 @@ fi
 
 # == Bindings + Functions =====================================================
 
-autoload -U colors                    # Enable 'colors[..]' for setting term colors
-
-bindkey -e                            # Enable emacs bindings (ctrl-w, ctrl-r, etc.)
-
-bindkey \^U backward-kill-line        # Don't delete entire line on ctrl-u
-
-autoload -Uz compinit && compinit       # Initialize zsh tab completion
+autoload -U colors                     # Enable 'colors[..]' for setting term colors
+bindkey -e                             # Enable emacs bindings (ctrl-w, ctrl-r, etc.)
+bindkey \^U backward-kill-line         # Don't delete entire line on ctrl-u
+autoload -Uz compinit && compinit      # Initialize zsh tab completion
 
 # Enable Ctrl-x Ctrl-e to edit current command line
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
-# Make sure to install fzf via git, AFAIK this is the only way to get this handy
-# '.fzf.zsh' file that initialises bindings and autocompletions
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# == Plugins =================================================================
+
+source ~/.zplug/init.zsh
+
+# ----------------------------------------------------------------------------
+
+# Have zplug manage itself like the other plugins
+zplug 'zplug/zplug', hook-build: 'zplug --self-manage'
+
+# Brings in functions and vars to tell us Git info
+zplug "plugins/git", from:oh-my-zsh
+
+# Multi-purpose fuzzy text searcher
+zplug "junegunn/fzf", as:command, hook-build:"./install --bin", use:"bin/{fzf-tmux,fzf}"
+
+# Command line syntax highlighting
+zplug "zsh-users/zsh-syntax-highlighting"
+
+# Cat w/ syntax highlighting
+zplug "sharkdp/bat", as:command, from:gh-r, rename-to:bat
+
+# ----------------------------------------------------------------------------
+
+# Inform of any uninstalled plugins
+if ! zplug check --verbose; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
+fi
+
+# Load plugins
+zplug load
+
+
+# == Plugin Config ===========================================================
+
+# -- junegunn/fzf ------------------------------------------------------------
+
+# Setup bindings and autocompletion
+source ~/.zplug/repos/junegunn/fzf/shell/key-bindings.zsh
+source ~/.zplug/repos/junegunn/fzf/shell/completion.zsh
 
 # Have fzf use ripgrep
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --follow --glob '!.git'"
 
 
-# == Env ======================================================================
+# == Prompt ===================================================================
 
+# TODO: groove me up
 export PROMPT='%2~ %F{7}%# %f'        # Customise prompt string
+
+
+# == Env ======================================================================
 
 export PAGER=less
 export EDITOR=vim
