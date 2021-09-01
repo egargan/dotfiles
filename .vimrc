@@ -65,6 +65,9 @@ Plug 'moll/vim-bbye'
 " In-vim Git handiness
 Plug 'tpope/vim-fugitive'
 
+" Nord colorscheme
+Plug 'arcticicestudio/nord-vim'
+
 
 " ----------------------------------------------------------------------------
 
@@ -94,7 +97,7 @@ call plug#end()
 set noshowmode
 
 let g:lightline = {
-\   'colorscheme' : 'Tomorrow_Night',
+\   'colorscheme' : 'nord',
 \   'active': {
 \     'left': [ [ 'mode', 'paste' ],
 \                [ 'readonly', 'filename' ],
@@ -282,6 +285,10 @@ let g:vim_svelte_plugin_use_sass=1
 " Hotkey friendly delete buffer
 nnoremap - :Bd<Enter>
 
+" -- arcticicestudio/nord-vim ------------------------------------------------
+
+colorscheme nord
+
 
 " === General Settings  ======================================================
 
@@ -337,15 +344,11 @@ set formatoptions-=o                " Disable comment block continuation on o/O
 
 let g:netrw_liststyle=3             " Set default netrw liststyle to 'tree' mode
 
-
-" === Theme ==================================================================
-
-" Download colorscheme if not installed
-silent ! [ -e ~/.vim/colors/tomorrow-night.vim ] ||
-    \ curl --create-dirs -o ~/.vim/colors/tomorrow-night.vim
-    \ https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim
-
-colorscheme tomorrow-night
+" If we can, use colorscheme's 256-bit colours, typically makes colouring
+" more consistent throughout Vim
+if exists('+termguicolors')
+    set termguicolors
+endif
 
 
 " === General Mappings  ======================================================
