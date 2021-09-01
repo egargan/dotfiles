@@ -16,6 +16,9 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
+# Hook direnv into shell
+eval "$(direnv hook zsh)"
+
 
 # == Plugins =================================================================
 
@@ -84,6 +87,8 @@ setopt HIST_IGNORE_SPACE              # Don't record space-prefixed commands
 setopt HIST_FIND_NO_DUPS              # Ignore duplicates when searching history
 
 export GIT_CEILING_DIRECTORIES=$HOME  # 'git ...' won't look as far as ~ when looking for repo
+
+export PATH=$PATH:~/.local/bin
 
 
 # == Aliases ==================================================================
