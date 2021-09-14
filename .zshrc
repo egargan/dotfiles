@@ -70,6 +70,55 @@ source ~/.zplug/repos/junegunn/fzf/shell/completion.zsh
 # Have fzf use ripgrep
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --follow --glob '!.git'"
 
+fzf-down-preview() {
+  fzf --reverse --height 50% --min-height 20 --bind ctrl-k:toggle-preview --preview-window right:60%:hidden "$@"
+}
+
+_gb() {
+  git branch -a --color=always | grep -v '/HEAD\s' | sort |
+  fzf-down-preview --ansi --multi --tac --preview \
+  'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
+  sed 's/^..//' | cut -d' ' -f1 |
+  sed 's#^remotes/##'
+}
+
+_gt() {
+  git tag --sort -version:refname |
+  fzf-down-preview --multi --preview 'git show --color=always {}'
+}
+
+_gl() {
+  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+  fzf-down-preview --ansi --no-sort --multi --bind 'ctrl-s:toggle-sort' --delimiter '[a-z0-9\-]{7,}' --nth 3.. \
+    --header 'Ctrl-S to toggle sort' \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
+  grep -o "[a-f0-9]\{7,\}"
+}
+
+_gs() {
+  git stash list | fzf-down-preview -d: --preview 'git show --color=always {1}' |
+  cut -d: -f1
+}
+
+join-lines() {
+  local item
+  while read item; do
+    echo -n "${(q)item} "
+  done
+}
+
+# For each function above, create a widget and register a binding
+for key in b t l s; do
+  eval "fzf-g$key-widget() {
+    git rev-parse HEAD > /dev/null 2>&1 || return;
+    local result=\$(_g$key | join-lines);
+    zle reset-prompt;
+    LBUFFER+=\$result
+  }"
+  eval "zle -N fzf-g$key-widget"
+  eval "bindkey '^g$key' fzf-g$key-widget"
+done
+
 # -- sharkdp/bat -------------------------------------------------------------
 
 export BAT_THEME="Nord"
