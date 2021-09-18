@@ -22,7 +22,11 @@ eval "$(direnv hook zsh)"
 
 # == Plugins =================================================================
 
-source ~/.zplug/init.zsh
+if [[ -f '/usr/local/opt/zplug/init.zsh' ]]; then
+  source /usr/local/opt/zplug/init.zsh
+elif [[ -f '~/.zplug/init.zsh' ]]; then
+  source ~/.zplug/init.zsh
+fi
 
 # ----------------------------------------------------------------------------
 
