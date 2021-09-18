@@ -70,6 +70,10 @@ source ~/.zplug/repos/junegunn/fzf/shell/completion.zsh
 # Have fzf use ripgrep
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --follow --glob '!.git'"
 
+# -- sharkdp/bat -------------------------------------------------------------
+
+export BAT_THEME="Nord"
+
 
 # == Prompt ===================================================================
 
