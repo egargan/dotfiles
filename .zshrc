@@ -36,9 +36,6 @@ fi
 # Have zplug manage itself like the other plugins
 zplug 'zplug/zplug', hook-build: 'zplug --self-manage'
 
-# Brings in functions and vars to tell us Git info
-zplug "plugins/git", from:oh-my-zsh
-
 # Multi-purpose fuzzy text searcher
 zplug "junegunn/fzf", as:command, hook-build:"./install --bin", use:"bin/{fzf-tmux,fzf}"
 
