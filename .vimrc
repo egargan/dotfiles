@@ -218,9 +218,6 @@ let g:lsp_signs_enabled = 1
 " Highlight references to symbol under cursor
 let g:lsp_highlight_references_enabled = 1
 
-" Log LSP's doings for when things go wrong
-let g:lsp_log_file = expand('~/.vim-lsp.log')
-
 let g:lsp_settings_servers_dir = '~/.vim/lsp/servers'
 
 " The LSP settings plugin has a hard time with Python's LSP for some reason,
