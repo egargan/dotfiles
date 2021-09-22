@@ -321,6 +321,8 @@ set undofile                        " Lave undo history to file
 set undoreload=1000                 " Limit history to 1k lines
 set undodir=~/.vim/undo             " Set loc for undo history
 
+set backspace=indent,eol,start      " Enable backspace in insert mode
+
  " create undo dir if !exists
 silent ! [ -d ~/.vim/undo ] || mkdir ~/.vim/undo
 
