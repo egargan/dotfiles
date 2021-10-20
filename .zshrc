@@ -27,7 +27,7 @@ eval "$(direnv hook zsh)"
 
 if [[ -f '/usr/local/opt/zplug/init.zsh' ]]; then
   source /usr/local/opt/zplug/init.zsh
-elif [[ -f '~/.zplug/init.zsh' ]]; then
+elif [[ -f "$HOME/.zplug/init.zsh" ]]; then
   source ~/.zplug/init.zsh
 fi
 
