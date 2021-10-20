@@ -100,6 +100,10 @@ _gs() {
   cut -d: -f1
 }
 
+_go() {
+  git branch --show-current
+}
+
 join-lines() {
   local item
   while read item; do
@@ -108,10 +112,10 @@ join-lines() {
 }
 
 # For each function above, create a widget and register a binding
-for key in b t l s; do
+for key in b t l s o; do
   eval "fzf-g$key-widget() {
     git rev-parse HEAD > /dev/null 2>&1 || return;
-    local result=\$(_g$key | join-lines);
+    local result=\$(_g$key);
     zle reset-prompt;
     LBUFFER+=\$result
   }"
