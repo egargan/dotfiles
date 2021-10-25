@@ -148,18 +148,49 @@ xmap ga <Plug>(EasyAlign)
 
 " -- junegunn/fzf ------------------------------------------------------------
 
-" Returns the currently-selected 'dir node' if NERDTree is focused, '.' otherwise.
-function! GetSearchRootDir()
-  if getbufvar(bufnr(), '&filetype') == 'nerdtree' && has_key(g:NERDTreeDirNode.GetSelected(), 'path')
-    return g:NERDTreeDirNode.GetSelected().path.str()
+function! IsCursorInNERDTree()
+  return getbufvar(bufnr(), '&filetype') == 'nerdtree' && has_key(g:NERDTreeDirNode.GetSelected(), 'path')
+endfunction
+
+" A 'sink' function for FZF when opened in NERDTree, handles opening files
+" from wherever the user was in the filesystem in NERDTree.
+"
+" TODO:
+" * 'wincmd w' just moves one window to the right and opens the file there,
+"   can we somehow track which window was last active before NERDTree?
+" * this doesn't work for 'Rg', which passes the chosen filename, a line number,
+"   and the line contents
+function! NERDTreeFzfSink(filename)
+  echom a:filename
+  " TODO: this just moves one window to the right, can we access the last opened window?
+  silent execute 'wincmd w'
+  silent execute 'edit ' a:filename
+endfunction
+
+" Returns config for 'fzf#vim#with_preview' function, telling it where to
+" search from, and to not match filenames in Rg output.
+function! GetBaseFzfOpts()
+  if IsCursorInNERDTree()
+    let nerd_tree_dir = g:NERDTreeDirNode.GetSelected().path.str()
+    return {
+    \   'dir': nerd_tree_dir,
+    \   'sink': { filename -> NERDTreeFzfSink(nerd_tree_dir . '/' . filename)},
+    \   'options': '-m 0',
+    \ }
   else
-    return '.'
+    return { 'dir': '.' }
   endif
 endfunction
 
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(GetBaseFzfOpts()), <bang>0)<CR>
+
+command! -bang -nargs=? -complete=dir GitFiles
+    \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(GetBaseFzfOpts()), <bang>0)<CR>
+
 " Search files from wd. 'GitFiles' looks for tracked files, 'Files' looks everywhere.
-nnoremap <C-T> :silent execute 'GitFiles ' . GetSearchRootDir()<Enter>
-nnoremap <S-T> :silent execute 'Files ' . GetSearchRootDir()<Enter>
+nnoremap <C-T> :silent execute 'GitFiles '<Enter>
+nnoremap <S-T> :silent execute 'Files '<Enter>
 
 " Full text search from wd. Ditto 'GitRg' / 'Rg'.
 nnoremap \ :GitRg<Enter>
@@ -177,14 +208,14 @@ nnoremap <Leader>s :BLines<Enter>
 " Enable FZF search history
 let g:fzf_history_dir = '~/.local/share/vim_fzf_history'
 
-" TODO: play with these colours
 let rg_command = 'rg --line-number --no-heading --smart-case --color=always '
-  \. '--colors "path:fg:105,128,161" --colors "line:fg:74,85,120" '
 
 " Returns config for 'fzf#vim#with_preview' function, telling it where to
 " search from, and to not match filenames in Rg output.
 function! GetRgOpts()
-  return { 'dir': GetSearchRootDir(), 'options': '--delimiter : --nth 3.. --bind="CTRL-k:toggle-preview"' }
+  let base_opts = GetBaseFzfOpts()
+  let base_opts.options = '--delimiter : --nth 3.. --bind="CTRL-k:toggle-preview"'
+  return base_opts
 endfunction
 
 " Returns the above config with an extra 'query' option, the initial query string
