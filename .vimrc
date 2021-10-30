@@ -158,35 +158,59 @@ endfunction
 " TODO:
 " * 'wincmd w' just moves one window to the right and opens the file there,
 "   can we somehow track which window was last active before NERDTree?
-" * this doesn't work for 'Rg', which passes the chosen filename, a line number,
-"   and the line contents
-function! NERDTreeFzfSink(filename)
-  echom a:filename
-  " TODO: this just moves one window to the right, can we access the last opened window?
+function! NERDTreeFilesFzfSink(filename)
   silent execute 'wincmd w'
   silent execute 'edit ' a:filename
 endfunction
 
-" Returns config for 'fzf#vim#with_preview' function, telling it where to
-" search from, and to not match filenames in Rg output.
-function! GetBaseFzfOpts()
+" The same sink function, but handles parsing the colon-delimited filename +
+" line number string that Rg gives to us
+function! NERDTreeRgFzfSink(filename_and_line)
+  let split_filename_line = split(a:filename_and_line, ':')
+  silent execute 'wincmd w'
+  silent execute 'edit ' split_filename_line[0]
+  silent execute ': ' split_filename_line[1]
+endfunction
+
+" Returns config for 'fzf#vim#with_preview' function for the 'Files' FZF
+" commands below, telling it how to behave between opening in regular buffers
+" and NERDTree
+function! GetFilesOpts()
+  let files_opts = { 'options': '-m 0' }
+
   if IsCursorInNERDTree()
     let nerd_tree_dir = g:NERDTreeDirNode.GetSelected().path.str()
-    return {
-    \   'dir': nerd_tree_dir,
-    \   'sink': { filename -> NERDTreeFzfSink(nerd_tree_dir . '/' . filename)},
-    \   'options': '-m 0',
-    \ }
-  else
-    return { 'dir': '.' }
+    let files_opts.dir = nerd_tree_dir
+    let files_opts.sink = { filename -> NERDTreeFilesFzfSink(nerd_tree_dir . '/' . filename) }
   endif
+
+  return files_opts
+endfunction
+
+" Same as GetFilesOpts, but returns config for the 'Rg' FZF commands
+function! GetRgOpts(query)
+  let rg_opts = {
+  \   'options': '-m 0 --delimiter : --nth 3.. --bind="CTRL-k:toggle-preview"',
+  \ }
+
+  if a:query
+    let rg_opts.options = rg_opts.options . ' --query ''' . a:query . ''''
+  endif
+
+  if IsCursorInNERDTree()
+    let nerd_tree_dir = g:NERDTreeDirNode.GetSelected().path.str()
+    let rg_opts.dir = nerd_tree_dir
+    let rg_opts.sink = { filename -> NERDTreeRgFzfSink(nerd_tree_dir . '/' . filename) }
+  endif
+
+  return rg_opts
 endfunction
 
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(GetBaseFzfOpts()), <bang>0)<CR>
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(GetFilesOpts()), <bang>0)<CR>
 
 command! -bang -nargs=? -complete=dir GitFiles
-    \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(GetBaseFzfOpts()), <bang>0)<CR>
+    \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(GetFilesOpts()), <bang>0)<CR>
 
 " Search files from wd. 'GitFiles' looks for tracked files, 'Files' looks everywhere.
 nnoremap <C-T> :silent execute 'GitFiles '<Enter>
@@ -210,32 +234,17 @@ let g:fzf_history_dir = '~/.local/share/vim_fzf_history'
 
 let rg_command = 'rg --line-number --no-heading --smart-case --color=always '
 
-" Returns config for 'fzf#vim#with_preview' function, telling it where to
-" search from, and to not match filenames in Rg output.
-function! GetRgOpts()
-  let base_opts = GetBaseFzfOpts()
-  let base_opts.options = '--delimiter : --nth 3.. --bind="CTRL-k:toggle-preview"'
-  return base_opts
-endfunction
-
-" Returns the above config with an extra 'query' option, the initial query string
-function! GetStarRgOpts(query)
-  let rg_opts = GetRgOpts()
-  let rg_opts['options'] = rg_opts['options'] . ' --query ''' . a:query . ''''
-  return rg_opts
-endfunction
-
 " TODO: have this not fail when there aren't any files to search
 command! -bang -nargs=* GitRg call fzf#vim#grep(rg_command
-  \ .shellescape(<q-args>), 1, fzf#vim#with_preview(GetRgOpts()), <bang>0)
+  \ .shellescape(<q-args>), 1, fzf#vim#with_preview(GetRgOpts('')), <bang>0)
 
 command! -bang -nargs=* Rg call fzf#vim#grep(rg_command . ' --no-ignore-vcs '
-  \ .shellescape(<q-args>), 1, fzf#vim#with_preview(GetRgOpts()), <bang>0)
+  \ .shellescape(<q-args>), 1, fzf#vim#with_preview(GetRgOpts('')), <bang>0)
 
 " TODO: why do we need the 'shellescape()' bit for this to work? It just
 " returns '', but trying to just concat '' to rg_command doesn't work??
 command! -bang -nargs=* StarRg call fzf#vim#grep(rg_command
-  \ .shellescape(''), 1, fzf#vim#with_preview(GetStarRgOpts(<q-args>)), <bang>0)
+  \ .shellescape(''), 1, fzf#vim#with_preview(GetRgOpts(<q-args>)), <bang>0)
 
 
 " -- prabirshrestha/vim-lsp + friends ----------------------------------------
