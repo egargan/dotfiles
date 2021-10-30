@@ -206,11 +206,11 @@ function! GetRgOpts(query)
   return rg_opts
 endfunction
 
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(GetFilesOpts()), <bang>0)<CR>
+command! -bang -complete=dir Files
+    \ call fzf#vim#files('', fzf#vim#with_preview(GetFilesOpts()), <bang>0)<CR>
 
-command! -bang -nargs=? -complete=dir GitFiles
-    \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(GetFilesOpts()), <bang>0)<CR>
+command! -bang -complete=dir GitFiles
+    \ call fzf#vim#gitfiles('', fzf#vim#with_preview(GetFilesOpts()), <bang>0)<CR>
 
 " Search files from wd. 'GitFiles' looks for tracked files, 'Files' looks everywhere.
 nnoremap <C-T> :silent execute 'GitFiles '<Enter>
@@ -234,17 +234,18 @@ let g:fzf_history_dir = '~/.local/share/vim_fzf_history'
 
 let rg_command = 'rg --line-number --no-heading --smart-case --color=always '
 
+" 'shellescape('')' here adds two single quotes to the end of the ripgrep
+" command string, which it requires for some reason
+"
 " TODO: have this not fail when there aren't any files to search
-command! -bang -nargs=* GitRg call fzf#vim#grep(rg_command
-  \ .shellescape(<q-args>), 1, fzf#vim#with_preview(GetRgOpts('')), <bang>0)
+command! -bang GitRg call fzf#vim#grep(rg_command . shellescape(''),
+  \ 1, fzf#vim#with_preview(GetRgOpts('')), <bang>0)
 
-command! -bang -nargs=* Rg call fzf#vim#grep(rg_command . ' --no-ignore-vcs '
-  \ .shellescape(<q-args>), 1, fzf#vim#with_preview(GetRgOpts('')), <bang>0)
+command! -bang Rg call fzf#vim#grep(rg_command . ' --no-ignore-vcs ' . shellescape('')
+  \ 1, fzf#vim#with_preview(GetRgOpts('')), <bang>0)
 
-" TODO: why do we need the 'shellescape()' bit for this to work? It just
-" returns '', but trying to just concat '' to rg_command doesn't work??
-command! -bang -nargs=* StarRg call fzf#vim#grep(rg_command
-  \ .shellescape(''), 1, fzf#vim#with_preview(GetRgOpts(<q-args>)), <bang>0)
+command! -bang -nargs=1 StarRg call fzf#vim#grep(rg_command .shellescape(''),
+  \ 1, fzf#vim#with_preview(GetRgOpts(<q-args>)), <bang>0)
 
 
 " -- prabirshrestha/vim-lsp + friends ----------------------------------------
