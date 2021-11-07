@@ -163,13 +163,31 @@ function! NERDTreeFilesFzfSink(filename)
   silent execute 'edit ' a:filename
 endfunction
 
-" The same sink function, but handles parsing the colon-delimited filename +
-" line number string that Rg gives to us
-function! NERDTreeRgFzfSink(filename_and_line)
-  let split_filename_line = split(a:filename_and_line, ':')
-  silent execute 'wincmd w'
-  silent execute 'edit ' split_filename_line[0]
-  silent execute ': ' split_filename_line[1]
+" A 'sink*' function for for handling all outcomes of the below Rg commands.
+" Handles either navigating to the chosen line and file, or yanking the chosen
+" line, depending on the key used to 'complete' the Rg command.
+function! RgFzfSink(sink_lines, nerdtree_dir)
+  let split_filename_line = split(a:sink_lines[1], ':')
+  let filename = split_filename_line[0]
+  let line_number = split_filename_line[1]
+  let line_content = split_filename_line[2]
+
+  " TODO: handle ctrl-t, ctrl-s, ctrl-V - now that we're using a custom
+  " sink for every Rg call, we need to do this ourselves
+  if a:sink_lines[0] == 'ctrl-y'
+    let @" = line_content . "\n"
+  elseif a:sink_lines[0] == ''
+    if a:nerdtree_dir != ''
+      " If Rg was completed with the enter key
+      silent execute 'wincmd w'
+      silent execute 'edit ' a:nerdtree_dir . '/' . filename
+      silent execute ': ' line_number
+    else
+      " If Rg was completed with ctrl-y
+      silent execute 'edit ' filename
+      silent execute ': ' line_number
+    endif
+  endif
 endfunction
 
 " Returns config for 'fzf#vim#with_preview' function for the 'Files' FZF
@@ -190,7 +208,7 @@ endfunction
 " Same as GetFilesOpts, but returns config for the 'Rg' FZF commands
 function! GetRgOpts(query)
   let rg_opts = {
-  \   'options': '-m 0 --delimiter : --nth 3.. --bind="CTRL-k:toggle-preview"',
+  \   'options': '-m 0 --delimiter : --nth 3.. --bind="CTRL-k:toggle-preview" --expect=ctrl-y',
   \ }
 
   if a:query
@@ -200,7 +218,9 @@ function! GetRgOpts(query)
   if IsCursorInNERDTree()
     let nerd_tree_dir = g:NERDTreeDirNode.GetSelected().path.str()
     let rg_opts.dir = nerd_tree_dir
-    let rg_opts.sink = { filename -> NERDTreeRgFzfSink(nerd_tree_dir . '/' . filename) }
+    let rg_opts['sink*'] = { sink_lines -> RgFzfSink(sink_lines, nerd_tree_dir) }
+  else
+    let rg_opts['sink*'] = { sink_lines -> RgFzfSink(sink_lines, '') }
   endif
 
   return rg_opts
