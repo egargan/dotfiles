@@ -241,7 +241,7 @@ let rg_command = 'rg --line-number --no-heading --smart-case --color=always '
 command! -bang GitRg call fzf#vim#grep(rg_command . shellescape(''),
   \ 1, fzf#vim#with_preview(GetRgOpts('')), <bang>0)
 
-command! -bang Rg call fzf#vim#grep(rg_command . ' --no-ignore-vcs ' . shellescape('')
+command! -bang Rg call fzf#vim#grep(rg_command . ' --no-ignore-vcs ' . shellescape(''),
   \ 1, fzf#vim#with_preview(GetRgOpts('')), <bang>0)
 
 command! -bang -nargs=1 StarRg call fzf#vim#grep(rg_command .shellescape(''),
