@@ -243,8 +243,30 @@ nnoremap <Bar> :Rg<Enter>
 " GitRg search for word under cursor
 nnoremap <Leader>* :StarRg <C-r><C-w><Enter>
 
+" Returns options that shape the window for the custom Buffers command below
+function! GetBuffersOpts()
+  let opts = {
+  \  'window': {
+  \    'width': 100,
+  \    'relative': 0,
+  \  },
+  \}
+
+  let buffer_count = len(getbufinfo({'buflisted':1}))
+
+  if buffer_count > 15
+    let opts.window.height = 20
+  else
+    let opts.window.height = buffer_count + 5
+  endif
+
+  return opts
+endfunction
+
+command! -bang -complete=dir Buffers call fzf#vim#buffers(GetBuffersOpts(), <bang>0)<CR>
+
 " Search open buffer names
-nnoremap <Tab> :Buffers<Enter>
+nnoremap <Tab> :silent execute 'Buffers '<Enter>
 
 " Text search current buffer
 nnoremap <Leader>s :BLines<Enter>
