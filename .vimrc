@@ -194,21 +194,21 @@ endfunction
 " commands below, telling it how to behave between opening in regular buffers
 " and NERDTree
 function! GetFilesOpts()
-  let files_opts = { 'options': '-m 0' }
-
   if IsCursorInNERDTree()
     let nerd_tree_dir = g:NERDTreeDirNode.GetSelected().path.str()
-    let files_opts.dir = nerd_tree_dir
-    let files_opts.sink = { filename -> NERDTreeFilesFzfSink(nerd_tree_dir . '/' . filename) }
+    return {
+    \  'dir': nerd_tree_dir,
+    \  'sink': { filename -> NERDTreeFilesFzfSink(nerd_tree_dir . '/' . filename) },
+    \}
   endif
 
-  return files_opts
+  return {}
 endfunction
 
 " Same as GetFilesOpts, but returns config for the 'Rg' FZF commands
 function! GetRgOpts(query)
   let rg_opts = {
-  \   'options': '-m 0 --delimiter : --nth 3.. --bind="CTRL-k:toggle-preview" --expect=ctrl-y',
+  \   'options': '--delimiter : --nth 3.. --bind="CTRL-k:toggle-preview" --expect=ctrl-y',
   \ }
 
   if a:query
