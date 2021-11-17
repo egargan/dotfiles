@@ -211,7 +211,7 @@ function! GetRgOpts(query)
   \   'options': '--delimiter : --nth 3.. --bind="CTRL-k:toggle-preview" --expect=ctrl-y',
   \ }
 
-  if a:query
+  if a:query != ''
     let rg_opts.options = rg_opts.options . ' --query ''' . a:query . ''''
   endif
 
@@ -286,7 +286,7 @@ command! -bang GitRg call fzf#vim#grep(rg_command . shellescape(''),
 command! -bang Rg call fzf#vim#grep(rg_command . ' --no-ignore-vcs ' . shellescape(''),
   \ 1, fzf#vim#with_preview(GetRgOpts('')), <bang>0)
 
-command! -bang -nargs=1 StarRg call fzf#vim#grep(rg_command .shellescape(''),
+command! -bang -nargs=1 StarRg call fzf#vim#grep(rg_command . shellescape(''),
   \ 1, fzf#vim#with_preview(GetRgOpts(<q-args>)), <bang>0)
 
 
