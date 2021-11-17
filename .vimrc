@@ -472,6 +472,9 @@ vnoremap <leader>r :s/\<<C-r><C-w>\>//g<left><left>
 " Delete everything between cursor and end of above line
 noremap <C-j> :norm "_d0kgJ"<Enter>
 
+" Override default print filename map to also set the system clipboard
+nnoremap <C-g> :let @+ = expand('%')<Enter> <Bar> :echo expand('%')<Enter>
+
 
 " === Autocommands  ==========================================================
 
