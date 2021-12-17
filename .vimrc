@@ -175,15 +175,20 @@ function! RgFzfSink(sink_lines, nerdtree_dir)
   " TODO: handle ctrl-t, ctrl-s, ctrl-V - now that we're using a custom
   " sink for every Rg call, we need to do this ourselves
   if a:sink_lines[0] == 'ctrl-y'
+    " If completed with ctrl-y, yank the line content
     let @" = line_content . "\n"
+  elseif len(a:sink_lines) > 2
+    " If multiple lines were selected using tab, open them into a quickfix window
+    cex a:sink_lines[1:]
+    copen
   elseif a:sink_lines[0] == ''
+    " Else open file, checking whether FZF was opened from NERDTree or no, and
+    " building the path accordingly
     if a:nerdtree_dir != ''
-      " If Rg was completed with the enter key
       silent execute 'wincmd w'
       silent execute 'edit ' a:nerdtree_dir . '/' . filename
       silent execute ': ' line_number
     else
-      " If Rg was completed with ctrl-y
       silent execute 'edit ' filename
       silent execute ': ' line_number
     endif
@@ -445,6 +450,10 @@ nnoremap [t :tabprev<Enter>
 
 " Faster new tab
 nnoremap ]T :tabnew<Enter>
+
+" Quickfix list navigation
+nnoremap ]q :cnext<Enter>
+nnoremap [q :cprev<Enter>
 
 " 5-line up/down jumps
 noremap <S-k> 5k
