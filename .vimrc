@@ -484,6 +484,14 @@ noremap <C-j> :norm "_d0kgJ"<Enter>
 " Override default print filename map to also set the system clipboard
 nnoremap <C-g> :let @+ = expand('%')<Enter> <Bar> :echo expand('%')<Enter>
 
+" Removes the currently-selected quickfix item from the quickfix list
+function! RemoveLineFromQuickFix()
+  let l:current_item = getqflist({'idx': 0})['idx'] - 1
+  call setqflist(filter(getqflist(), { idx -> idx != l:current_item }))
+endf
+
+nnoremap <silent> [Q :call RemoveLineFromQuickFix()<cr>
+
 
 " === Autocommands  ==========================================================
 
