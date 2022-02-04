@@ -298,10 +298,13 @@ command! -bang -nargs=1 StarRg call fzf#vim#grep(rg_command . shellescape(''),
 " -- prabirshrestha/vim-lsp + friends ----------------------------------------
 
 " Show diagnostic message under cursor in status line
-let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_float_cursor = 1
 
 " Enable 'W', 'E', etc. 'signs' in gutter
 let g:lsp_signs_enabled = 1
+
+" Disable the 'A>' gutter signs.. not sure what they're for
+let g:lsp_document_code_action_signs_enabled = 0
 
 " Highlight references to symbol under cursor
 let g:lsp_highlight_references_enabled = 1
@@ -318,7 +321,9 @@ function! s:on_lsp_buffer_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
 
-  " <buffer> here means the mapping only applies to Python buffers
+  nmap <buffer> <silent> <Leader>a <plug>(lsp-code-action)
+  nmap <buffer> <silent> <Leader>k <Plug>(lsp-hover)
+  nmap <buffer> <silent> <cr> <Plug>(lsp-preview-close)
   nmap <buffer> <silent> gd <Plug>(lsp-definition)
   nmap <buffer> <silent> <leader>r <Plug>(lsp-rename)
   nmap <buffer> <silent> [e <Plug>(lsp-previous-error)
