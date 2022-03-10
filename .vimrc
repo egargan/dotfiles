@@ -492,6 +492,12 @@ nnoremap <C-g> :let @+ = expand('%')<Enter> <Bar> :echo expand('%')<Enter>
 " Removes the currently-selected quickfix item from the quickfix list
 function! RemoveLineFromQuickFix()
   let l:current_item = getqflist({'idx': 0})['idx'] - 1
+
+  # If there will be another item in the quickfix list after this deletion, select it now
+  if len(getqflist()) > 1
+    execute 'cn'
+  endif
+
   call setqflist(filter(getqflist(), { idx -> idx != l:current_item }))
 endf
 
