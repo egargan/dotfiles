@@ -397,7 +397,8 @@ set ttimeoutlen=50
 
 set scrolloff=4                     " Always keep cursor >= 4 lines away from top and bottom of screen
 set linebreak                       " Don't wrap lines in the middle of words
-set colorcolumn=100                  " Show line length boundary at line 100
+set colorcolumn=100                 " Show line length boundary at line 100
+set tw=100                          " Set word wrap width to 100
 set laststatus=2                    " Always show status bar
 set cursorline                      " Highlight cursor's line
 
