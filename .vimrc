@@ -504,6 +504,12 @@ endf
 
 nnoremap <silent> [Q :call RemoveLineFromQuickFix()<cr>
 
+" Disable Ex mode
+nmap Q <Nop>
+
+" Mapping for closing Vim in a hurry
+nnoremap QQ :qa!<Enter>
+
 
 " === Autocommands  ==========================================================
 
