@@ -231,10 +231,10 @@ function! GetRgOpts(query)
   return rg_opts
 endfunction
 
-command! -bang -complete=dir Files
+command! -bang Files
     \ call fzf#vim#files('', fzf#vim#with_preview(GetFilesOpts()), <bang>0)
 
-command! -bang -complete=dir GitFiles
+command! -bang GitFiles
     \ call fzf#vim#gitfiles('', fzf#vim#with_preview(GetFilesOpts()), <bang>0)
 
 " Search files from wd. 'GitFiles' looks for tracked files, 'Files' looks everywhere.
@@ -268,7 +268,7 @@ function! GetBuffersOpts()
   return opts
 endfunction
 
-command! -bang -complete=dir Buffers call fzf#vim#buffers(GetBuffersOpts(), <bang>0)
+command! -bang Buffers call fzf#vim#buffers(GetBuffersOpts(), <bang>0)
 
 " Search open buffer names
 nnoremap <Tab> :silent execute 'Buffers '<Enter>
