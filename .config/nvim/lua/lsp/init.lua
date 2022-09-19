@@ -25,7 +25,7 @@ function setup()
     end, bufopts)
     vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<Leader>f', vim.lsp.buf.formatting, bufopts)
   end
@@ -51,9 +51,11 @@ function setup()
   -- Setup Mason LSP installer UI
   require('mason').setup()
 
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
   -- TODO: can we do this more elegantly?
   for _, value in pairs(vim.fn.systemlist('ls $HOME/.config/nvim/lua/lsp/langs | sed -e \'s/\\.lua$//\'')) do
-    require('lsp.langs.' .. value)
+    require('lsp.langs.' .. value)(capabilities, on_attach)
   end
 end
 
