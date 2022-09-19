@@ -175,10 +175,10 @@ alias   cb='xclip -selection clipboard'
 # Print path to current SSH socket file
 alias shocket='echo $(find /tmp -path "*/ssh-*" -name "agent*" -uid $(id -u) 2>/dev/null | tail -n1)'
 
-# If vimx is installed (vim with X11-y feature support, notably clipboard), alias it
-if [[ "$(command -v vimx)" ]]; then
-  alias vim='vimx'
-  alias vi='vimx'
+# If nvim is installed, alias vim and vi to it
+if [[ "$(command -v nvim)" ]]; then
+  alias vim='nvim'
+  alias vi='nvim'
 fi
 
 # Alias ls to ls with colours enabled (of course macOS' uses a different option)
