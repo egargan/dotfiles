@@ -145,8 +145,6 @@ vim.api.nvim_set_keymap('', '<S-j>', '5j', { noremap = true })
 -- Cuts to black hole buffer
 vim.api.nvim_set_keymap('', '<leader>d', '"_d', { noremap = true })
 vim.api.nvim_set_keymap('', '<leader>D', '"_D', { noremap = true })
-vim.api.nvim_set_keymap('', '<leader>c', '"_c', { noremap = true })
-vim.api.nvim_set_keymap('', '<leader>C', '"_C', { noremap = true })
 vim.api.nvim_set_keymap('', '<leader>x', '"_x', { noremap = true })
 
 -- Stop j/k working linewise
