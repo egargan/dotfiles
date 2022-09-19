@@ -3,4 +3,5 @@
 return {
   name = 'nvim-treesitter/nvim-treesitter',
   options = { ['do'] = ':TSUpdate' },
+  priority = 2,
 }
