@@ -101,13 +101,13 @@ vim.opt.wildignore = { '.git', '*.swp', '*/tmp/*' }
 
 vim.opt.undofile = true                       -- Lave undo history to file
 vim.opt.undoreload = 1000               -- Limit history to 1k lines
-vim.opt.undodir = '~/.nvim/undo'           -- Set loc for undo history
+vim.opt.undodir =  vim.fn.expand('~') .. '/.nvim/swap//'  -- Set loc for undo history
 
 -- create undo dir if !exists
 vim.fn.system('silent ! [ -d ' .. vim.opt.undodir:get()[1] ..
   '] || mkdir ' .. vim.opt.undodir:get()[1])
 
-vim.opt.directory = '~/.nvim/swap//'       -- Keep swaps in home dir (trailing '//' creates full-path-name .swps)
+vim.opt.directory = vim.fn.expand('~') .. '/.nvim/swap//'   -- Keep swaps in home dir (trailing '//' creates full-path-name .swps)
 
 -- create swap dir if !exists
 vim.fn.system('silent ! [ -d ' .. vim.opt.directory:get()[1] ..
