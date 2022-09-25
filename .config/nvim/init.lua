@@ -188,8 +188,8 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 -- Host-specific config ========================================================
 
-local private_config_path = '~/.config/nvim/init.lua.private'
+local private_config_path = '$HOME/.config/nvim/lua/private-init.lua'
 
 if vim.fn.filereadable(vim.fn.expand(private_config_path)) ~= 0 then
-  require(private_config_path)
+  require('private-init')
 end
