@@ -29,9 +29,14 @@ function setup()
           ["<C-p>"] = require('telescope.actions.layout').toggle_preview,
           ["<C-l>"] = require('telescope.actions.layout').cycle_layout_next,
         },
+      },
+      previewer = {
+        treesitter = true,
       }
     },
   })
+
+  -- General Bindings ------------------------------------------------------------------------------
 
   -- TODO: move this to the file_browser plugin setup?
   require("telescope").load_extension("file_browser")
@@ -61,6 +66,12 @@ function setup()
   -- TODO: make --no-ignore version
   vim.keymap.set('v', '<leader>fg', '"zy:Telescope live_grep default_text=<C-r>z<cr>', opts)
 
+  -- Fuzzy find text in buffer
+  vim.keymap.set('n', '<leader>f/', builtins.current_buffer_fuzzy_find, opts)
+
+  -- Blame current buffer
+  vim.keymap.set('n', '<leader>fh', builtins.git_bcommits, opts)
+
   -- Fuzzy search buffers
   -- TODO: add multi select resolve for harpoon
   vim.keymap.set('n', '<leader>fb', function() builtins.buffers({
@@ -69,14 +80,23 @@ function setup()
     previewer = false,
   }) end, opts)
 
-  -- TODO: add bindings for LSP
+  -- LSP Bindings ---------------------------------------------------------------------------------
+
+  vim.keymap.set('n', '<leader>fd', builtins.diagnostics, opts)
+
+  vim.keymap.set('n', '<leader>fr', function() builtins.lsp_references({
+    layout_strategy = 'vertical',
+    layout_config = { width = 0.6, height = 0.75 },
+    show_line = false,
+  }) end, opts)
+
+  -- Highlights -----------------------------------------------------------------------------------
 
   vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "Comment" })
   vim.api.nvim_set_hl(0, "TelescopeResultsLineNr", { link = "Comment" })
   vim.api.nvim_set_hl(0, "TelescopeResultsIdentifier", { link = "Comment" })
   vim.api.nvim_set_hl(0, "TelescopeResultsNumber", { link = "Comment" })
   vim.api.nvim_set_hl(0, "TelescopeMatching", { link = "Annotation" })
-
 end
 
 return {
