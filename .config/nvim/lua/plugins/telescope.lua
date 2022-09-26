@@ -3,6 +3,9 @@
 function setup()
   local builtins = require('telescope.builtin')
 
+  local action_state = require("telescope.actions.state")
+  local action_utils = require("telescope.actions.utils")
+
   local opts = { noremap = true, silent = true }
 
   local vimgrep_args = {
@@ -80,6 +83,29 @@ function setup()
     layout_strategy = 'vertical',
     layout_config = { width = 80, height = 20 },
     previewer = false,
+    attach_mappings = function(_, map)
+      map("i", "<C-h>", function(prompt_bufnr)
+        local selected_buffers = {}
+
+        action_utils.map_selections(prompt_bufnr, function(entry)
+          table.insert(selected_buffers, entry.value)
+        end)
+
+        local add_file = require('harpoon.mark').add_file
+
+        if #selected_buffers > 0 then
+          for _, filename in pairs(selected_buffers) do
+            add_file(filename)
+          end
+        else
+          add_file(action_state.get_selected_entry().filename)
+        end
+
+        require('telescope.actions').close(prompt_bufnr)
+        require('harpoon.ui').toggle_quick_menu()
+      end)
+      return true
+    end,
   }) end, opts)
 
   -- LSP Bindings ---------------------------------------------------------------------------------
