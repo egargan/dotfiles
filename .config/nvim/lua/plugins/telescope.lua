@@ -28,6 +28,8 @@ function setup()
           ["<C-Down>"] = require('telescope.actions').cycle_history_prev,
           ["<C-p>"] = require('telescope.actions.layout').toggle_preview,
           ["<C-l>"] = require('telescope.actions.layout').cycle_layout_next,
+          ["<C-k>"] = require('telescope.actions').move_selection_previous,
+          ["<C-j>"] = require('telescope.actions').move_selection_next,
         },
       },
       previewer = {
