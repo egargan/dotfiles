@@ -26,7 +26,11 @@ function setup()
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-    })
+    }),
+    snippet = {
+      -- Register snippets engine
+      expand = function(args) vim.fn["vsnip#anonymous"](args.body) end,
+    }
   })
 
   -- Use cmdline source for ':'
@@ -48,6 +52,11 @@ return {
 
     -- Completion source for vim's command line
     'hrsh7th/cmp-cmdline',
+
+    -- Snippet engine, needed to make LSP snippet completions work
+    -- TODO: move this into standalone 'snippets' dir?
+    'hrsh7th/vim-vsnip',
+    'hrsh7th/vim-vsnip-integ'
   },
   setup = setup,
 }

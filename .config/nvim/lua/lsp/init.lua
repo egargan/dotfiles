@@ -7,9 +7,6 @@ function setup()
 
   -- on_attach means these settings will only be applied once the server attaches to the buffer
   local on_attach = function(client, bufnr)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
     -- TODO: work through these
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
