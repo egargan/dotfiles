@@ -2,7 +2,13 @@
 
 function setup()
   require('nvim-treesitter.configs').setup({
-    ensure_installed = { "svelte", "typescript", "lua" },
+    highlight = {
+      enable = true
+    },
+    indent = {
+      enable = true
+    },
+    ensure_installed = { "svelte", "typescript", "lua", "html", "scss" },
   })
 end
 
