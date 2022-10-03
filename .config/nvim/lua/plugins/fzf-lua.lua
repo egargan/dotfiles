@@ -24,13 +24,16 @@ local function setup()
   }) end, opts)
 
   -- Fuzzy find text
-  vim.keymap.set('n', '\\', function() fzf_lua.grep() end, opts)
+  vim.keymap.set('n', '\\', function() fzf_lua.grep({
+    search = '',
+  }) end, opts)
   -- Fuzzy find text, including ignored files
   vim.keymap.set('n', '|', function() fzf_lua.grep({
     rg_opts = '--color=never --files --hidden --no-ignore-vcs -g "!.git"',
+    search = '',
   }) end, opts)
 
-  -- TODO: can we just fill the prompt vs this weird invisible grep?
+  -- TODO: can we just fill the prompt vs this weird invisible grep? -- yep! use 'search' param
   -- Fuzzy find text under cursor
   vim.keymap.set('v', '\\', function() fzf_lua.grep_visual() end, opts)
   -- Fuzzy find text, including ignored files
