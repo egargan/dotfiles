@@ -12,7 +12,7 @@ local function setup()
   vim.keymap.set('n', '<C-t>', function() fzf_lua.files({
     winopts = {
       width = 60,
-      height = 40,
+      height = 30,
       preview = {
         layout = 'vertical',
       }
@@ -78,15 +78,12 @@ local function setup()
 
   -- Highlights ----------------------------------------------------------------
 
-  vim.api.nvim_set_hl(0, "TelescopeBorder", { link = "Comment" })
-  vim.api.nvim_set_hl(0, "TelescopeResultsLineNr", { link = "Comment" })
-  vim.api.nvim_set_hl(0, "TelescopeResultsIdentifier", { link = "Comment" })
-  vim.api.nvim_set_hl(0, "TelescopeResultsNumber", { link = "Comment" })
-  vim.api.nvim_set_hl(0, "TelescopeMatching", { link = "Annotation" })
+  vim.api.nvim_set_hl(0, 'FzfLuaBorder', { link = 'SpecialKey' })
+  vim.api.nvim_set_hl(0, 'FzfLuaTitle', { link = 'Conceal' })
 end
 
 return {
   name = 'ibhagwan/fzf-lua',
   setup = setup,
-  priority = 1,
+  priority = 2,
 }
