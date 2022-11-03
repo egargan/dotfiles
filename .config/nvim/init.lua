@@ -177,6 +177,12 @@ vim.api.nvim_set_keymap('n', 'Q', '<Nop>', {})
 -- Mapping for closing Vim in a hurry
 vim.api.nvim_set_keymap('n', 'QQ', ':qa!<Enter>', { noremap = true })
 
+-- Easy normal mode in terminal
+vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
+
+-- Convert snake case to camelcase (temporary)
+vim.api.nvim_set_keymap('v', 'sc', [[:s/\%V_\(\l\)/\u\1/g<Enter>]], { noremap = true })
+
 
 -- Autocommands  ===============================================================
 
