@@ -42,7 +42,7 @@ function setup()
   -- Setup Mason LSP installer UI
   require('mason').setup()
 
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   -- TODO: can we do this more elegantly?
   for _, value in pairs(vim.fn.systemlist('ls $HOME/.config/nvim/lua/lsp/langs | sed -e \'s/\\.lua$//\'')) do
