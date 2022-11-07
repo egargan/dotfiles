@@ -77,7 +77,7 @@ local function setup()
   }) end, opts)
 
   -- Fuzzy find text in current buffer
-  vim.keymap.set('v', '<leader>f/', function() fzf_lua.grep_curbuf() end, opts)
+  vim.keymap.set('n', '<leader>f/', function() fzf_lua.grep_curbuf() end, opts)
 
   -- Fuzzy find buffer list
   vim.keymap.set('n', '<leader>fb', function() fzf_lua.buffers({
