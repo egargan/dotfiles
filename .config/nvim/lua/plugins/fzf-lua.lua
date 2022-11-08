@@ -23,9 +23,23 @@ local function setup()
     actions.file_edit_or_qf(selected, opts)
   end
 
-  local opts = { noremap = true, silent = true }
+  local keymap_opts = { noremap = true, silent = true }
 
   -- General -------------------------------------------------------------------
+
+  -- Set default config
+  fzf_lua.setup({
+    winopts = {
+      preview = {
+        flip_columns = 200,
+      },
+    },
+    keymap = {
+      builtin = {
+        ['<C-p>'] = 'toggle-preview',
+      },
+    }
+  })
 
   -- Fuzzy find filenames
   vim.keymap.set('n', '<C-t>', function() fzf_lua.files({
@@ -40,13 +54,13 @@ local function setup()
     actions = {
       ['default'] = NERDTreeAwareEditAction,
     }
-  }) end, opts)
+  }) end, keymap_opts)
 
   -- Fuzzy find filenames, including ignored files
   vim.keymap.set('n', '<S-t>', function() fzf_lua.files({
     rg_opts = '--color=never --files --hidden --no-ignore-vcs -g "!.git"',
     cwd = NERDTreeAwareCwd(),
-  }) end, opts)
+  }) end, keymap_opts)
 
   -- Fuzzy find text
   vim.keymap.set('n', '\\', function() fzf_lua.grep({
@@ -54,8 +68,13 @@ local function setup()
     cwd = NERDTreeAwareCwd(),
     actions = {
       ['default'] = NERDTreeAwareEditAction,
-    }
-  }) end, opts)
+    },
+    winopts = {
+      preview = {
+        layout = 'vertical',
+      }
+    },
+  }) end, keymap_opts)
 
   -- Fuzzy find text, including ignored files
   vim.keymap.set('n', '|', function() fzf_lua.grep({
@@ -64,20 +83,42 @@ local function setup()
     cwd = NERDTreeAwareCwd(),
     actions = {
       ['default'] = NERDTreeAwareEditAction,
-    }
-  }) end, opts)
+    },
+    winopts = {
+      preview = {
+        layout = 'vertical',
+      }
+    },
+  }) end, keymap_opts)
 
   -- TODO: can we just fill the prompt vs this weird invisible grep? -- yep! use 'search' param
   -- Fuzzy find text under cursor
-  vim.keymap.set('v', '\\', function() fzf_lua.grep_visual() end, opts)
+  vim.keymap.set('v', '\\', function() fzf_lua.grep_visual({
+    winopts = {
+      preview = {
+        layout = 'vertical',
+      }
+    },
+  }) end, keymap_opts)
 
-  -- Fuzzy find text, including ignored files
+  -- Fuzzy highlighted find text, including ignored files
   vim.keymap.set('v', '|', function() fzf_lua.grep_visual({
-    rg_opts = '--color=never --files --hidden -g "!.git" --no-ignore-vcs'
-  }) end, opts)
+    rg_opts = '--color=never --files --hidden -g "!.git" --no-ignore-vcs',
+    winopts = {
+      preview = {
+        layout = 'vertical',
+      }
+    },
+  }) end, keymap_opts)
 
   -- Fuzzy find text in current buffer
-  vim.keymap.set('n', '<leader>f/', function() fzf_lua.grep_curbuf() end, opts)
+  vim.keymap.set('n', '<leader>f/', function() fzf_lua.grep_curbuf({
+    winopts = {
+      preview = {
+        flip_columns = 200,
+      }
+    }
+  }) end, keymap_opts)
 
   -- Fuzzy find buffer list
   vim.keymap.set('n', '<leader>fb', function() fzf_lua.buffers({
@@ -93,22 +134,45 @@ local function setup()
 
         require('harpoon.ui').toggle_quick_menu()
       end
+    },
+    winopts = {
+      preview = {
+        flip_columns = 200,
+      }
     }
-  }) end, opts)
+  }) end, keymap_opts)
 
 
   -- Git ----------------------------------------------------------------------
 
-  vim.keymap.set('n', '<leader>fh', function() fzf_lua.git_bcommits() end, opts)
+  vim.keymap.set('n', '<leader>fh', function() fzf_lua.git_bcommits({
+    winopts = {
+      preview = {
+        flip_columns = 200,
+      }
+    }
+  }) end, keymap_opts)
 
 
   -- LSP ----------------------------------------------------------------------
 
   -- LSP diagnostics
-  vim.keymap.set('n', '<leader>fd', function() fzf_lua.diagnostics_document() end, opts)
+  vim.keymap.set('n', '<leader>fd', function() fzf_lua.diagnostics_document({
+    winopts = {
+      preview = {
+        flip_columns = 200,
+      }
+    }
+  }) end, keymap_opts)
 
   -- LSP references of name under cursor
-  vim.keymap.set('n', '<leader>fr', function() fzf_lua.lsp_references() end, opts)
+  vim.keymap.set('n', '<leader>fr', function() fzf_lua.lsp_references({
+    winopts = {
+      preview = {
+        flip_columns = 200,
+      }
+    }
+  }) end, keymap_opts)
 
 
   -- Highlights ----------------------------------------------------------------
