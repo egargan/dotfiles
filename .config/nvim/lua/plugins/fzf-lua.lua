@@ -31,7 +31,7 @@ local function setup()
   fzf_lua.setup({
     winopts = {
       preview = {
-        flip_columns = 200,
+        flip_columns = 180,
       },
     },
     keymap = {
@@ -115,7 +115,7 @@ local function setup()
   vim.keymap.set('n', '<leader>f/', function() fzf_lua.grep_curbuf({
     winopts = {
       preview = {
-        flip_columns = 200,
+        flip_columns = 180,
       }
     }
   }) end, keymap_opts)
