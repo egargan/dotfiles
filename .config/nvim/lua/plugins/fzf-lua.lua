@@ -45,6 +45,8 @@ local function setup()
     keymap = {
       builtin = {
         ['<C-p>'] = 'toggle-preview',
+        ['<C-Space>'] = 'toggle-preview-cw',
+        ['<C-L>'] = 'toggle-fullscreen',
       },
     }
   })
@@ -52,10 +54,12 @@ local function setup()
   -- Fuzzy find filenames
   vim.keymap.set('n', '<C-t>', function() fzf_lua.files({
     winopts = {
-      width = 60,
+      width = 70,
       height = 30,
       preview = {
-        layout = 'vertical',
+        hidden = 'hidden',
+        layout = 'flex',
+        vertical = 'down:60%',
       }
     },
     cwd = NERDTreeAwareCwd(),
