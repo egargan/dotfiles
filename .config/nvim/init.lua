@@ -22,7 +22,9 @@ local general_plugin_confs = {}
 for _, value in pairs(vim.fn.systemlist('ls $HOME/.config/nvim/lua/plugins | sed -e \'s/\\.lua$//\'')) do
   local conf = require('plugins.' .. value)
   if conf.priority == nil then conf.priority = 10 end
-  table.insert(general_plugin_confs, conf)
+  if not conf.disabled then
+    table.insert(general_plugin_confs, conf)
+  end
 end
 
 for _, conf in pairs(general_plugin_confs) do
