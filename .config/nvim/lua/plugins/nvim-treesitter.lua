@@ -8,7 +8,7 @@ function setup()
     indent = {
       enable = true
     },
-    ensure_installed = { "svelte", "typescript", "lua", "html", "scss", "python", "yaml", "json" },
+    ensure_installed = { "svelte", "typescript", "lua", "html", "scss", "python", "yaml", "json", "query" },
   })
 end
 
