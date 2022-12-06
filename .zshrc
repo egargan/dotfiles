@@ -221,7 +221,7 @@ alias gsn='git show --pretty=format:'' --name-only'  # List filenames only
 if hash tmux &>/dev/null; then
   local TMUX_LS=$(tmux ls 2>/dev/null)
 
-  if [[ $TMUX_LS =~ ^'[0-9]:' && ! $TMUX_LS =~ '\(attached\)'$ ]]; then
+  if [[ -z "$TMUX" && $TMUX_LS =~ ^'[0-9]:' && ! $TMUX_LS =~ '\(attached\)'$ ]]; then
     echo "Active tmux sessions:"
     echo "$TMUX_LS"
   fi
