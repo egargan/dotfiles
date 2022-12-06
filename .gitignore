@@ -11,6 +11,11 @@
 !.global-ignore
 !.zshrc
 
+# Whitelist only the scripts directory under .local
+!.local
+/.local/*
+!/.local/scripts
+
 # Whitelist only the nvim directory under .config
 !/.config/
 /.config/*
