@@ -1,5 +1,11 @@
 [color]
-    ui = true
+  ui = true
 [core]
-	editor = vim
-    excludesfile = ~/.global-ignore
+  editor = vim
+  excludesfile = ~/.global-ignore
+[includeIf "gitdir:~"]
+  path = ~/.gitconfig-personal
+[includeIf "gitdir:~/projects/"]
+  path = ~/.gitconfig-personal
+[includeIf "gitdir:~/personal/"]
+  path = ~/.gitconfig-personal
