@@ -161,8 +161,6 @@ setopt INC_APPEND_HISTORY_TIME        # Share history file between multiple shel
 setopt HIST_IGNORE_SPACE              # Don't record space-prefixed commands
 setopt HIST_FIND_NO_DUPS              # Ignore duplicates when searching history
 
-export GIT_CEILING_DIRECTORIES=$HOME  # 'git ...' won't look as far as ~ when looking for repo
-
 export PATH=$PATH:~/.local/bin:~/.local/scripts
 
 
