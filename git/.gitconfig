@@ -3,7 +3,7 @@
 [core]
   editor = vim
   excludesfile = ~/.global-ignore
-[includeIf "gitdir:~"]
+[includeIf "gitdir:~/dotfiles/"]
   path = ~/.gitconfig-personal
 [includeIf "gitdir:~/projects/"]
   path = ~/.gitconfig-personal
