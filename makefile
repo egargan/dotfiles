@@ -1,4 +1,4 @@
-stowed_dirs = bin git neovim zsh
+stowed_dirs = bin git neovim zsh tmux
 
 all:
 	stow --verbose --target=$$HOME $(stowed_dirs)
