@@ -1,7 +1,7 @@
 [color]
   ui = true
 [core]
-  editor = vim
+  editor = nvim
   excludesfile = ~/.global-ignore
 [includeIf "gitdir:~/dotfiles/"]
   path = ~/.gitconfig-personal
