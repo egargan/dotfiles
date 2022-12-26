@@ -17,10 +17,6 @@ function setup()
         { 'filetype' };
       }
     },
-    ['component_function'] = {
-      ['filename'] = 'LightlineFilename';
-      ['lastbuf'] = 'LightlineLastBuffer';
-    },
   }
 end
 
