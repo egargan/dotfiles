@@ -186,6 +186,13 @@ vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
 vim.api.nvim_set_keymap('v', 'sc', [[:s/\%V_\(\l\)/\u\1/g<Enter>]], { noremap = true })
 
 
+-- General Highlights ==========================================================
+
+-- Override 'float' highlights to just use base colours
+vim.api.nvim_set_hl(0, 'FloatBorder', { link = 'Comment' })
+vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'Normal' })
+
+
 -- Autocommands  ===============================================================
 
 -- Remove trailing whitespace on save

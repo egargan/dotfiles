@@ -2,3 +2,4 @@
 * ...or just use [tmuxp](https://tmuxp.git-pull.com/about.html)?
 * Automatically harpoon buffers as they're opened
 * Resize neovim fzf windows when showing/hiding previews
+* Add 'exclude file' option to fzf greps
