@@ -1,6 +1,5 @@
 * Have directories shown by tmux-sessionizer be configurable, YAML?
 * ...or just use [tmuxp](https://tmuxp.git-pull.com/about.html)?
-* Automatically harpoon buffers as they're opened
 * Resize neovim fzf windows when showing/hiding previews
 * Add 'exclude file' option to fzf greps
 * Fix ray-x/signature_help not changing between param docs when typing
