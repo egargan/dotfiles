@@ -4,3 +4,5 @@
 * Add 'exclude file' option to fzf greps
 * Fix ray-x/signature_help not changing between param docs when typing
 * Look into LSP linting/formatting features
+* Show tmux-sessionizer in popup
+* Add LSP init messages to status bar
