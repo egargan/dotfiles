@@ -14,6 +14,9 @@ function setup()
 
     -- Setup fancy LSP features
     require('lspsaga').init_lsp_saga({
+      code_action_keys = {
+        quit = '<Esc>',
+      },
       code_action_lightbulb = {
         sign = false,
       },
@@ -57,6 +60,9 @@ function setup()
     vim.api.nvim_set_hl(0, 'DefinitionArrow' , { link = 'Comment' })
     vim.api.nvim_set_hl(0, 'DefinitionFile' , { link = 'Function' })
 
+    vim.api.nvim_set_hl(0, 'LspSagaRenameBorder' , { link = 'Function' })
+    vim.api.nvim_set_hl(0, 'LspSagaDefinitionBorder' , { link = 'Function' })
+
     vim.keymap.set({ 'n', 'v' }, '<leader>ca', '<cmd>Lspsaga code_action<CR>', bufopts)
 
     -- Lsp finder find the symbol definition implement reference
@@ -69,8 +75,8 @@ function setup()
     vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", bufopts)
 
     -- Peek and goto definition
-    vim.keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", bufopts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.definition, bufopts)
+    vim.keymap.set("n", "gD", "<cmd>Lspsaga peek_definition<CR>", bufopts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
 
     -- Show line diagnostics
     vim.keymap.set("n", "<leader>ld", "<cmd>Lspsaga show_line_diagnostics<CR>", bufopts)
