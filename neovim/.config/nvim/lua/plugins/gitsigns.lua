@@ -1,7 +1,15 @@
+---@diagnostic disable: redundant-parameter
 -- Show git diff UI in gutter
 
 function setup()
   require('gitsigns').setup {
+    current_line_blame_opts = {
+      delay = 500,
+    },
+    current_line_blame = true,
+    preview_config = {
+      row = 1,
+    },
     on_attach = function(bufnr)
       local gs = package.loaded.gitsigns
 
@@ -19,7 +27,6 @@ function setup()
       end, { expr = true, buffer = bufnr })
 
       -- Actions
-      -- TODO: do we need all these?
       vim.keymap.set({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>', { buffer = bufnr })
       vim.keymap.set({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>', { buffer = bufnr })
       vim.keymap.set('n', '<leader>hS', gs.stage_buffer, { buffer = bufnr })
@@ -29,12 +36,10 @@ function setup()
       vim.keymap.set('n', '<leader>hb', function() gs.blame_line{full=true} end, { buffer = bufnr })
       vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame, { buffer = bufnr })
       vim.keymap.set('n', '<leader>hd', gs.diffthis, { buffer = bufnr })
-      vim.keymap.set('n', '<leader>hD', function() gs.diffthis('~') end, { buffer = bufnr })
-      vim.keymap.set('n', '<leader>td', gs.toggle_deleted, { buffer = bufnr })
 
       -- Text object
       vim.keymap.set({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { buffer = bufnr })
-    end
+   end
   }
 end
 
