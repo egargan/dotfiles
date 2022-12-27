@@ -120,7 +120,11 @@ function setup()
   -- end
 
   -- Setup Mason LSP installer UI
-  require('mason').setup()
+  require('mason').setup({
+    ui = {
+      border = 'rounded',
+    }
+  })
 
   local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
