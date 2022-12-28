@@ -96,6 +96,13 @@ function setup()
   -- Configure code action plugin
   vim.g.code_action_menu_show_details = false
   vim.g.code_action_menu_show_action_kind = false
+
+  -- Setup code action lightbulb plugin
+  require('nvim-lightbulb').setup({
+    sign = { enabled = false },
+    virtual_text = { enabled = true },
+    autocmd = { enabled = true },
+  })
 end
 
 return {
@@ -114,7 +121,10 @@ return {
     'folke/trouble.nvim',
 
     -- Fancy code action menu
-    'weilbith/nvim-code-action-menu'
+    'weilbith/nvim-code-action-menu',
+
+    -- Show lightbulg when code actions available
+    'kosayoda/nvim-lightbulb',
   },
   setup = setup,
 }

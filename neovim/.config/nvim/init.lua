@@ -83,6 +83,8 @@ cmp_conf.setup()
 
 -- General Settings ============================================================
 
+vim.opt.updatetime = 500                  -- Time between swap file writes and for CursorHold delay
+
 vim.opt.syntax = 'on'                      -- Syntax highlighting
 vim.opt.number = true                      -- Line numbers
 
