@@ -15,7 +15,7 @@ function setup()
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', '<Leader>ca', function() vim.cmd(':CodeActionMenu') end, bufopts)
     vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
 
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -92,6 +92,10 @@ function setup()
     },
     use_diagnostic_signs = false
   })
+
+  -- Configure code action plugin
+  vim.g.code_action_menu_show_details = false
+  vim.g.code_action_menu_show_action_kind = false
 end
 
 return {
@@ -108,6 +112,9 @@ return {
 
     -- Diagnostic summary plugin
     'folke/trouble.nvim',
+
+    -- Fancy code action menu
+    'weilbith/nvim-code-action-menu'
   },
   setup = setup,
 }
