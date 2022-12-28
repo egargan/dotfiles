@@ -6,7 +6,6 @@ function setup()
     current_line_blame_opts = {
       delay = 500,
     },
-    current_line_blame = true,
     preview_config = {
       row = 1,
     },
