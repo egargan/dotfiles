@@ -138,6 +138,20 @@ function setup()
     hint_enable = false,
     toggle_key = '<C-h>',
   })
+
+  -- Setup diagnostic summary plugin
+  require('trouble').setup({
+    icons = false,
+    fold_open = 'v',
+    fold_closed = '>',
+    signs = {
+      error = 'Error',
+      warning = 'Warning',
+      hint = 'Hint',
+      information = 'Info'
+    },
+    use_diagnostic_signs = false
+  })
 end
 
 return {
@@ -154,6 +168,9 @@ return {
 
     -- Show signature help while typing
     'ray-x/lsp_signature.nvim',
+
+    -- Diagnostic summary plugin
+    'folke/trouble.nvim',
   },
   setup = setup,
 }
