@@ -6,3 +6,4 @@
 * Look into LSP linting/formatting features
 * Show tmux-sessionizer in popup
 * Add LSP init messages to status bar
+* Add [Ariel outline plugin](https://github.com/stevearc/aerial.nvim/)
