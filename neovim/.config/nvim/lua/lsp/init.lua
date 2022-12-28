@@ -9,92 +9,32 @@ function setup()
   local on_attach = function(client, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-    -- Add diagnostics to quickfix list
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, bufopts)
+    vim.keymap.set('n', '<Leader>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
 
-    -- Setup fancy LSP features
-    require('lspsaga').init_lsp_saga({
-      code_action_keys = {
-        quit = '<Esc>',
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+
+    vim.keymap.set('n', '[e', function()
+      vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    end, opts)
+    vim.keymap.set('n', ']e', function()
+      vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+    end, opts)
+
+    vim.diagnostic.config({
+      float = {
+        border = 'rounded',
+        header = 'Diagnostics',
+        source = true,
       },
-      code_action_lightbulb = {
-        sign = false,
-      },
-      finder_icons = {
-        def = '> ',
-        ref = '> ',
-        imp = '> ',
-        link = '> ',
-      },
-      diagnostic_header = { '> ', '> ', '> ', '> ' },
-      max_preview_lines = 15,
     })
-
-    vim.api.nvim_set_hl(0, 'LspSagaLightBulb', { link = 'Todo' })
-
-    vim.api.nvim_set_hl(0, 'FinderParam', { link = 'Function' })
-    vim.api.nvim_set_hl(0, 'FinderVirtText' , { link = 'DiagnosticError' })
-    vim.api.nvim_set_hl(0, 'LspSagaAutoPreview', { link = 'Comment' })
-    vim.api.nvim_set_hl(0, 'LspSagaFinderSelection' , { link = 'Bold' })
-    vim.api.nvim_set_hl(0, 'LspSagaLspFinderBorder', { link = 'Comment' })
-    vim.api.nvim_set_hl(0, 'FinderSpinner', { link = 'Function' })
-    vim.api.nvim_set_hl(0, 'FinderSpinnerBorder', { link = 'Comment' })
-    vim.api.nvim_set_hl(0, 'FinderSpinnerTitle', { link = 'Function' })
-    vim.api.nvim_set_hl(0, 'Definitions' , { link = 'Number' })
-    vim.api.nvim_set_hl(0, 'DefinitionsIcon' , { link = 'Todo' })
-    vim.api.nvim_set_hl(0, 'Implements' , { link = 'Number' })
-    vim.api.nvim_set_hl(0, 'ImplementsIcon' , { link = 'Todo' })
-    vim.api.nvim_set_hl(0, 'References' , { link = 'Number' })
-    vim.api.nvim_set_hl(0, 'ReferencesIcon' , { link = 'Todo' })
-
-    vim.api.nvim_set_hl(0, 'LspSagaHoverBorder' , { link = 'Comment' })
-
-    vim.api.nvim_set_hl(0, 'LspSagaDiagnosticBorder' , { link = 'Comment' })
-    vim.api.nvim_set_hl(0, 'LspSagaDiagnosticHeader' , { link = 'Normal' })
-
-    vim.api.nvim_set_hl(0, 'LspSagaCodeActionTitle' , { link = 'Normal' })
-    vim.api.nvim_set_hl(0, 'LspSagaCodeActionBorder' , { link = 'Comment' })
-    vim.api.nvim_set_hl(0, 'LspSagaCodeActionTrunCateLine' , { link = 'Comment' })
-    vim.api.nvim_set_hl(0, 'LspSagaCodeActionContent' , { link = 'Todo' })
-
-    vim.api.nvim_set_hl(0, 'DefinitionArrow' , { link = 'Comment' })
-    vim.api.nvim_set_hl(0, 'DefinitionFile' , { link = 'Function' })
-
-    vim.api.nvim_set_hl(0, 'LspSagaRenameBorder' , { link = 'Function' })
-    vim.api.nvim_set_hl(0, 'LspSagaDefinitionBorder' , { link = 'Function' })
-
-    vim.keymap.set({ 'n', 'v' }, '<leader>ca', '<cmd>Lspsaga code_action<CR>', bufopts)
-
-    -- Lsp finder find the symbol definition implement reference
-    -- if there is no implement it will hide
-    -- when you use action in finder like open vsplit then you can
-    -- use <C-t> to jump back
-    vim.keymap.set("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", bufopts)
-
-    -- Rename
-    vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", bufopts)
-
-    -- Peek and goto definition
-    vim.keymap.set("n", "gD", "<cmd>Lspsaga peek_definition<CR>", bufopts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-
-    -- Show line diagnostics
-    vim.keymap.set("n", "<leader>ld", "<cmd>Lspsaga show_line_diagnostics<CR>", bufopts)
-
-    -- Navigate diagnostics
-    vim.keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", bufopts)
-    vim.keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", bufopts)
-
-    -- Navigate error diagnostics
-    vim.keymap.set("n", "[e", function()
-      require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
-    end, bufopts)
-    vim.keymap.set("n", "]e", function()
-      require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
-    end, bufopts)
-
-    -- Hover Doc
-    vim.keymap.set("n", "<C-k>", "<cmd>Lspsaga hover_doc<CR>", bufopts)
   end
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -162,9 +102,6 @@ return {
     -- LSP server installer
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
-
-    -- Fancy LSP features
-    'glepnir/lspsaga.nvim',
 
     -- Show signature help while typing
     'ray-x/lsp_signature.nvim',
