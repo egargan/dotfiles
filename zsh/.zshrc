@@ -28,10 +28,15 @@ bindkey -s ^f "tmux-sessionizer\n"
 
 # == Plugins =================================================================
 
-if [[ -f '/usr/local/opt/zplug/init.zsh' ]]; then
-  source /usr/local/opt/zplug/init.zsh
-elif [[ -f "$HOME/.zplug/init.zsh" ]]; then
-  source ~/.zplug/init.zsh
+# If ZPLUG_HOME is set, assume zplug has already been set up
+if [ ! -n "$ZPLUG_HOME" ]; then
+  if [[ -f '/usr/local/opt/zplug/init.zsh' ]]; then
+    source /usr/local/opt/zplug/init.zsh
+    export ZPLUG_HOME=/usr/local/opt/zplug
+  elif [[ -f "$HOME/.zplug/init.zsh" ]]; then
+    source ~/.zplug/init.zsh
+    export ZPLUG_HOME=$HOME/.zplug
+  fi
 fi
 
 # ----------------------------------------------------------------------------
@@ -64,8 +69,8 @@ zplug load
 # -- junegunn/fzf ------------------------------------------------------------
 
 # Setup bindings and autocompletion
-source ~/.zplug/repos/junegunn/fzf/shell/key-bindings.zsh
-source ~/.zplug/repos/junegunn/fzf/shell/completion.zsh
+source $ZPLUG_HOME/repos/junegunn/fzf/shell/key-bindings.zsh
+source $ZPLUG_HOME/repos/junegunn/fzf/shell/completion.zsh
 
 # Have fzf use ripgrep
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --follow --glob '!.git'"
