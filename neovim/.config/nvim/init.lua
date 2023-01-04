@@ -1,4 +1,5 @@
 vim.g.mapleader=" "                   -- Set <Leader> to space - '\' is too awkward
+vim.opt.rtp:append(vim.env.HOME .. '/.nvim/')     -- Sometimes Neovim doesn't think .nvim should be its runtime path?
 
 -- == Plugins ==================================================================
 
