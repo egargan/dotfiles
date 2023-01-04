@@ -45,9 +45,6 @@ zplug "junegunn/fzf", as:command, hook-build:"./install --bin", use:"bin/{fzf-tm
 # Command line syntax highlighting
 zplug "zsh-users/zsh-syntax-highlighting"
 
-# Cat w/ syntax highlighting
-zplug "sharkdp/bat", as:command, from:gh-r, rename-to:bat
-
 # ----------------------------------------------------------------------------
 
 # Inform of any uninstalled plugins
