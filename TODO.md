@@ -7,3 +7,4 @@
 * Show tmux-sessionizer in popup
 * Add LSP init messages to status bar
 * Add [Ariel outline plugin](https://github.com/stevearc/aerial.nvim/)
+* Add first time setup script for macOS that installs homebrew, fzf, zplug, tmux, ripgrep, etc
