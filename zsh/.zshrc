@@ -212,7 +212,7 @@ alias gca='git commit --amend'
 alias gri='git rebase -i'
 alias grc='git rebase --continue'
 alias gs='git show'
-alias gsn='git show --pretty=format:'' --name-only'  # List filenames only
+alias gsn='git show --pretty=format:'' --name-only --relative'  # List filenames only
 
 
 # == Status Messages ==========================================================
