@@ -93,6 +93,19 @@ function setup()
     use_diagnostic_signs = false
   })
 
+  -- Here is the formatting config
+  local null_ls = require('null-ls')
+
+  null_ls.setup({
+    sources = {
+      null_ls.builtins.formatting.prettierd,
+      null_ls.builtins.diagnostics.eslint_d,
+      null_ls.builtins.code_actions.eslint_d,
+    },
+  })
+
+  vim.cmd('autocmd BufWritePost * lua vim.lsp.buf.format()')
+
   -- Configure code action plugin
   vim.g.code_action_menu_show_details = false
   vim.g.code_action_menu_show_action_kind = false
@@ -125,6 +138,9 @@ return {
 
     -- Show lightbulg when code actions available
     'kosayoda/nvim-lightbulb',
+
+    -- Platform for easier LSP features, e.g. formatting and linting
+    'jose-elias-alvarez/null-ls.nvim'
   },
   setup = setup,
 }
