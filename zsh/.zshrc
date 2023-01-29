@@ -229,6 +229,11 @@ if hash tmux &>/dev/null; then
   fi
 fi
 
+# == Misc ====================================================================
+
+# Support mouse input in less
+export LESS='--mouse --wheel-lines=3'
+
 
 # Source private, host-specific zshrc not for tracking with git
 if [ -f ~/.zshrc.private ]; then
