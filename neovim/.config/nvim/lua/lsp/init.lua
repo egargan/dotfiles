@@ -35,6 +35,13 @@ function setup()
         source = true,
       },
     })
+
+    if client.server_capabilities.documentFormattingProvider then
+      vim.api.nvim_create_autocmd('BufWritePost', {
+        buffer = bufnr,
+        callback = function() vim.lsp.buf.format({ sync = true }) end
+      })
+    end
   end
 
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -103,8 +110,6 @@ function setup()
       null_ls.builtins.code_actions.eslint_d,
     },
   })
-
-  vim.cmd('autocmd BufWritePost * lua vim.lsp.buf.format()')
 
   -- Configure code action plugin
   vim.g.code_action_menu_show_details = false
