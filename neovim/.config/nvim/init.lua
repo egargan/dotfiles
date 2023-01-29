@@ -96,7 +96,6 @@ vim.opt.shiftround = true                     -- Round '>>/'<<' indents to neare
 
 vim.opt.scrolloff = 4                    -- Always keep cursor >= 4 lines away from top and bottom of screen
 vim.opt.linebreak = true                      -- Don't wrap lines in the middle of words
-vim.opt.colorcolumn = '100'                -- Show line length boundary at line 100
 vim.opt.tw = 100                         -- Set word wrap width to 100
 vim.opt.laststatus = 2                   -- Always show status bar
 vim.opt.cursorline = true                     -- Highlight cursor's line
