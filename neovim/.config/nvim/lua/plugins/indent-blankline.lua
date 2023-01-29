@@ -1,8 +1,8 @@
 -- Indentation indicators
 
 function setup()
-  -- Disable indent lines by default
-  vim.g.indent_blankline_enabled = false
+  -- Enable indent lines by default
+  vim.g.indent_blankline_enabled = true
 
   -- Add map for toggling lines
   vim.api.nvim_set_keymap('n', '<Leader>i', ':IndentBlanklineToggle<Enter>', { noremap = true })
