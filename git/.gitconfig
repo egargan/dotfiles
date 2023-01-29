@@ -3,6 +3,7 @@
 [core]
   editor = nvim
   excludesfile = ~/.global-ignore
+  pager = less -F
 [includeIf "gitdir:~/dotfiles/"]
   path = ~/.gitconfig-personal
 [includeIf "gitdir:~/projects/"]
