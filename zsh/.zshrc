@@ -28,8 +28,10 @@ bindkey -s ^f "tmux-sessionizer\n"
 
 # == Plugins =================================================================
 
-# If ZPLUG_HOME is set, assume zplug has already been set up
-if [ ! -n "$ZPLUG_HOME" ]; then
+# Setup zplug
+if [ -n "$ZPLUG_HOME" ]; then
+  source $ZPLUG_HOME/init.zsh
+else
   if [[ -f '/usr/local/opt/zplug/init.zsh' ]]; then
     source /usr/local/opt/zplug/init.zsh
     export ZPLUG_HOME=/usr/local/opt/zplug
