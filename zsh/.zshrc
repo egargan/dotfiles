@@ -213,6 +213,8 @@ alias gri='git rebase -i'
 alias grc='git rebase --continue'
 alias gs='git show'
 alias gsn='git show --pretty=format:'' --name-only --relative'  # List filenames only
+alias gp='git push'
+alias gpf='git push --force'
 
 
 # == Status Messages ==========================================================
