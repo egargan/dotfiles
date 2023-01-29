@@ -24,6 +24,7 @@ local function setup()
   end
 
   local keymap_opts = { noremap = true, silent = true }
+  local grep_defualt_opts = '--color=always --column --line-number --no-heading --smart-case --max-columns=512'
 
   local grep_winopts = {
     preview = {
@@ -76,7 +77,7 @@ local function setup()
 
   -- Fuzzy find text
   vim.keymap.set('n', '\\', function() fzf_lua.grep({
-    rg_opts = '--color=always --hidden -g "!.git"',
+    rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
     search = '',
     cwd = NERDTreeAwareCwd(),
     actions = {
@@ -87,7 +88,7 @@ local function setup()
 
   -- Fuzzy find text, including ignored files
   vim.keymap.set('n', '|', function() fzf_lua.grep({
-    rg_opts = '--color=always --hidden --no-ignore-vcs -g "!.git"',
+    rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
     search = '',
     cwd = NERDTreeAwareCwd(),
     actions = {
@@ -99,13 +100,13 @@ local function setup()
   -- TODO: can we just fill the prompt vs this weird invisible grep? -- yep! use 'search' param
   -- Fuzzy find text under cursor
   vim.keymap.set('v', '\\', function() fzf_lua.grep_visual({
-    rg_opts = '--color=always --hidden -g "!.git"',
+    rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
     winopts = grep_winopts,
   }) end, keymap_opts)
 
   -- Fuzzy highlighted find text, including ignored files
   vim.keymap.set('v', '|', function() fzf_lua.grep_visual({
-    rg_opts = '--color=never --files --hidden -g "!.git" --no-ignore-vcs',
+    rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
     winopts = grep_winopts,
   }) end, keymap_opts)
 
