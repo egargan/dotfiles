@@ -2,7 +2,7 @@
 
 local function isBufferNERDTree()
   return vim.bo.filetype == 'nerdtree' and
-    vim.api.nvim_eval([[has_key(g:NERDTreeDirNode.GetSelected(), 'path')]])
+      vim.api.nvim_eval([[has_key(g:NERDTreeDirNode.GetSelected(), 'path')]])
 end
 
 local function NERDTreeAwareCwd()
@@ -54,66 +54,73 @@ local function setup()
 
   -- Fuzzy find filenames
   vim.keymap.set('n', '<C-t>', function() fzf_lua.files({
-    winopts = {
-      width = 70,
-      height = 30,
-      preview = {
-        hidden = 'hidden',
-        layout = 'flex',
-        vertical = 'down:60%',
+      winopts = {
+        width = 70,
+        height = 30,
+        preview = {
+          hidden = 'hidden',
+          layout = 'flex',
+          vertical = 'down:60%',
+        }
+      },
+      cwd = NERDTreeAwareCwd(),
+      actions = {
+        ['default'] = NERDTreeAwareEditAction,
       }
-    },
-    cwd = NERDTreeAwareCwd(),
-    actions = {
-      ['default'] = NERDTreeAwareEditAction,
-    }
-  }) end, keymap_opts)
+    })
+  end, keymap_opts)
 
   -- Fuzzy find filenames, including ignored files
   vim.keymap.set('n', '<S-t>', function() fzf_lua.files({
-    rg_opts = '--color=never --files --hidden --no-ignore-vcs -g "!.git"',
-    cwd = NERDTreeAwareCwd(),
-  }) end, keymap_opts)
+      rg_opts = '--color=never --files --hidden --no-ignore-vcs -g "!.git"',
+      cwd = NERDTreeAwareCwd(),
+    })
+  end, keymap_opts)
 
   -- Fuzzy find text
   vim.keymap.set('n', '\\', function() fzf_lua.grep({
-    rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
-    search = '',
-    cwd = NERDTreeAwareCwd(),
-    actions = {
-      ['default'] = NERDTreeAwareEditAction,
-    },
-    winopts = grep_winopts,
-  }) end, keymap_opts)
+      rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
+      search = '',
+      cwd = NERDTreeAwareCwd(),
+      actions = {
+        ['default'] = NERDTreeAwareEditAction,
+      },
+      winopts = grep_winopts,
+    })
+  end, keymap_opts)
 
   -- Fuzzy find text, including ignored files
   vim.keymap.set('n', '|', function() fzf_lua.grep({
-    rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
-    search = '',
-    cwd = NERDTreeAwareCwd(),
-    actions = {
-      ['default'] = NERDTreeAwareEditAction,
-    },
-    winopts = grep_winopts,
-  }) end, keymap_opts)
+      rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
+      search = '',
+      cwd = NERDTreeAwareCwd(),
+      actions = {
+        ['default'] = NERDTreeAwareEditAction,
+      },
+      winopts = grep_winopts,
+    })
+  end, keymap_opts)
 
   -- TODO: can we just fill the prompt vs this weird invisible grep? -- yep! use 'search' param
   -- Fuzzy find text under cursor
   vim.keymap.set('v', '\\', function() fzf_lua.grep_visual({
-    rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
-    winopts = grep_winopts,
-  }) end, keymap_opts)
+      rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
+      winopts = grep_winopts,
+    })
+  end, keymap_opts)
 
   -- Fuzzy highlighted find text, including ignored files
   vim.keymap.set('v', '|', function() fzf_lua.grep_visual({
-    rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
-    winopts = grep_winopts,
-  }) end, keymap_opts)
+      rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
+      winopts = grep_winopts,
+    })
+  end, keymap_opts)
 
   -- Fuzzy find text in current buffer
   vim.keymap.set('n', '<leader>f/', function() fzf_lua.grep_curbuf({
-    winopts = grep_winopts,
-  }) end, keymap_opts)
+      winopts = grep_winopts,
+    })
+  end, keymap_opts)
 
   -- Fuzzy find buffer list
   vim.keymap.set('n', '<S-Tab>', function() fzf_lua.buffers({
