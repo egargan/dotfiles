@@ -22,4 +22,5 @@ end
 return {
   name = 'ThePrimeagen/harpoon',
   setup = setup,
+  disabled = true,
 }

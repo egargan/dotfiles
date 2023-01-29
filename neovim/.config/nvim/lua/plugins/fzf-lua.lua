@@ -116,21 +116,22 @@ local function setup()
   }) end, keymap_opts)
 
   -- Fuzzy find buffer list
-  vim.keymap.set('n', '<leader>fb', function() fzf_lua.buffers({
-    actions = {
-      ["ctrl-d"] = { actions.buf_del, actions.resume },
-      ["ctrl-h"] = function(selected)
-        for _, selection in ipairs(selected) do
-          print(selection)
-          local buffer = tonumber(selection:match("%[(%d+)"))
-          -- TODO: can we do this with the buffer index directly?
-          require('harpoon.mark').add_file(vim.api.nvim_buf_get_name(buffer))
-        end
-
-        require('harpoon.ui').toggle_quick_menu()
-      end
-    },
-  }) end, keymap_opts)
+  vim.keymap.set('n', '<S-Tab>', function() fzf_lua.buffers({
+      winopts = {
+        width = 60,
+        height = 22,
+        preview = {
+          hidden = 'hidden',
+          layout = 'flex',
+          vertical = 'down:60%',
+        }
+      },
+      cwd = NERDTreeAwareCwd(),
+      actions = {
+        ['default'] = NERDTreeAwareEditAction,
+      }
+    })
+  end, keymap_opts)
 
 
   -- Git ----------------------------------------------------------------------
