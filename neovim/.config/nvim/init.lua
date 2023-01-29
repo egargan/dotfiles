@@ -131,12 +131,11 @@ vim.opt.termguicolors = true                  -- Use colorscheme's 256-bit colou
 vim.api.nvim_set_keymap('n', '<C-w>/', '<C-w>10>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-w>/', '<C-w>10>', { noremap = true })
 
--- Speedy tab navigation
+-- Speedy tab management
 vim.api.nvim_set_keymap('n', ']t', ':tabnext<Enter>', { noremap = true })
 vim.api.nvim_set_keymap('n', '[t', ':tabprev<Enter>', { noremap = true })
-
--- Faster new tab
 vim.api.nvim_set_keymap('n', ']T', ':tabnew<Enter>', { noremap = true })
+vim.api.nvim_set_keymap('n', '[T', ':tabclose<Enter>', { noremap = true })
 
 -- Quickfix list navigation
 vim.api.nvim_set_keymap('n', ']q', ':cnext<Enter>', { noremap = true })
