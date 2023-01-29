@@ -51,6 +51,14 @@ function setup()
     }
   )
 
+  -- Add borders to signature help and hover popups
+  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+    vim.lsp.handlers.signature_help, { border = 'rounded' }
+  )
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+    vim.lsp.handlers.hover, { border = 'rounded' }
+  )
+
   -- Show black circle instead of default square for virtual text diagnostic messages
   vim.diagnostic.config({
     virtual_text = {
