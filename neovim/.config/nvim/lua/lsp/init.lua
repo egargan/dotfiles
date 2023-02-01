@@ -61,12 +61,21 @@ function setup()
     end
   end
 
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-      -- Disable diagnostic signs, they look ugly next to git signs
-      signs = false,
-    }
-  )
+  -- Show black circle instead of default square for virtual text diagnostic messages
+  vim.diagnostic.config({
+    virtual_text = {
+      prefix = ' ●',
+    },
+    signs = false,
+  })
+
+  -- Create commands for hiding/showing diagnostic virtual text
+  vim.api.nvim_create_user_command('HideDiagnosticVirtualText', function()
+    vim.diagnostic.config({ virtual_text = false })
+  end, { nargs = 0 })
+  vim.api.nvim_create_user_command('ShowDiagnosticVirtualText', function()
+    vim.diagnostic.config({ virtual_text = true })
+  end, { nargs = 0 })
 
   -- Add borders to signature help and hover popups
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
@@ -76,12 +85,6 @@ function setup()
     vim.lsp.handlers.hover, { border = 'rounded' }
   )
 
-  -- Show black circle instead of default square for virtual text diagnostic messages
-  vim.diagnostic.config({
-    virtual_text = {
-      prefix = ' ●' ,
-    }
-  })
 
   -- TODO: find a way of forcing the workspace to '.config/nvim', the current hack is to put an
   -- empty 'stylua.toml' file next to this, without it sumneok_lua assumes ~ is the working
