@@ -12,15 +12,20 @@ return {
         highlights["@punctuation.bracket"] = { fg = colors.frost.artic_water }
         highlights["@punctuation.delimiter"] = { fg = colors.frost.artic_water }
 
-        highlights["DiagnosticUnderlineError"] = { fg = colors.aurora.red, undercurl = true }
-        highlights["DiagnosticUnderlineWarn"] = { fg = colors.aurora.yellow, undercurl = true }
-        highlights["DiagnosticUnderlineInfo"] = { fg = colors.frost.ice, undercurl = true }
-        highlights["DiagnosticUnderlineHint"] = { fg = colors.frost.artic_water, undercurl = true }
         highlights["LspReferenceText"] = { bg = colors.polar_night.brightest }
         highlights["LspReferenceRead"] = { bg = colors.polar_night.brightest }
         highlights["LspReferenceWrite"] = { bg = colors.polar_night.brightest }
 
         highlights["NvimTreeOpenedFolderName"] = { fg = colors.frost.ice }
+
+        highlights["DiagnosticUnderlineError"] = vim.tbl_extend("keep",
+          highlights["DiagnosticVirtualTextError"], { undercurl = true })
+        highlights["DiagnosticUnderlineWarn"] = vim.tbl_extend("keep",
+          highlights["DiagnosticVirtualTextWarn"], { undercurl = true })
+        highlights["DiagnosticUnderlineInfo"] = vim.tbl_extend("keep",
+          highlights["DiagnosticVirtualTextInfo"], { undercurl = true })
+        highlights["DiagnosticUnderlineHint"] = vim.tbl_extend("keep",
+          highlights["DiagnosticVirtualTextHint"], { undercurl = true })
       end,
     })
 
