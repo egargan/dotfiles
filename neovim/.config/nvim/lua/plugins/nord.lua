@@ -20,6 +20,7 @@ return {
         highlights["LspReferenceRead"] = { bg = colors.polar_night.brightest }
         highlights["LspReferenceWrite"] = { bg = colors.polar_night.brightest }
 
+        highlights["NvimTreeOpenedFolderName"] = { fg = colors.frost.ice }
       end,
     })
 
