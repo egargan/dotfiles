@@ -49,6 +49,9 @@ local function setup()
         ['<C-Space>'] = 'toggle-preview-cw',
         ['<C-L>'] = 'toggle-fullscreen',
       },
+      fzf = {
+        ["ctrl-p"] = "toggle-preview",
+      },
     }
   })
 
