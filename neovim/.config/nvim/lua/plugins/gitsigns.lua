@@ -33,7 +33,6 @@ function setup()
       vim.keymap.set('n', '<leader>hR', gs.reset_buffer, { buffer = bufnr })
       vim.keymap.set('n', '<leader>hp', gs.preview_hunk, { buffer = bufnr })
       vim.keymap.set('n', '<leader>hb', function() gs.blame_line{full=true} end, { buffer = bufnr })
-      vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame, { buffer = bufnr })
       vim.keymap.set('n', '<leader>hd', gs.diffthis, { buffer = bufnr })
 
       -- Text object

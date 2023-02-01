@@ -117,16 +117,18 @@ function setup()
   -- Setup diagnostic summary plugin
   require('trouble').setup({
     icons = false,
-    fold_open = 'v',
-    fold_closed = '>',
+    fold_open = '▾',
+    fold_closed = '▸',
     signs = {
-      error = 'Error',
-      warning = 'Warning',
-      hint = 'Hint',
-      information = 'Info'
+      error = '●',
+      warning = '●',
+      hint = '●',
+      information = '●',
     },
     use_diagnostic_signs = false
   })
+
+  vim.keymap.set('n', '<Leader>t', require('trouble').toggle, { noremap = true, silent = true })
 
   -- Here is the formatting config
   local null_ls = require('null-ls')
