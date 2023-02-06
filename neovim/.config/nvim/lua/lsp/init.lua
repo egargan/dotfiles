@@ -132,6 +132,9 @@ function setup()
   })
 
   vim.keymap.set('n', '<Leader>t', require('trouble').toggle, { noremap = true, silent = true })
+  vim.keymap.set('n', '<Leader>fr', ':Trouble lsp_references<cr>', { noremap = true, silent = true })
+  vim.keymap.set('n', '<Leader>fd', ':Trouble document_diagnostics<cr>', { noremap = true, silent = true })
+  vim.keymap.set('n', '<Leader>fD', ':Trouble workspace_diagnostics<cr>', { noremap = true, silent = true })
 
   -- Here is the formatting config
   local null_ls = require('null-ls')

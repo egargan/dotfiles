@@ -155,9 +155,7 @@ local function setup()
 
   -- LSP ----------------------------------------------------------------------
 
-  -- LSP references of name under cursor
-  vim.keymap.set('n', '<leader>fr', function() fzf_lua.lsp_references() end, keymap_opts)
-
+  -- ...
 
   -- Highlights ----------------------------------------------------------------
 
