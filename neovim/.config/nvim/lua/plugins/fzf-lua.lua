@@ -1,13 +1,13 @@
 -- In-nvim FZF
 
-local function isBufferNERDTree()
-  return vim.bo.filetype == 'nerdtree' and
-      vim.api.nvim_eval([[has_key(g:NERDTreeDirNode.GetSelected(), 'path')]])
+local function isCursorNvimTreeDir()
+  return vim.bo.filetype == 'NvimTree' and
+      require('nvim-tree.api').tree.get_node_under_cursor().fs_stat.type == "directory"
 end
 
-local function NERDTreeAwareCwd()
-  if isBufferNERDTree() then
-    return vim.api.nvim_eval([[g:NERDTreeDirNode.GetSelected().path.str()]])
+local function NvimTreeAwareCwd()
+  if isCursorNvimTreeDir() then
+    return require('nvim-tree.api').tree.get_node_under_cursor().absolute_path
   else
     return vim.fn.getcwd()
   end
@@ -19,7 +19,7 @@ local function setup()
 
   local function NERDTreeAwareEditAction(selected, opts)
     -- TODO: atm this just moves one buffer to the right, can we change this to most recent buffer?
-    if isBufferNERDTree() then vim.cmd('wincmd w') end
+    if isCursorNvimTreeDir() then vim.cmd('wincmd w') end
     actions.file_edit_or_qf(selected, opts)
   end
 
@@ -66,7 +66,7 @@ local function setup()
           vertical = 'down:60%',
         }
       },
-      cwd = NERDTreeAwareCwd(),
+      cwd = NvimTreeAwareCwd(),
       actions = {
         ['default'] = NERDTreeAwareEditAction,
       }
@@ -76,7 +76,7 @@ local function setup()
   -- Fuzzy find filenames, including ignored files
   vim.keymap.set('n', '<S-t>', function() fzf_lua.files({
       rg_opts = '--color=never --files --hidden --no-ignore-vcs -g "!.git"',
-      cwd = NERDTreeAwareCwd(),
+      cwd = NvimTreeAwareCwd(),
     })
   end, keymap_opts)
 
@@ -84,7 +84,7 @@ local function setup()
   vim.keymap.set('n', '\\', function() fzf_lua.grep({
       rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
       search = '',
-      cwd = NERDTreeAwareCwd(),
+      cwd = NvimTreeAwareCwd(),
       actions = {
         ['default'] = NERDTreeAwareEditAction,
       },
@@ -96,7 +96,7 @@ local function setup()
   vim.keymap.set('n', '|', function() fzf_lua.grep({
       rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
       search = '',
-      cwd = NERDTreeAwareCwd(),
+      cwd = NvimTreeAwareCwd(),
       actions = {
         ['default'] = NERDTreeAwareEditAction,
       },
@@ -136,7 +136,7 @@ local function setup()
           vertical = 'down:60%',
         }
       },
-      cwd = NERDTreeAwareCwd(),
+      cwd = NvimTreeAwareCwd(),
       actions = {
         ['default'] = NERDTreeAwareEditAction,
       }
