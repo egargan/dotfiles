@@ -85,6 +85,9 @@ function setup()
     vim.lsp.handlers.hover, { border = 'rounded' }
   )
 
+  -- Config lspconfig UIs
+  require('lspconfig.ui.windows').default_options.border = 'rounded'
+  vim.api.nvim_set_hl(0, 'LspInfoBorder', { link = 'Comment' })
 
   -- TODO: find a way of forcing the workspace to '.config/nvim', the current hack is to put an
   -- empty 'stylua.toml' file next to this, without it sumneok_lua assumes ~ is the working
