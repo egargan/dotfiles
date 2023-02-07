@@ -27,119 +27,127 @@ local function setup()
   local grep_defualt_opts = '--color=always --column --line-number --no-heading --smart-case --max-columns=512'
 
   local grep_winopts = {
-    preview = {
-      layout = 'flex',
-      horizontal = 'right:45%',
-      vertical = 'up:40%',
-    }
+      preview = {
+          layout = 'flex',
+          horizontal = 'right:45%',
+          vertical = 'up:40%',
+      }
   }
 
   -- General -------------------------------------------------------------------
 
   -- Set default config
   fzf_lua.setup({
-    winopts = {
-      preview = {
-        flip_columns = 180,
+      winopts = {
+          preview = {
+              flip_columns = 180,
+          },
       },
-    },
-    keymap = {
-      builtin = {
-        ['<C-p>'] = 'toggle-preview',
-        ['<C-Space>'] = 'toggle-preview-cw',
-        ['<C-L>'] = 'toggle-fullscreen',
-      },
-      fzf = {
-        ["ctrl-p"] = "toggle-preview",
-      },
-    }
+      keymap = {
+          builtin = {
+              ['<C-p>'] = 'toggle-preview',
+              ['<C-Space>'] = 'toggle-preview-cw',
+              ['<C-L>'] = 'toggle-fullscreen',
+          },
+          fzf = {
+              ["ctrl-p"] = "toggle-preview",
+          },
+      }
   })
 
   -- Fuzzy find filenames
-  vim.keymap.set('n', '<C-t>', function() fzf_lua.files({
-      winopts = {
-        width = 70,
-        height = 30,
-        preview = {
-          hidden = 'hidden',
-          layout = 'flex',
-          vertical = 'down:60%',
+  vim.keymap.set('n', '<C-t>', function()
+    fzf_lua.files({
+        winopts = {
+            width = 70,
+            height = 30,
+            preview = {
+                hidden = 'hidden',
+                layout = 'flex',
+                vertical = 'down:60%',
+            }
+        },
+        cwd = NvimTreeAwareCwd(),
+        actions = {
+            ['default'] = NERDTreeAwareEditAction,
         }
-      },
-      cwd = NvimTreeAwareCwd(),
-      actions = {
-        ['default'] = NERDTreeAwareEditAction,
-      }
     })
   end, keymap_opts)
 
   -- Fuzzy find filenames, including ignored files
-  vim.keymap.set('n', '<S-t>', function() fzf_lua.files({
-      rg_opts = '--color=never --files --hidden --no-ignore-vcs -g "!.git"',
-      cwd = NvimTreeAwareCwd(),
+  vim.keymap.set('n', '<S-t>', function()
+    fzf_lua.files({
+        rg_opts = '--color=never --files --hidden --no-ignore-vcs -g "!.git"',
+        cwd = NvimTreeAwareCwd(),
     })
   end, keymap_opts)
 
   -- Fuzzy find text
-  vim.keymap.set('n', '\\', function() fzf_lua.grep({
-      rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
-      search = '',
-      cwd = NvimTreeAwareCwd(),
-      actions = {
-        ['default'] = NERDTreeAwareEditAction,
-      },
-      winopts = grep_winopts,
+  vim.keymap.set('n', '\\', function()
+    fzf_lua.grep({
+        rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
+        search = '',
+        cwd = NvimTreeAwareCwd(),
+        actions = {
+            ['default'] = NERDTreeAwareEditAction,
+        },
+        winopts = grep_winopts,
     })
   end, keymap_opts)
 
   -- Fuzzy find text, including ignored files
-  vim.keymap.set('n', '|', function() fzf_lua.grep({
-      rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
-      search = '',
-      cwd = NvimTreeAwareCwd(),
-      actions = {
-        ['default'] = NERDTreeAwareEditAction,
-      },
-      winopts = grep_winopts,
+  vim.keymap.set('n', '|', function()
+    fzf_lua.grep({
+        rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
+        search = '',
+        cwd = NvimTreeAwareCwd(),
+        actions = {
+            ['default'] = NERDTreeAwareEditAction,
+        },
+        winopts = grep_winopts,
     })
   end, keymap_opts)
 
   -- TODO: can we just fill the prompt vs this weird invisible grep? -- yep! use 'search' param
   -- Fuzzy find text under cursor
-  vim.keymap.set('v', '\\', function() fzf_lua.grep_visual({
-      rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
-      winopts = grep_winopts,
+  vim.keymap.set('v', '\\', function()
+    fzf_lua.grep_visual({
+        rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
+        winopts = grep_winopts,
     })
   end, keymap_opts)
 
   -- Fuzzy highlighted find text, including ignored files
-  vim.keymap.set('v', '|', function() fzf_lua.grep_visual({
-      rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
-      winopts = grep_winopts,
+  vim.keymap.set('v', '|', function()
+    fzf_lua.grep_visual({
+        rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
+        winopts = grep_winopts,
     })
   end, keymap_opts)
 
   -- Fuzzy find text in current buffer
-  vim.keymap.set('n', '<leader>f/', function() fzf_lua.grep_curbuf({
-      winopts = grep_winopts,
+  vim.keymap.set('n', '<leader>f/', function()
+    fzf_lua.grep_curbuf({
+        winopts = grep_winopts,
     })
   end, keymap_opts)
 
   -- Fuzzy find buffer list
-  vim.keymap.set('n', '<S-Tab>', function() fzf_lua.buffers({
-      winopts = {
-        width = 60,
-        height = 22,
-        preview = {
-          hidden = 'hidden',
-          layout = 'flex',
-          vertical = 'down:60%',
+  vim.keymap.set('n', '<S-Tab>', function()
+    fzf_lua.buffers({
+        winopts = {
+            width = 60,
+            height = 22,
+            preview = {
+                hidden = 'hidden',
+                layout = 'flex',
+                vertical = 'down:60%',
+            }
+        },
+        cwd = NvimTreeAwareCwd(),
+        actions = {
+            ['default'] = NERDTreeAwareEditAction,
         }
-      },
-      cwd = NvimTreeAwareCwd(),
-      actions = {
-        ['default'] = NERDTreeAwareEditAction,
-      }
     })
   end, keymap_opts)
 
@@ -162,7 +170,7 @@ local function setup()
 end
 
 return {
-  name = 'ibhagwan/fzf-lua',
-  setup = setup,
-  priority = 2,
+    name = 'ibhagwan/fzf-lua',
+    setup = setup,
+    priority = 2,
 }
