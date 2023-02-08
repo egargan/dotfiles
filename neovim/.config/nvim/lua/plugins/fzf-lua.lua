@@ -38,14 +38,16 @@ local function setup()
           },
       },
       keymap = {
-          builtin = {
-              ['<C-p>'] = 'toggle-preview',
-              ['<C-Space>'] = 'toggle-preview-cw',
-              ['<C-L>'] = 'toggle-fullscreen',
-          },
-          fzf = {
-              ["ctrl-p"] = "toggle-preview",
-          },
+        builtin = {
+          ['<C-p>'] = 'toggle-preview',
+          ['<C-Space>'] = 'toggle-preview-cw',
+          ['<C-L>'] = 'toggle-fullscreen',
+          ['C-a'] = 'toggle-all',
+        },
+        fzf = {
+          ['ctrl-p'] = 'toggle-preview',
+          ['ctrl-a'] = 'toggle-all',
+        },
       },
       grep = {
           actions = {
@@ -62,7 +64,7 @@ local function setup()
                 vim.fn.setreg('"', table.concat(resultsNoFilenames, '\n'))
               end
           },
-      }
+      },
   })
 
   -- Fuzzy find filenames
