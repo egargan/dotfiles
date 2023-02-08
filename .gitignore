@@ -1,0 +1,6 @@
+# Ignore everything in ~/.local except our bin directory
+bin/.local/*
+!bin/.local/bin
+
+# Ignore work config
+git/.gitconfig-work
