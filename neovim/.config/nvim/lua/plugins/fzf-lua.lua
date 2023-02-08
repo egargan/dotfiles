@@ -52,6 +52,22 @@ local function setup()
           fzf = {
               ["ctrl-p"] = "toggle-preview",
           },
+      },
+      grep = {
+          actions = {
+              ["ctrl-y"] = function(selected)
+                local resultsNoFilenames = {}
+
+                -- For each selected result (may be one or many), trim the filename
+                for k, v in pairs(selected) do
+                  local splitResult = vim.split(v, ":%d+:")
+                  table.remove(splitResult, 1)
+                  table.insert(resultsNoFilenames, table.concat(splitResult))
+                end
+
+                vim.fn.setreg('"', table.concat(resultsNoFilenames, '\n'))
+              end
+          },
       }
   })
 
