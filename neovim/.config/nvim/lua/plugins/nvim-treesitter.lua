@@ -1,14 +1,10 @@
 -- Plugin dev-oriented tree sitter library
 
-local hl = function(group, opts)
-  opts.default = true
-  vim.api.nvim_set_hl(0, group, opts)
-end
-
 function setup()
   require('nvim-treesitter.configs').setup({
       highlight = {
           enable = true,
+          disable = { "scss" },
       },
       indent = {
           enable = true
