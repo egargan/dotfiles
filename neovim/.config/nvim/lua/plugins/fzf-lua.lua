@@ -42,11 +42,11 @@ local function setup()
           ['<C-p>'] = 'toggle-preview',
           ['<C-Space>'] = 'toggle-preview-cw',
           ['<C-L>'] = 'toggle-fullscreen',
-          ['C-a'] = 'toggle-all',
+          ['<C-o>'] = 'toggle-all',
         },
         fzf = {
           ['ctrl-p'] = 'toggle-preview',
-          ['ctrl-a'] = 'toggle-all',
+          ['ctrl-o'] = 'toggle-all',
         },
       },
       grep = {
