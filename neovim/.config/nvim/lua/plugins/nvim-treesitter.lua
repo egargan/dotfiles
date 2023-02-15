@@ -18,6 +18,9 @@ function setup()
       },
       ensure_installed = { "svelte", "typescript", "lua", "html", "scss", "python", "yaml", "json", "query", "javascript" },
   })
+
+  -- Leave error highlighting up to LSP
+  vim.api.nvim_set_hl(0, '@error', { link = "Normal" })
 end
 
 return {
