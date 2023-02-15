@@ -1,8 +1,4 @@
 {
-    "Lua.format.defaultConfig":{
-        "indent_style":"space",
-        "indent_size":"2"
-    },
     "workspace.library": [
         "/Users/edward.gargan/.config/nvim",
         "/Users/edward.gargan/.nvim/plugged/diffview.nvim",

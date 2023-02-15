@@ -20,6 +20,13 @@ return function(capabilities, on_attach)
               telemetry = {
                   enable = false,
               },
+              format = {
+                  enable = true,
+                  defaultConfig = {
+                      indent_style = "space",
+                      indent_size = "2",
+                  }
+              }
           },
       },
   }
