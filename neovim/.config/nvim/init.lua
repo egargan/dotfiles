@@ -1,5 +1,5 @@
-vim.g.mapleader=" "                   -- Set <Leader> to space - '\' is too awkward
-vim.opt.rtp:append(vim.env.HOME .. '/.nvim/')     -- Sometimes Neovim doesn't think .nvim should be its runtime path?
+vim.g.mapleader = " " -- Set <Leader> to space - '\' is too awkward
+vim.opt.rtp:append(vim.env.HOME .. '/.nvim/') -- Sometimes Neovim doesn't think .nvim should be its runtime path?
 
 -- == Plugins ==================================================================
 
@@ -8,7 +8,7 @@ local vimplug_install_path = '~/.nvim/autoload/plug.vim'
 -- Install vimplug if not already installed
 if vim.fn.glob(vimplug_install_path) == '' then
   vim.fn.system('curl --create-dirs -fLo ' .. vimplug_install_path ..
-    '\\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
+  '\\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
 end
 
 local Plug = vim.fn['plug#']
@@ -60,8 +60,8 @@ end
 
 if next(missing_plugin_names) ~= nil then
   vim.api.nvim_create_autocmd('VimEnter', {
-    pattern = '*',
-    command = 'PlugInstall --sync ' .. table.concat(missing_plugin_names, ' ')
+      pattern = '*',
+      command = 'PlugInstall --sync ' .. table.concat(missing_plugin_names, ' ')
   })
 end
 
@@ -84,45 +84,46 @@ cmp_conf.setup()
 
 -- General Settings ============================================================
 
-vim.opt.updatetime = 500                  -- Time between swap file writes and for CursorHold delay
+vim.opt.updatetime = 500 -- Time between swap file writes and for CursorHold delay
 
-vim.opt.syntax = 'on'                      -- Syntax highlighting
-vim.opt.number = true                      -- Line numbers
+vim.opt.syntax = 'on' -- Syntax highlighting
+vim.opt.number = true -- Line numbers
 
-vim.opt.expandtab = true                      -- Always enter spaces on <Tab>
-vim.opt.softtabstop = 2                  -- How many spaces are entered on <Tab>
-vim.opt.shiftwidth = 2                   -- Tab width used by 'smarttab', and '>>'/'<<
-vim.opt.shiftround = true                     -- Round '>>/'<<' indents to nearest tabstop
+vim.opt.expandtab = true -- Always enter spaces on <Tab>
+vim.opt.softtabstop = 2 -- How many spaces are entered on <Tab>
+vim.opt.shiftwidth = 2 -- Tab width used by 'smarttab', and '>>'/'<<
+vim.opt.shiftround = true -- Round '>>/'<<' indents to nearest tabstop
 
-vim.opt.scrolloff = 4                    -- Always keep cursor >= 4 lines away from top and bottom of screen
-vim.opt.linebreak = true                      -- Don't wrap lines in the middle of words
-vim.opt.tw = 100                         -- Set word wrap width to 100
-vim.opt.laststatus = 2                   -- Always show status bar
-vim.opt.cursorline = true                     -- Highlight cursor's line
+vim.opt.scrolloff = 4 -- Always keep cursor >= 4 lines away from top and bottom of screen
+vim.opt.linebreak = true -- Don't wrap lines in the middle of words
+vim.opt.tw = 100 -- Set word wrap width to 100
+vim.opt.laststatus = 2 -- Always show status bar
+vim.opt.cursorline = true -- Highlight cursor's line
 
-vim.opt.wildmode = { 'longest', 'list' }          -- (on tab, complete to longest common path, or show options if not possible) TODO: do we need these, next to FZF?
+vim.opt.wildmode = { 'longest', 'list' } -- (on tab, complete to longest common path, or show options if not possible) TODO: do we need these, next to FZF?
 vim.opt.wildignore = { '.git', '*.swp', '*/tmp/*' }
 
-vim.opt.undofile = true                       -- Lave undo history to file
-vim.opt.undoreload = 1000               -- Limit history to 1k lines
-vim.opt.undodir =  vim.fn.expand('~') .. '/.nvim/swap//'  -- Set loc for undo history
+vim.opt.undofile = true -- Lave undo history to file
+vim.opt.undoreload = 1000 -- Limit history to 1k lines
+vim.opt.undodir = vim.fn.expand('~') .. '/.nvim/swap//' -- Set loc for undo history
 
 -- create undo dir if !exists
 vim.fn.system('silent ! [ -d ' .. vim.opt.undodir:get()[1] ..
-  '] || mkdir ' .. vim.opt.undodir:get()[1])
+'] || mkdir ' .. vim.opt.undodir:get()[1])
 
-vim.opt.directory = vim.fn.expand('~') .. '/.nvim/swap//'   -- Keep swaps in home dir (trailing '//' creates full-path-name .swps)
+vim.opt.directory = vim.fn.expand('~') ..
+    '/.nvim/swap//' -- Keep swaps in home dir (trailing '//' creates full-path-name .swps)
 
 -- create swap dir if !exists
 vim.fn.system('silent ! [ -d ' .. vim.opt.directory:get()[1] ..
-  '] || mkdir ' .. vim.opt.directory:get()[1])
+'] || mkdir ' .. vim.opt.directory:get()[1])
 
-vim.opt.ignorecase = true                     -- Ignore case in searches by default
-vim.opt.smartcase = true                      -- Enable case sensitivity if capital entered
+vim.opt.ignorecase = true -- Ignore case in searches by default
+vim.opt.smartcase = true -- Enable case sensitivity if capital entered
 
-vim.opt.relativenumber = true                 -- Line numbers are relative to cursor's line
+vim.opt.relativenumber = true -- Line numbers are relative to cursor's line
 
-vim.opt.termguicolors = true                  -- Use colorscheme's 256-bit colours
+vim.opt.termguicolors = true -- Use colorscheme's 256-bit colours
 
 
 -- General Mappings ============================================================
@@ -198,8 +199,8 @@ vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'Normal' })
 
 -- Remove trailing whitespace on save
 vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = '*',
-  command = ':%s/\\s\\+$//e',
+    pattern = '*',
+    command = ':%s/\\s\\+$//e',
 })
 
 -- Host-specific config ========================================================

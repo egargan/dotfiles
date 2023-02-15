@@ -38,16 +38,16 @@ local function setup()
           },
       },
       keymap = {
-        builtin = {
-          ['<C-p>'] = 'toggle-preview',
-          ['<C-Space>'] = 'toggle-preview-cw',
-          ['<C-L>'] = 'toggle-fullscreen',
-          ['<C-o>'] = 'toggle-all',
-        },
-        fzf = {
-          ['ctrl-p'] = 'toggle-preview',
-          ['ctrl-o'] = 'toggle-all',
-        },
+          builtin = {
+              ['<C-p>'] = 'toggle-preview',
+              ['<C-Space>'] = 'toggle-preview-cw',
+              ['<C-L>'] = 'toggle-fullscreen',
+              ['<C-o>'] = 'toggle-all',
+          },
+          fzf = {
+              ['ctrl-p'] = 'toggle-preview',
+              ['ctrl-o'] = 'toggle-all',
+          },
       },
       grep = {
           actions = {
@@ -92,20 +92,22 @@ local function setup()
   end, keymap_opts)
 
   -- Fuzzy find text
-  vim.keymap.set('n', '\\', function() fzf_lua.grep({
-      rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
-      search = '',
-      cwd = NvimTreeAwareCwd(),
-      winopts = grep_winopts,
+  vim.keymap.set('n', '\\', function()
+    fzf_lua.grep({
+        rg_opts = grep_defualt_opts .. ' --hidden -g "!.git"',
+        search = '',
+        cwd = NvimTreeAwareCwd(),
+        winopts = grep_winopts,
     })
   end, keymap_opts)
 
   -- Fuzzy find text, including ignored files
-  vim.keymap.set('n', '|', function() fzf_lua.grep({
-      rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
-      search = '',
-      cwd = NvimTreeAwareCwd(),
-      winopts = grep_winopts,
+  vim.keymap.set('n', '|', function()
+    fzf_lua.grep({
+        rg_opts = grep_defualt_opts .. ' --hidden -g "!.git" --no-ignore-vcs',
+        search = '',
+        cwd = NvimTreeAwareCwd(),
+        winopts = grep_winopts,
     })
   end, keymap_opts)
 

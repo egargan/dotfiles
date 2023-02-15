@@ -7,22 +7,22 @@ end
 
 function setup()
   require('nvim-treesitter.configs').setup({
-    highlight = {
-      enable = true,
-    },
-    indent = {
-      enable = true
-    },
-    autotag = {
-      enable = true,
-    },
-    ensure_installed = { "svelte", "typescript", "lua", "html", "scss", "python", "yaml", "json", "query", "javascript" },
+      highlight = {
+          enable = true,
+      },
+      indent = {
+          enable = true
+      },
+      autotag = {
+          enable = true,
+      },
+      ensure_installed = { "svelte", "typescript", "lua", "html", "scss", "python", "yaml", "json", "query", "javascript" },
   })
 end
 
 return {
-  name = 'nvim-treesitter/nvim-treesitter',
-  options = { ['do'] = ':TSUpdate' },
-  setup = setup,
-  priority = 2,
+    name = 'nvim-treesitter/nvim-treesitter',
+    options = { ['do'] = ':TSUpdate' },
+    setup = setup,
+    priority = 2,
 }
