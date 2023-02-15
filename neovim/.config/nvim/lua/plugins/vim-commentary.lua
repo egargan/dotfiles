@@ -1,5 +1,5 @@
 -- Code commenting plugin
 
 return {
-    name = 'tpope/vim-commentary',
+  name = 'tpope/vim-commentary',
 }

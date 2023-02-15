@@ -60,8 +60,8 @@ end
 
 if next(missing_plugin_names) ~= nil then
   vim.api.nvim_create_autocmd('VimEnter', {
-      pattern = '*',
-      command = 'PlugInstall --sync ' .. table.concat(missing_plugin_names, ' ')
+    pattern = '*',
+    command = 'PlugInstall --sync ' .. table.concat(missing_plugin_names, ' ')
   })
 end
 
@@ -199,8 +199,8 @@ vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'Normal' })
 
 -- Remove trailing whitespace on save
 vim.api.nvim_create_autocmd('BufWritePre', {
-    pattern = '*',
-    command = ':%s/\\s\\+$//e',
+  pattern = '*',
+  command = ':%s/\\s\\+$//e',
 })
 
 -- Host-specific config ========================================================

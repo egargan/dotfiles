@@ -1,5 +1,5 @@
 -- Convenience function library for plugin devs
 
 return {
-    name = 'nvim-lua/plenary.nvim',
+  name = 'nvim-lua/plenary.nvim',
 }

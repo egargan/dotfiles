@@ -29,17 +29,17 @@ function setup()
     end, opts)
 
     vim.diagnostic.config({
-        float = {
-            border = 'rounded',
-            header = 'Diagnostics',
-            source = true,
-        },
+      float = {
+        border = 'rounded',
+        header = 'Diagnostics',
+        source = true,
+      },
     })
 
     if client.server_capabilities.documentFormattingProvider then
       vim.api.nvim_create_autocmd('BufWritePost', {
-          buffer = bufnr,
-          callback = function() vim.lsp.buf.format({ sync = true }) end
+        buffer = bufnr,
+        callback = function() vim.lsp.buf.format({ sync = true }) end
       })
     end
 
@@ -47,26 +47,26 @@ function setup()
       vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
       vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
       vim.api.nvim_create_autocmd("CursorHold", {
-          callback = vim.lsp.buf.document_highlight,
-          buffer = bufnr,
-          group = "lsp_document_highlight",
-          desc = "Document Highlight",
+        callback = vim.lsp.buf.document_highlight,
+        buffer = bufnr,
+        group = "lsp_document_highlight",
+        desc = "Document Highlight",
       })
       vim.api.nvim_create_autocmd("CursorMoved", {
-          callback = vim.lsp.buf.clear_references,
-          buffer = bufnr,
-          group = "lsp_document_highlight",
-          desc = "Clear All the References",
+        callback = vim.lsp.buf.clear_references,
+        buffer = bufnr,
+        group = "lsp_document_highlight",
+        desc = "Clear All the References",
       })
     end
   end
 
   -- Show black circle instead of default square for virtual text diagnostic messages
   vim.diagnostic.config({
-      virtual_text = {
-          prefix = ' ●',
-      },
-      signs = false,
+    virtual_text = {
+      prefix = ' ●',
+    },
+    signs = false,
   })
 
   -- Create commands for hiding/showing diagnostic virtual text
@@ -79,11 +79,11 @@ function setup()
 
   -- Add borders to signature help and hover popups
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-          vim.lsp.handlers.signature_help, { border = 'rounded' }
-      )
+    vim.lsp.handlers.signature_help, { border = 'rounded' }
+  )
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-          vim.lsp.handlers.hover, { border = 'rounded' }
-      )
+    vim.lsp.handlers.hover, { border = 'rounded' }
+  )
 
   -- Config lspconfig UIs
   require('lspconfig.ui.windows').default_options.border = 'rounded'
@@ -99,9 +99,9 @@ function setup()
 
   -- Setup Mason LSP installer UI
   require('mason').setup({
-      ui = {
-          border = 'rounded',
-      }
+    ui = {
+      border = 'rounded',
+    }
   })
 
   local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -113,22 +113,22 @@ function setup()
 
   -- Setup auto-signature help plugin
   require('lsp_signature').setup({
-      hint_enable = false,
-      toggle_key = '<C-h>',
+    hint_enable = false,
+    toggle_key = '<C-h>',
   })
 
   -- Setup diagnostic summary plugin
   require('trouble').setup({
-      icons = false,
-      fold_open = '▾',
-      fold_closed = '▸',
-      signs = {
-          error = '●',
-          warning = '●',
-          hint = '●',
-          information = '●',
-      },
-      use_diagnostic_signs = false
+    icons = false,
+    fold_open = '▾',
+    fold_closed = '▸',
+    signs = {
+      error = '●',
+      warning = '●',
+      hint = '●',
+      information = '●',
+    },
+    use_diagnostic_signs = false
   })
 
   vim.keymap.set('n', '<Leader>t', require('trouble').toggle, { noremap = true, silent = true })
@@ -140,11 +140,11 @@ function setup()
   local null_ls = require('null-ls')
 
   null_ls.setup({
-      sources = {
-          null_ls.builtins.formatting.prettierd,
-          null_ls.builtins.diagnostics.eslint_d,
-          null_ls.builtins.code_actions.eslint_d,
-      },
+    sources = {
+      null_ls.builtins.formatting.prettierd,
+      null_ls.builtins.diagnostics.eslint_d,
+      null_ls.builtins.code_actions.eslint_d,
+    },
   })
 
   -- Configure code action plugin
@@ -153,35 +153,35 @@ function setup()
 
   -- Setup code action lightbulb plugin
   require('nvim-lightbulb').setup({
-      sign = { enabled = false },
-      virtual_text = { enabled = true },
-      autocmd = { enabled = true },
+    sign = { enabled = false },
+    virtual_text = { enabled = true },
+    autocmd = { enabled = true },
   })
 end
 
 return {
-    plugins = {
-        -- Per-langauge client configs
-        'neovim/nvim-lspconfig',
+  plugins = {
+    -- Per-langauge client configs
+    'neovim/nvim-lspconfig',
 
-        -- LSP server installer
-        'williamboman/mason.nvim',
-        'williamboman/mason-lspconfig.nvim',
+    -- LSP server installer
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
 
-        -- Show signature help while typing
-        'ray-x/lsp_signature.nvim',
+    -- Show signature help while typing
+    'ray-x/lsp_signature.nvim',
 
-        -- Diagnostic summary plugin
-        'folke/trouble.nvim',
+    -- Diagnostic summary plugin
+    'folke/trouble.nvim',
 
-        -- Fancy code action menu
-        'weilbith/nvim-code-action-menu',
+    -- Fancy code action menu
+    'weilbith/nvim-code-action-menu',
 
-        -- Show lightbulg when code actions available
-        'kosayoda/nvim-lightbulb',
+    -- Show lightbulg when code actions available
+    'kosayoda/nvim-lightbulb',
 
-        -- Platform for easier LSP features, e.g. formatting and linting
-        'jose-elias-alvarez/null-ls.nvim'
-    },
-    setup = setup,
+    -- Platform for easier LSP features, e.g. formatting and linting
+    'jose-elias-alvarez/null-ls.nvim'
+  },
+  setup = setup,
 }

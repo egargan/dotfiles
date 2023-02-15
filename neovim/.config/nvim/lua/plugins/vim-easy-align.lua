@@ -6,6 +6,6 @@ function setup()
 end
 
 return {
-    name = 'junegunn/vim-easy-align',
-    setup = setup,
+  name = 'junegunn/vim-easy-align',
+  setup = setup,
 }
