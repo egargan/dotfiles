@@ -135,22 +135,6 @@ local function setup()
     })
   end, keymap_opts)
 
-  -- Fuzzy find buffer list
-  vim.keymap.set('n', '<S-Tab>', function()
-    fzf_lua.buffers({
-      winopts = {
-        width = 60,
-        height = 22,
-        preview = {
-          hidden = 'hidden',
-          layout = 'flex',
-          vertical = 'down:60%',
-        }
-      },
-      cwd = NvimTreeAwareCwd(),
-    })
-  end, keymap_opts)
-
 
   -- Git ----------------------------------------------------------------------
 

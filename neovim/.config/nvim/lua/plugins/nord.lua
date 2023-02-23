@@ -4,6 +4,7 @@ return {
   name = 'gbprod/nord.nvim',
   setup = function()
     require("nord").setup({
+      comments = { italics = false },
       diff = { mode = "fg" },
       on_highlights = function(highlights, colors)
         highlights["@parameter"] = { fg = colors.snow_storm.bright }
