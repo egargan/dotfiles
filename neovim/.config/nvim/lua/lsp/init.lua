@@ -137,14 +137,12 @@ function setup()
   vim.keymap.set('n', '<Leader>fd', ':Trouble document_diagnostics<cr>', { noremap = true, silent = true })
   vim.keymap.set('n', '<Leader>fD', ':Trouble workspace_diagnostics<cr>', { noremap = true, silent = true })
 
-  -- Here is the formatting config
+  -- null-ls interfaces tools with Neovim's LSP that aren't supported by nvim-lspconfig
   local null_ls = require('null-ls')
 
   null_ls.setup({
     sources = {
       null_ls.builtins.formatting.prettierd,
-      null_ls.builtins.diagnostics.eslint_d,
-      null_ls.builtins.code_actions.eslint_d,
     },
   })
 
