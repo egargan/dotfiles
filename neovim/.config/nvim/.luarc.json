@@ -39,5 +39,8 @@
         "/Users/edward.gargan/.nvim/plugged/vim-vsnip-integ/after",
         "/Users/edward.gargan/.nvim/",
         "${3rd}/luassert/library"
+    ],
+    "diagnostics.disable": [
+        "redundant-parameter"
     ]
 }
