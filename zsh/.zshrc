@@ -68,8 +68,8 @@ zplug load
 # -- junegunn/fzf ------------------------------------------------------------
 
 # Setup bindings and autocompletion
-source $ZPLUG_HOME/repos/junegunn/fzf/shell/key-bindings.zsh
-source $ZPLUG_HOME/repos/junegunn/fzf/shell/completion.zsh
+source $ZPLUG_REPOS/junegunn/fzf/shell/key-bindings.zsh
+source $ZPLUG_REPOS/junegunn/fzf/shell/completion.zsh
 
 # Have fzf use ripgrep
 export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --follow --glob '!.git'"
