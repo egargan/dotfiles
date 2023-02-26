@@ -1,9 +1,7 @@
--- Nord colorscheme
-
 return {
-  name = 'gbprod/nord.nvim',
-  setup = function()
-    require("nord").setup({
+  {
+    'gbprod/nord.nvim',
+    opts = {
       comments = { italics = false },
       diff = { mode = "fg" },
       on_highlights = function(highlights, colors)
@@ -26,10 +24,12 @@ return {
           highlights["DiagnosticVirtualTextInfo"], { undercurl = true })
         highlights["DiagnosticUnderlineHint"] = vim.tbl_extend("keep",
           highlights["DiagnosticVirtualTextHint"], { undercurl = true })
-      end,
-    })
-
-    vim.cmd('colorscheme nord')
-  end,
-  priority = 1,
+      end
+    },
+    config = function(_, opts)
+      require('nord').setup(opts)
+      vim.cmd('colorscheme nord')
+    end,
+    lazy = false
+  }
 }

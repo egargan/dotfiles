@@ -3,83 +3,27 @@ vim.opt.rtp:append(vim.env.HOME .. '/.nvim/') -- Sometimes Neovim doesn't think 
 
 -- == Plugins ==================================================================
 
-local vimplug_install_path = '~/.nvim/autoload/plug.vim'
+-- Install lazy if not installed
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
--- Install vimplug if not already installed
-if vim.fn.glob(vimplug_install_path) == '' then
-  vim.fn.system('curl --create-dirs -fLo ' .. vimplug_install_path ..
-  '\\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-end
-
-local Plug = vim.fn['plug#']
-local vimplug_plugin_dir = '~/.nvim/plugged'
-
-vim.call('plug#begin', vimplug_plugin_dir)
-
--- General Plugins
-local general_plugin_confs = {}
-
--- TODO: can we do this more elegantly?
-for _, value in pairs(vim.fn.systemlist('ls $HOME/.config/nvim/lua/plugins | sed -e \'s/\\.lua$//\'')) do
-  local conf = require('plugins.' .. value)
-  if conf.priority == nil then conf.priority = 10 end
-  if not conf.disabled then
-    table.insert(general_plugin_confs, conf)
-  end
-end
-
-for _, conf in pairs(general_plugin_confs) do
-  if conf.options ~= nil then
-    vim.fn['plug#'](conf.name, conf.options or {})
-  else
-    vim.fn['plug#'](conf.name)
-  end
-end
-
--- LSP Plugins
-local lsp_conf = require('lsp')
-for _, plugin in pairs(lsp_conf.plugins) do
-  vim.fn['plug#'](plugin)
-end
-
--- Completion plugins
-local cmp_conf = require('completion')
-for _, plugin in pairs(cmp_conf.plugins) do
-  vim.fn['plug#'](plugin)
-end
-
-local missing_plugin_names = {}
-
--- Create list of plugged plugins that aren't installed
-for plugins_i = 1, #vim.g.plugs_order do
-  local plugin_name = vim.g.plugs_order[plugins_i]
-  if vim.fn.glob(vimplug_plugin_dir .. '/' .. plugin_name) == '' then
-    table.insert(missing_plugin_names, plugin_name)
-  end
-end
-
-if next(missing_plugin_names) ~= nil then
-  vim.api.nvim_create_autocmd('VimEnter', {
-    pattern = '*',
-    command = 'PlugInstall --sync ' .. table.concat(missing_plugin_names, ' ')
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
   })
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Initialise vimplug
-vim.call('plug#end')
-
--- Sort plugins by priority
-table.sort(general_plugin_confs, function(a, b) return a.priority < b.priority end)
-
--- Call post-plug setup for plugins
-for _, conf in pairs(general_plugin_confs) do
-  if conf.setup ~= nil then
-    conf.setup()
-  end
-end
-
-lsp_conf.setup()
-cmp_conf.setup()
+-- Setup plugins, including LSP and completion config
+require("lazy").setup("plugins", {
+  ui = {
+    border = "rounded",
+  }
+})
 
 
 -- General Settings ============================================================
