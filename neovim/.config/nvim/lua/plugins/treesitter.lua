@@ -22,7 +22,7 @@ return {
       autotag = {
         enable = true,
       },
-      ensure_installed = { "svelte", "typescript", "lua", "html", "scss", "python", "yaml", "json", "query", "javascript" },
+      ensure_installed = { "svelte", "typescript", "lua", "html", "scss", "python", "yaml", "json", "query", "javascript", "tsx" },
     },
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
