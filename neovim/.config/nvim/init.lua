@@ -141,6 +141,11 @@ vim.api.nvim_set_hl(0, 'NormalFloat', { link = 'Normal' })
 
 -- Autocommands  ===============================================================
 
+vim.api.nvim_create_autocmd({'BufWritePre', 'BufRead'}, {
+  pattern = '.envrc',
+  command = 'set filetype=sh',
+})
+
 -- Remove trailing whitespace on save
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*',
