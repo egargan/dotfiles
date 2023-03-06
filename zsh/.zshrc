@@ -22,6 +22,9 @@ bindkey '^x^e' edit-command-line
 # Hook direnv into shell
 eval "$(direnv hook zsh)"
 
+# Fuzzy find sessions, i.e. projects
+bindkey -s ^f "tmux-sessionizer\n"
+
 
 # == Plugins =================================================================
 
