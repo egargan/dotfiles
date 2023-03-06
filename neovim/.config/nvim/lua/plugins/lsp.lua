@@ -125,7 +125,7 @@ return {
       -- Show black circle instead of default square for virtual text diagnostic messages
       vim.diagnostic.config({
         virtual_text = {
-          prefix = '●',
+          prefix = '•',
         },
         signs = false,
       })
@@ -220,15 +220,15 @@ return {
       fold_open = '▾',
       fold_closed = '▸',
       signs = {
-        error = '●',
-        warning = '●',
-        hint = '●',
-        information = '●',
+        error = '•',
+        warning = '•',
+        hint = '•',
+        information = '•',
       },
       use_diagnostic_signs = false
     },
     keys = {
-      { '<Leader>t',  ':TroubleToggle<CR>',            desc = 'Toggle Trouble' },
+      { '<Leader>t',  ':TroubleToggle<CR>',                 desc = 'Toggle Trouble' },
       { '<Leader>fr', ':Trouble lsp_references<CR>',        desc = 'Show references' },
       { '<Leader>fi', ':Trouble lsp_implementations<CR>',   desc = 'Show implementations' },
       { '<Leader>fd', ':Trouble document_diagnostics<CR>',  desc = 'Show document diagnostics' },
