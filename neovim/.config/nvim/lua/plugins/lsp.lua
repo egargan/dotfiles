@@ -31,6 +31,10 @@ local function on_attach(client, bufnr)
       header = 'Diagnostics',
       source = true,
     },
+    virtual_text = {
+      prefix = '•',
+    },
+    signs = false,
   })
 
   -- TODO: can this be done with  nvim-lspconfig opts = { autoformat = true } ?
@@ -122,14 +126,6 @@ return {
       },
     },
     config = function(_, opts)
-      -- Show black circle instead of default square for virtual text diagnostic messages
-      vim.diagnostic.config({
-        virtual_text = {
-          prefix = '•',
-        },
-        signs = false,
-      })
-
       -- Create commands for hiding/showing diagnostic virtual text
       vim.api.nvim_create_user_command('HideDiagnosticVirtualText', function()
         vim.diagnostic.config({ virtual_text = false })
@@ -149,6 +145,10 @@ return {
         local server_opts = vim.tbl_deep_extend("force", {
           capabilities = vim.deepcopy(capabilities),
           on_attach = on_attach,
+          handlers = {
+            ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' }),
+            ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
+          }
         }, servers[server] or {})
 
         -- TODO: do we need this setup block?
