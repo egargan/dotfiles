@@ -8,8 +8,9 @@ return {
 
     {
         -- Code commenting plugin
-        'tpope/vim-commentary',
+        'numToStr/Comment.nvim',
         event = { "BufReadPre", "BufNewFile" },
+        config = true,
     },
 
     {
