@@ -111,6 +111,12 @@ _go() {
   git branch --show-current
 }
 
+_ns() {
+  cat package.json | jq -C '.scripts' | sed '1d; $d' |
+    fzf-down-preview --ansi --multi --tac |
+    sed -r 's/^[[:space:]]*"([^"]+)".*$/\1/'
+}
+
 join-lines() {
   local item
   while read item; do
@@ -119,15 +125,15 @@ join-lines() {
 }
 
 # For each function above, create a widget and register a binding
-for key in b t l s o; do
-  eval "fzf-g$key-widget() {
+for key in gb gt gl gs go ns; do
+  eval "fzf-$key-widget() {
     git rev-parse HEAD > /dev/null 2>&1 || return;
-    local result=\$(_g$key);
+    local result=\$(_$key);
     zle reset-prompt;
     LBUFFER+=\$result
   }"
-  eval "zle -N fzf-g$key-widget"
-  eval "bindkey '^g$key' fzf-g$key-widget"
+  eval "zle -N fzf-$key-widget"
+  eval "bindkey '^$key' fzf-$key-widget"
 done
 
 # -- sharkdp/bat -------------------------------------------------------------
