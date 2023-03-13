@@ -122,7 +122,13 @@ return {
         tsserver = {
           filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
         },
-        yamlls = {},
+        yamlls = {
+          settings = {
+            yaml = {
+              keyOrdering = false,
+            }
+          }
+        },
       },
     },
     config = function(_, opts)
