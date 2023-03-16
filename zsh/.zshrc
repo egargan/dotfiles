@@ -1,3 +1,8 @@
+# Colors
+RED='\033[31m';
+GREEN='\033[32m';
+RESET='\033[0m';
+
 # Source global .zshrc, if one exists
 if [ -f /etc/zshrc ]; then
   . /etc/zshrc
@@ -107,6 +112,18 @@ _gs() {
   cut -d: -f1
 }
 
+_gd() {
+  echo "${RED}$(git ls-files --others --exclude-standard; git diff --name-only;)${RESET}" |
+  fzf-down-preview --ansi --multi --preview 'git diff {}' |
+  tr '\n' ' '
+}
+
+_gc() {
+  echo "${GREEN}$(git diff --cached --name-only)${RESET}" |
+  fzf-down-preview --ansi --multi --preview 'git diff --cached {}' |
+  tr '\n' ' '
+}
+
 _go() {
   git branch --show-current
 }
@@ -125,7 +142,7 @@ join-lines() {
 }
 
 # For each function above, create a widget and register a binding
-for key in gb gt gl gs go ns; do
+for key in gb gt gl gs gn gd gc go ns; do
   eval "fzf-$key-widget() {
     git rev-parse HEAD > /dev/null 2>&1 || return;
     local result=\$(_$key);
