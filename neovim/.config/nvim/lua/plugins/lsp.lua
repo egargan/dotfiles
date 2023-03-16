@@ -9,11 +9,9 @@ local function on_attach(client, bufnr)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<Leader>ca', function() vim.cmd(':CodeActionMenu') end, bufopts)
-  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, keymap_opts)
 
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, keymap_opts)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, keymap_opts)
@@ -235,8 +233,8 @@ return {
     },
     keys = {
       { '<Leader>t',  ':TroubleToggle<CR>',                 desc = 'Toggle Trouble' },
-      { '<Leader>fr', ':Trouble lsp_references<CR>',        desc = 'Show references' },
-      { '<Leader>fi', ':Trouble lsp_implementations<CR>',   desc = 'Show implementations' },
+      { 'gr', ':Trouble lsp_references<CR>',        desc = 'Show references' },
+      { 'gi', ':Trouble lsp_implementations<CR>',   desc = 'Show implementations' },
       { '<Leader>fd', ':Trouble document_diagnostics<CR>',  desc = 'Show document diagnostics' },
       { '<Leader>fD', ':Trouble workspace_diagnostics<CR>', desc = 'Show workspace diagnostics' },
     }
