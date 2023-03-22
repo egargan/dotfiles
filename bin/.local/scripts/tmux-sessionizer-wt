@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# TODO: handle currently-checked-out branch being picked (filter?)
+# TODO: use git branch output
+
+set -euo pipefail
+
+SELECTED=$(git branch --color=always \
+ | grep '^[*+]' \
+ | fzf --ansi --height=30% --reverse \
+ | awk -F' ' '{print $2}')
+
+if [[ -z $SELECTED ]]; then
+  exit 0
+fi
+
+TMUX_RUNNING=$(pgrep tmux)
+
+REPO_PATH=$(git rev-parse --show-toplevel)
+REPO_NAME=$(basename "$REPO_PATH")
+SESSION_NAME="$REPO_NAME ($SELECTED)"
+
+if [[ -z $TMUX ]] && [[ -z $TMUX_RUNNING ]]; then
+  tmux new-session -s "$SESSION_NAME" -c "$REPO_PATH/.worktrees/$SELECTED"
+  exit 0
+fi
+
+if ! tmux has-session -t=$SELECTED 2> /dev/null; then
+  tmux new-session -ds "$SESSION_NAME" -c "$REPO_PATH/.worktrees/$SELECTED"
+fi
+
+tmux switch-client -t "$SESSION_NAME"
