@@ -64,6 +64,7 @@ return {
       vim.api.nvim_set_hl(0, 'FzfLuaBorder', { link = 'SpecialKey' })
       vim.api.nvim_set_hl(0, 'FzfLuaTitle', { link = 'Conceal' })
     end,
+    cmd = { 'FzfLua' },
     keys = {
       {
         '<C-t>',
