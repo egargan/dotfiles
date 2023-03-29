@@ -24,6 +24,8 @@ return {
           highlights["DiagnosticVirtualTextInfo"], { undercurl = true })
         highlights["DiagnosticUnderlineHint"] = vim.tbl_extend("keep",
           highlights["DiagnosticVirtualTextHint"], { undercurl = true })
+
+        highlights["Folded"] = { fg = colors.polar_night.brightest }
       end
     },
     config = function(_, opts)
