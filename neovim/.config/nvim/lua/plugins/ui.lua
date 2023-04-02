@@ -123,26 +123,33 @@ return {
     -- UIs for viewing git diffs, history, etc.
     'sindrets/diffview.nvim',
     cmd = {
-    'DiffviewToggleFiles',
-    'DiffviewOpen',
-    'DiffviewFileHistory',
-    'DiffviewLog',
-    'DiffviewClose',
-    'DiffviewRefresh',
-    'DiffviewFocusFiles',
-  },
+      'DiffviewToggleFiles',
+      'DiffviewOpen',
+      'DiffviewFileHistory',
+      'DiffviewLog',
+      'DiffviewClose',
+      'DiffviewRefresh',
+      'DiffviewFocusFiles',
+    },
     opts = {
+      enhanced_diff_hl = true,
       use_icons = false,
       icons = {
-        folder_closed = "> ",
-        folder_open = "v ",
+        folder_closed = "▸",
+        folder_open = "▾",
       },
       signs = {
-        fold_closed = ">",
-        fold_open = "v",
+        fold_closed = "▸",
+        fold_open = "▾",
         done = "✓",
       },
     },
+    config = function(_, opts)
+      require('diffview').setup(opts)
+
+      -- Use hatching for 'empty' diff areas
+      vim.opt.fillchars:append { diff = "╱" }
+    end,
     keys = {
       { "<leader>+", function() vim.cmd(':DiffviewOpen') end,          desc = "Show diffs UI" },
       { "<leader>%", function() vim.cmd(':DiffviewFileHistory %') end, desc = "Show file history" },
