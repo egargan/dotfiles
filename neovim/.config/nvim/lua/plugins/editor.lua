@@ -274,4 +274,10 @@ return {
       }
     }
   },
+
+  {
+    -- Space/tab spacing detection
+    'Darazaki/indent-o-matic',
+    event = { "BufReadPre" },
+  },
 }
