@@ -19,7 +19,13 @@ return {
           lualine_b = {
             {
               'filename',
-              color = { fg = vim.g.terminal_color_7, bg = vim.g.terminal_color_0 },
+              path = 4,
+              color = function()
+                return {
+                  fg = vim.g.nord_colors.snow_storm.origin,
+                  gui = vim.bo.bufhidden ~= 'hide' and 'italic',
+                }
+              end,
             }
           },
           lualine_c = {

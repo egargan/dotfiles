@@ -116,6 +116,9 @@ vim.api.nvim_set_keymap('', '<C-j>', ':norm "_d0kgJ"<Enter>', { noremap = true }
 -- Override default print filename map to also set the system clipboard
 vim.api.nvim_set_keymap('n', '<C-g>', ':let @+ = expand("%")<Enter> <Bar> :echo expand("%")<Enter>', { noremap = true })
 
+-- Keep buffer in bufferlist if it leaves a window
+vim.api.nvim_set_keymap('n', '<C-h>', ':set bufhidden=hide<CR>', { noremap = true, silent = true })
+
 -- ...
 -- vim.api.nvim_set_keymap('n', '<silent>', '[Q :call RemoveLineFromQuickFix()<cr>', { noremap = true })
 
@@ -150,6 +153,18 @@ vim.api.nvim_create_autocmd({ 'BufWritePre', 'BufRead' }, {
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*',
   command = ':%s/\\s\\+$//e',
+})
+
+-- Delete buffers from buffer list by default
+vim.api.nvim_create_autocmd('BufReadPre', {
+  pattern = '*',
+  command = 'set bufhidden=delete',
+})
+
+-- Keep the around if they've been edited
+vim.api.nvim_create_autocmd('TextChangedI', {
+  pattern = '*',
+  command = 'set bufhidden=hide',
 })
 
 -- Host-specific config ========================================================

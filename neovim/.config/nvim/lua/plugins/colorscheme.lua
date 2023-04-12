@@ -27,20 +27,19 @@ return {
 
         highlights["Folded"] = { fg = colors.polar_night.brightest }
 
-        -- Diffview Colors --
-        -- (https://github.com/sindrets/diffview.nvim/blob/main/lua/diffview/hl.lua#L352)
-
         -- Red w/ 30% opacity on polar_night.origin
         highlights["DiffDelete"] = { bg = "#5A424D", fg = "none" }
         highlights["DiffviewDiffAddAsDelete"] = { bg = "none", fg = colors.polar_night.brightest }
         highlights["DiffviewDiffDelete"] = { bg = "none", fg = colors.polar_night.brightest }
-
         -- Green w/ 20% opacity on polar_night.origin
         highlights["DiffAdd"] = { bg = "#45504F" }
         -- Yellow w/ 20% opacity on polar_night.origin
         highlights["DiffChange"] = { bg = "#54524F" }
         -- Yellow w/ 35% opacity on polar_night.origin
         highlights["DiffText"] = { bg = "#70695A" }
+
+        -- Make colors globally available
+        vim.g.nord_colors = colors
       end
     },
     config = function(_, opts)
