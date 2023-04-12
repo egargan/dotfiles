@@ -35,6 +35,7 @@ vim.opt.number = true                    -- Line numbers
 
 vim.opt.expandtab = true                 -- Always enter spaces on <Tab>
 vim.opt.softtabstop = 2                  -- How many spaces are entered on <Tab>
+vim.opt.tabstop = 2                      -- If using tabs, set tab width
 vim.opt.shiftwidth = 2                   -- Tab width used by 'smarttab', and '>>'/'<<
 vim.opt.shiftround = true                -- Round '>>/'<<' indents to nearest tabstop
 
