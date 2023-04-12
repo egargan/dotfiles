@@ -12,3 +12,5 @@
   path = ~/.gitconfig-personal
 [includeIf "gitdir:~/work/"]
   path = ~/.gitconfig-work
+[pull]
+	rebase = true
