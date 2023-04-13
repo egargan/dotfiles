@@ -155,6 +155,23 @@ return {
         function() require('fzf-lua').git_bcommits() end,
         desc = "Search file history"
       },
+      {
+        '<leader>o',
+        function()
+          require('fzf-lua').jumps({
+            winopts = {
+              width = 170,
+              height = 40,
+              preview = {
+                layout = 'flex',
+                horizontal = 'right:55%',
+                vertical = 'up:50%',
+              }
+            }
+          })
+        end,
+        desc = "Search for text in buffer"
+      },
     },
   },
 
