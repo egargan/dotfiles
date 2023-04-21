@@ -30,5 +30,29 @@ return {
                 desc = "Easy align text"
             },
         }
+    },
+
+    {
+        'zbirenbaum/copilot.lua',
+        cmd = "Copilot",
+        event = { "InsertEnter" },
+        config = function()
+            require("copilot").setup({
+                panel = {
+                    enabled = true,
+                    auto_refresh = true,
+                    keymap = {
+                        jump_prev = "[c",
+                        jump_next = "]c",
+                        accept = "<CR>",
+                        open = "<C-c>"
+                    },
+                    layout = {
+                        position = "bottom", -- | top | left | right
+                        ratio = 0.3
+                    },
+                },
+            })
+        end,
     }
 }
