@@ -26,7 +26,7 @@ return {
     },
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
-      require('nvim-treesitter.install').update({ with_sync = true })()
+      require('nvim-treesitter.install').update({ sync_install = false })()
 
       -- Leave error highlighting up to LSP
       vim.api.nvim_set_hl(0, '@error', { link = "Normal" })
