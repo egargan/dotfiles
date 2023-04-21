@@ -79,9 +79,15 @@ return {
     'nvim-tree/nvim-tree.lua',
     cmd = { 'NvimTree', 'NvimTreeToggle' },
     opts = {
+      view = {
+        width = 35,
+      },
       renderer = {
+        full_name = true,
         special_files = {},
         add_trailing = true,
+        group_empty = true,
+        highlight_git = true,
         indent_markers = {
           enable = true,
           inline_arrows = true,
@@ -91,7 +97,7 @@ return {
         },
         icons = {
           symlink_arrow = " → ",
-          git_placement = "before",
+          git_placement = "signcolumn",
           padding = " ",
           show = {
             file = false,
