@@ -23,7 +23,7 @@ return {
               color = function()
                 return {
                   fg = vim.g.nord_colors.snow_storm.origin,
-                  gui = vim.bo.bufhidden ~= 'hide' and 'italic',
+                  gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic',
                 }
               end,
             }
