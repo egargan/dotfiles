@@ -7,7 +7,7 @@ else
     find ~/work ~/projects ~/personal -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
     | xargs realpath --relative-to ~ \
     | sed -e 's/^/~\//' \
-    | fzf --height=50% --reverse)
+    | fzf --reverse)
 fi
 
 if [[ -z $selected ]]; then
