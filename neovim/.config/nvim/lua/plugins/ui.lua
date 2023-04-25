@@ -124,6 +124,13 @@ return {
           },
         }
       },
+      actions = {
+        file_popup = {
+          open_win_config = {
+            border = 'rounded',
+          },
+        }
+      },
     },
     keys = {
       { "<leader>e", function() vim.cmd('NvimTreeToggle') end,   desc = "Open NvimTree" },
