@@ -297,4 +297,30 @@ return {
     'Darazaki/indent-o-matic',
     event = { "BufReadPre" },
   },
+
+  {
+    -- Pretty fold indicators
+    'anuvyklack/pretty-fold.nvim',
+    event = { "BufReadPost" },
+  },
+
+  {
+    -- Show fold contents in popup
+    'anuvyklack/fold-preview.nvim',
+    event = { "BufReadPost" },
+    config = function(_, opts)
+      require('fold-preview').setup({
+        auto = 2000,
+        default_keybindings = false,
+        border = 'rounded',
+      })
+    end,
+    keys = {
+      {
+        'zp',
+        function() require('fold-preview').toggle_preview() end,
+        desc = "Toggle fold preview"
+      },
+    },
+  },
 }

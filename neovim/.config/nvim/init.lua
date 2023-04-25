@@ -70,6 +70,12 @@ vim.opt.relativenumber = true -- Line numbers are relative to cursor's line
 
 vim.opt.termguicolors = true  -- Use colorscheme's 256-bit colours
 
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 7
+vim.opt.foldcolumn = '0'
+vim.opt.foldlevelstart = 99
+
 
 -- General Mappings ============================================================
 
