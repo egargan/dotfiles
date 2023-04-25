@@ -167,6 +167,10 @@ vim.api.nvim_create_autocmd('TextChangedI', {
   pattern = '*',
   command = 'set bufhidden=hide',
 })
+vim.api.nvim_create_autocmd('TextChanged', {
+  pattern = '*',
+  command = 'set bufhidden=hide',
+})
 
 -- Host-specific config ========================================================
 
