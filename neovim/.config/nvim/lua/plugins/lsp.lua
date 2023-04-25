@@ -3,10 +3,15 @@ local keymap_opts = { noremap = true, silent = true }
 -- TODO: break me down, a la
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L72
 local function on_attach(client, bufnr)
-  local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  local bufopts = { noremap = true, buffer = bufnr }
+
+  if client.name == 'tsserver' then
+    vim.keymap.set('n', 'gd', function() vim.cmd(':TypescriptGoToSourceDefinition') end, bufopts)
+  else
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  end
 
   -- TODO: dedupe these + the Trouble maps
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', '<leader>k', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, bufopts)
@@ -163,7 +168,11 @@ return {
         --   if opts.setup["*"](server, server_opts) then return end
         -- end
 
-        require("lspconfig")[server].setup(server_opts)
+        if server == "tsserver" then
+          require("typescript").setup({ server = server_opts })
+        else
+          require("lspconfig")[server].setup(server_opts)
+        end
       end
 
       local mlsp = require("mason-lspconfig")
@@ -233,8 +242,8 @@ return {
     },
     keys = {
       { '<Leader>t',  ':TroubleToggle<CR>',                 desc = 'Toggle Trouble' },
-      { 'gr', ':Trouble lsp_references<CR>',        desc = 'Show references' },
-      { 'gi', ':Trouble lsp_implementations<CR>',   desc = 'Show implementations' },
+      { 'gr',         ':Trouble lsp_references<CR>',        desc = 'Show references' },
+      { 'gi',         ':Trouble lsp_implementations<CR>',   desc = 'Show implementations' },
       { '<Leader>fd', ':Trouble document_diagnostics<CR>',  desc = 'Show document diagnostics' },
       { '<Leader>fD', ':Trouble workspace_diagnostics<CR>', desc = 'Show workspace diagnostics' },
     }
@@ -270,10 +279,26 @@ return {
       local nls = require("null-ls")
       return {
         sources = {
-          nls.builtins.formatting.prettierd,
+          nls.builtins.formatting.prettierd.with({
+            config_path = {
+
+            }
+          }),
         },
       }
     end,
   },
+
+  {
+    'jose-elias-alvarez/typescript.nvim',
+    -- cmd = {
+    --   'TypescriptAddMissingImports',
+    --   'TypescriptOrganizeImport',
+    --   'TypescriptRemoveUnused',
+    --   'TypescriptFixAll',
+    --   'TypescriptRenameFile',
+    --   'TypescriptGoToSourceDefinition',
+    -- },
+  }
 
 }
