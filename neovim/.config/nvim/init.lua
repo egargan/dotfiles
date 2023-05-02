@@ -165,17 +165,17 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 -- Delete buffers from buffer list by default
 vim.api.nvim_create_autocmd('BufReadPre', {
   pattern = '*',
-  command = 'set bufhidden=delete',
+  command = 'set bufhidden=delete'
 })
 
--- Keep the around if they've been edited
-vim.api.nvim_create_autocmd('TextChangedI', {
+-- Keep the buffer around if it's been edited
+vim.api.nvim_create_autocmd({ 'BufModifiedSet', 'TextChangedI', 'TextChanged' }, {
   pattern = '*',
-  command = 'set bufhidden=hide',
-})
-vim.api.nvim_create_autocmd('TextChanged', {
-  pattern = '*',
-  command = 'set bufhidden=hide',
+  callback = function(event)
+    if (vim.bo[event.buf].buflisted) then
+      vim.bo['bufhidden'] = 'hide'
+    end
+  end
 })
 
 -- Host-specific config ========================================================
