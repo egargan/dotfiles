@@ -291,14 +291,14 @@ return {
 
   {
     'jose-elias-alvarez/typescript.nvim',
-    -- cmd = {
-    --   'TypescriptAddMissingImports',
-    --   'TypescriptOrganizeImport',
-    --   'TypescriptRemoveUnused',
-    --   'TypescriptFixAll',
-    --   'TypescriptRenameFile',
-    --   'TypescriptGoToSourceDefinition',
-    -- },
+    cmd = {
+      'TypescriptAddMissingImports',
+      'TypescriptOrganizeImport',
+      'TypescriptRemoveUnused',
+      'TypescriptFixAll',
+      'TypescriptRenameFile',
+      'TypescriptGoToSourceDefinition',
+    },
   }
 
 }
