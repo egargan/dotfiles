@@ -80,7 +80,7 @@ source $ZPLUG_REPOS/junegunn/fzf/shell/key-bindings.zsh
 source $ZPLUG_REPOS/junegunn/fzf/shell/completion.zsh
 
 # Have fzf use ripgrep
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden --follow --glob '!.git'"
+export FZF_CTRL_T_COMMAND="rg --files --no-ignore-vcs --hidden --follow --glob '!.git'"
 
 fzf-down-preview() {
   fzf --reverse --height 50% --min-height 20 --bind ctrl-k:toggle-preview --preview-window right:60%:hidden "$@"
