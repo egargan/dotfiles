@@ -91,7 +91,7 @@ _gb() {
   fzf-down-preview --ansi --multi --tac --preview \
   'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
   sed 's/^..//' | cut -d' ' -f1 |
-  sed 's#^remotes/##'
+  sed 's#^remotes/origin/##'
 }
 
 _gt() {
