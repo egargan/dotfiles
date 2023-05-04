@@ -38,18 +38,17 @@ return {
         event = { "InsertEnter" },
         config = function()
             require("copilot").setup({
-                panel = {
+                suggestion = {
                     enabled = true,
-                    auto_refresh = true,
+                    auto_trigger = true,
+                    debounce = 100,
                     keymap = {
-                        jump_prev = "[c",
-                        jump_next = "]c",
-                        accept = "<CR>",
-                        open = "<C-c>"
-                    },
-                    layout = {
-                        position = "bottom", -- | top | left | right
-                        ratio = 0.3
+                        accept = "<C-l>",
+                        accept_word = false,
+                        accept_line = false,
+                        next = "<C-k>",
+                        prev = "<C-j>",
+                        dismiss = "<C-h>",
                     },
                 },
             })

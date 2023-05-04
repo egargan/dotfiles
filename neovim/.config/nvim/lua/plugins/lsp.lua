@@ -216,7 +216,7 @@ return {
     'ray-x/lsp_signature.nvim',
     opts = {
       hint_enable = false,
-      toggle_key = '<C-h>',
+      toggle_key = '<C-s>',
     }
   },
 
