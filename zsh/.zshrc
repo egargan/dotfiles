@@ -242,6 +242,7 @@ alias gs='git show'
 alias gsn='git show --pretty=format:'' --name-only --relative'  # List filenames only
 alias gp='git push'
 alias gpf='git push --force'
+alias gfa='git fetch --all'
 
 
 # == Status Messages ==========================================================
