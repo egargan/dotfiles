@@ -163,9 +163,26 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 -- Delete buffers from buffer list by default
-vim.api.nvim_create_autocmd('BufReadPre', {
+vim.api.nvim_create_autocmd('BufAdd', {
   pattern = '*',
-  command = 'set bufhidden=delete'
+  callback = function(event)
+    vim.bo[event.buf].bufhidden = 'delete'
+  end
+})
+
+local group = vim.api.nvim_create_augroup("PersistedHooks", {})
+
+-- Keep the buffer around if it's been loaded from a session
+vim.api.nvim_create_autocmd({ "User" }, {
+  pattern = "PersistedLoadPost",
+  group = group,
+  callback = function()
+    for bufnr = 1, vim.fn.bufnr('$') do
+      if vim.fn.buflisted(bufnr) == 1 then
+        vim.bo[bufnr].bufhidden = 'hide'
+      end
+    end
+  end,
 })
 
 -- Keep the buffer around if it's been edited
