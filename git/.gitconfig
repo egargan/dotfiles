@@ -13,4 +13,4 @@
 [includeIf "gitdir:~/work/"]
   path = ~/.gitconfig-work
 [pull]
-	rebase = true
+  rebase = true
