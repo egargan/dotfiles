@@ -1,3 +1,8 @@
+local function TabsSpacesInfo()
+  local tabstop = vim.opt.tabstop:get()
+  return vim.opt.expandtab:get() and 'Spaces: ' .. tabstop or 'Tabs'
+end
+
 return {
   {
     -- Pretty status line
@@ -53,14 +58,7 @@ return {
               'progress',
               padding = { left = 1, right = 2 },
             },
-            {
-              'encoding',
-              fmt = function(encoding) return string.upper(encoding) end
-            },
-            {
-              'fileformat',
-              fmt = function(fileformat) return string.upper(fileformat) end
-            },
+            { TabsSpacesInfo },
             {
               'filetype',
               fmt = function(filetype) return filetype:sub(1, 1):upper() .. filetype:sub(2) end,
