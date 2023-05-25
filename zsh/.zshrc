@@ -30,6 +30,10 @@ eval "$(direnv hook zsh)"
 # Fuzzy find sessions, i.e. projects
 bindkey -s ^f "tmux-sessionizer\n"
 
+# Copy the current command to the clipboard (for macOS!)
+copy_line_to_clipboard() { echo $BUFFER | tr -d '\n' | pbcopy }
+zle -N copy_line_to_clipboard
+bindkey '^Y' copy_line_to_clipboard
 
 # == Plugins =================================================================
 
@@ -216,7 +220,7 @@ else
   alias ls='ls --color=auto'
 fi
 
-alias pj='python -m json.tool'
+alias pj='python3 -m json.tool'
 
 
 # -- Git ----------------------------------------------------------------------
