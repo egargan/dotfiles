@@ -32,7 +32,7 @@ return {
         highlights["DiffviewFilePanelInsertions"] = { fg = colors.aurora.green }
         highlights["DiffviewFilePanelDeletions"] = { fg = colors.aurora.red }
         highlights["DiffviewSecondary"] = { fg = colors.frost.ice }
-        highlights["DiffviewFilePanelSelected"] = { bg = "none", fg = colors.snow_storm.brighter, bold=true }
+        highlights["DiffviewFilePanelSelected"] = { bg = "none", fg = colors.snow_storm.brighter, bold = true }
         -- highlights["DiffviewFolderName"] = { link = "DiffviewDim1" }
         -- Red w/ 30% opacity on polar_night.origin
         highlights["DiffDelete"] = { bg = "#4B3D48", fg = "none" }
@@ -40,7 +40,7 @@ return {
         highlights["DiffviewDiffDelete"] = { bg = "none", fg = colors.polar_night.brightest }
         -- Green w/ 20% opacity on aurora.green
         highlights["DiffAdd"] = { bg = "#40494B" }
-       -- Yellow w/ 20% opacity on aurora.yellow
+        -- Yellow w/ 20% opacity on aurora.yellow
         highlights["DiffChange"] = { bg = "#414347" }
         -- Yellow w/ 35% opacity on aurora.yellow
         highlights["DiffText"] = { bg = "#54524F" }
@@ -48,6 +48,16 @@ return {
         -- Gitsigns
         highlights["GitSignsAddPreview"] = { fg = colors.aurora.green }
         highlights["GitSignsDeletePreview"] = { fg = colors.aurora.red }
+
+        -- nvim-code-action-menu
+        highlights["CodeActionMenuDetailsCreatedFile"] = { fg = colors.aurora.green }
+        highlights["CodeActionMenuDetailsChangedFile"] = { fg = colors.aurora.yellow }
+        highlights["CodeActionMenuDetailsRenamedFile"] = { fg = colors.aurora.yellow }
+        highlights["CodeActionMenuDetailsDeletedFile"] = { fg = colors.aurora.red }
+        highlights["CodeActionMenuDetailsAddedLinesCount"] = { fg = colors.aurora.green }
+        highlights["CodeActionMenuDetailsDeletedLinesCount"] = { fg = colors.aurora.red }
+        highlights["CodeActionMenuDetailsAddedLine"] = { fg = colors.aurora.green }
+        highlights["CodeActionMenuDetailsDeletedLine"] = { fg = colors.aurora.red }
 
         -- Make colors globally available
         vim.g.nord_colors = colors
