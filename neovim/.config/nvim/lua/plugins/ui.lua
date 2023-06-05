@@ -80,6 +80,9 @@ return {
       view = {
         width = 35,
       },
+      filters = {
+        git_clean = false,
+      },
       renderer = {
         full_name = true,
         special_files = {},
