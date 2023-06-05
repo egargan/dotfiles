@@ -35,6 +35,9 @@ copy_line_to_clipboard() { echo $BUFFER | tr -d '\n' | pbcopy }
 zle -N copy_line_to_clipboard
 bindkey '^Y' copy_line_to_clipboard
 
+# Share history between shells
+setopt share_history
+
 # == Plugins =================================================================
 
 # Setup zplug
