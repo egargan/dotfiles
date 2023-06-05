@@ -172,6 +172,24 @@ return {
         end,
         desc = "Search for text in buffer"
       },
+      {
+        '<S-Tab>',
+        mode = { 'n' },
+        function()
+          require('fzf-lua').buffers({
+            winopts = {
+              width = 170,
+              height = 40,
+              preview = {
+                layout = 'flex',
+                horizontal = 'right:55%',
+                vertical = 'up:50%',
+              }
+            }
+          })
+        end,
+        desc = "Search for text in buffer"
+      },
     },
   },
 
@@ -242,43 +260,6 @@ return {
     -- Commands for opening files, lines in GitHub
     'Almo7aya/openingh.nvim',
     cmd = { 'OpenInGHFile', 'OpenInGHRepo' }
-  },
-
-  {
-    -- Buffer switcher window
-    'toppair/reach.nvim',
-    config = function()
-      require('reach').setup()
-
-      vim.api.nvim_set_hl(0, 'ReachBorder', { link = '@comment' })
-      vim.api.nvim_set_hl(0, 'ReachGrayOut', { link = '@comment' })
-      vim.api.nvim_set_hl(0, 'ReachTitle', { link = '@comment' })
-      vim.api.nvim_set_hl(0, 'ReachDirectory', { link = '@number' })
-      vim.api.nvim_set_hl(0, 'ReachPriority', { link = '@label' })
-      vim.api.nvim_set_hl(0, 'ReachHandleBuffer', { link = '@keyword' })
-      vim.api.nvim_set_hl(0, 'ReachHandleSplit', { link = '@keyword' })
-      vim.api.nvim_set_hl(0, 'ReachHandleMarkLocal', { link = '@keyword' })
-      vim.api.nvim_set_hl(0, 'ReachHandleMarkGlobal', { link = '@keyword' })
-      vim.api.nvim_set_hl(0, 'ReachHandleTabpage', { link = '@keyword' })
-      vim.api.nvim_set_hl(0, 'ReachHandleDelete', { link = 'DiagnosticError' })
-    end,
-    keys = {
-      {
-        '<S-Tab>',
-        function()
-          require('reach').buffers({
-            modified_icon = '+',
-            filter = function(bufnr) return not (string.find(vim.api.nvim_buf_get_name(bufnr), 'NvimTree')) end,
-            show_current = true,
-            previous = {
-              depth = 2,
-              groups = { '@function', '@keyword' }
-            }
-          })
-        end,
-        desc = "Buffer switcher"
-      }
-    }
   },
 
   {
