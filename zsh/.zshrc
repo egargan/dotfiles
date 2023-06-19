@@ -35,8 +35,22 @@ copy_line_to_clipboard() { echo $BUFFER | tr -d '\n' | pbcopy }
 zle -N copy_line_to_clipboard
 bindkey '^Y' copy_line_to_clipboard
 
-# Share history between shells
-setopt share_history
+# -- History ------------------------------------------------------------------
+export HISTFILE=~/.zsh_history
+export SAVEHIST=100000                 # Max number of entries in command history
+export HISTSIZE=100000                 # Number of entries read into session history
+setopt append_history          # append to history file
+setopt extended_history        # write the history file in the ':start:elapsed;command' format
+setopt hist_find_no_dups       # don't display a previously found event
+setopt hist_ignore_all_dups    # delete an old recorded event if a new event is a duplicate
+setopt hist_ignore_dups        # don't record an event that was just recorded again
+setopt hist_ignore_space       # don't record an event starting with a space
+setopt hist_reduce_blanks      # remove superfluous blanks from each command line being added to the history list
+setopt hist_save_no_dups       # don't write a duplicate event to the history file
+setopt hist_verify             # don't execute immediately upon history expansion
+setopt inc_append_history      # write to the history file immediately, not when the shell exits
+unsetopt share_history         # don't share history between all sessions
+
 
 # == Plugins =================================================================
 
@@ -187,16 +201,7 @@ export PROMPT='%B%F{blue}%2~%b%F{cyan}${vcs_info_msg_0_} %B%F{black}%# %b%f'
 export PAGER=less
 export EDITOR=vim
 
-export HISTFILE=~/.zsh_history
-export SAVEHIST=100000                 # Max number of entries in command history
-export HISTSIZE=100000                 # Number of entries read into session history
-
-setopt INC_APPEND_HISTORY_TIME        # Share history file between multiple shells
-setopt HIST_IGNORE_SPACE              # Don't record space-prefixed commands
-setopt HIST_FIND_NO_DUPS              # Ignore duplicates when searching history
-
 export PATH=$PATH:~/.local/bin:~/.local/scripts
-
 
 # == Aliases ==================================================================
 
