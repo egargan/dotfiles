@@ -195,6 +195,18 @@ vim.api.nvim_create_autocmd({ 'BufModifiedSet', 'TextChangedI', 'TextChanged' },
   end
 })
 
+-- Commands ====================================================================
+
+vim.api.nvim_create_user_command('DiagnosticsToggle', function()
+  if vim.diagnostic.is_disabled() then
+    vim.diagnostic.enable()
+  else
+    vim.diagnostic.disable()
+  end
+end, {
+  desc = "Enables or disables LSP diagnostics"
+})
+
 -- Host-specific config ========================================================
 
 local private_config_path = '$HOME/.config/nvim/lua/private-init.lua'
