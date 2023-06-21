@@ -141,6 +141,9 @@ vim.api.nvim_set_keymap('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
 -- Convert snake case to camelcase (temporary)
 vim.api.nvim_set_keymap('v', 'sc', [[:s/\%V_\(\l\)/\u\1/g<Enter>]], { noremap = true })
 
+-- Hard reload all listed buffes
+vim.api.nvim_set_keymap('n', '<Leader>E', 'ReloadAllBuffers', { noremap = true })
+
 
 -- General Highlights ==========================================================
 
@@ -205,6 +208,16 @@ vim.api.nvim_create_user_command('DiagnosticsToggle', function()
   end
 end, {
   desc = "Enables or disables LSP diagnostics"
+})
+
+vim.api.nvim_create_user_command('ReloadAllBuffers', function()
+  for bufnr = 1, vim.fn.bufnr('$') do
+    if vim.fn.buflisted(bufnr) == 1 then
+      vim.api.nvim_command('silent! edit! ' .. bufnr)
+    end
+  end
+end, {
+  desc = "Hard reloads all listed buffers"
 })
 
 -- Host-specific config ========================================================
