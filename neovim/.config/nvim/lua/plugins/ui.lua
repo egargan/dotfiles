@@ -174,5 +174,28 @@ return {
       { "<leader>+", function() vim.cmd(':DiffviewOpen') end,          desc = "Show diffs UI" },
       { "<leader>%", function() vim.cmd(':DiffviewFileHistory %') end, desc = "Show file history" },
     }
+  },
+
+  {
+    -- Toggle-able terminal
+    'akinsho/toggleterm.nvim',
+    cmd = {
+      'ToggleTerm',
+    },
+    config = {
+      highlights = {
+        FloatBorder = {
+          link = "Comment",
+        },
+      },
+      float_opts = {
+        border = 'rounded',
+        width = 100,
+        height = 30,
+      }
+    },
+    keys = {
+      { "!", mode = { 'n' }, function() vim.cmd(':ToggleTerm direction=float') end, desc = "Toggle floating terminal" },
+    }
   }
 }
