@@ -11,7 +11,7 @@ local function NvimTreeAwareCwd()
   end
 end
 
-local grep_defualt_opts = '--color=always --column --line-number --no-heading --smart-case --max-columns=512'
+local grep_defualt_opts = ' --color=always --column --line-number --no-heading --smart-case --max-columns=512'
 
 local grep_winopts = {
   preview = {
