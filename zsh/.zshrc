@@ -36,6 +36,7 @@ zle -N copy_line_to_clipboard
 bindkey '^Y' copy_line_to_clipboard
 
 # -- History ------------------------------------------------------------------
+
 export HISTFILE=~/.zsh_history
 export SAVEHIST=100000                 # Max number of entries in command history
 export HISTSIZE=100000                 # Number of entries read into session history
@@ -274,6 +275,8 @@ fi
 # Support mouse input in less
 export LESS='--mouse --wheel-lines=3'
 
+# Disable pager in GitHub CLI
+export GH_PAGER=""
 
 # Source private, host-specific zshrc not for tracking with git
 if [ -f ~/.zshrc.private ]; then
