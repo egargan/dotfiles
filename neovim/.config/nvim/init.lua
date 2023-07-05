@@ -144,6 +144,10 @@ vim.api.nvim_set_keymap('v', 'sc', [[:s/\%V_\(\l\)/\u\1/g<Enter>]], { noremap = 
 -- Hard reload all listed buffes
 vim.api.nvim_set_keymap('n', '<Leader>E', 'ReloadAllBuffers', { noremap = true })
 
+-- Shortcut for yanking to system clipboard
+vim.api.nvim_set_keymap('n', 'Y', '"+y', {})
+vim.api.nvim_set_keymap('v', 'Y', '"+y', {})
+
 
 -- General Highlights ==========================================================
 
