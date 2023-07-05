@@ -1,30 +1,68 @@
 #!/usr/bin/env bash
 
+RESET='\e[0m'
+CYAN='\e[0;36m'
+
+# Collect list of active sessions
+read -rd '' -a ACTIVE_SESSIONS_INFO <<< $(tmux list-sessions -F '#{session_name};#{session_path};#{session_activity}' -f '#{session_windows}' | sort -r -k 3)
+
+ACTIVE_SESSIONS_PATHS=()
+
+# Add paths to ACTIVE_SESSIONS_PATHS, relative to home directory, sorted by recently used
+for i in "${!ACTIVE_SESSIONS_INFO[@]}"; do
+  IFS=';' read -r -a SESSION_INFO <<< "${ACTIVE_SESSIONS_INFO[$i]}"
+  RELATIVE_PATH=$(realpath --relative-to ~ -- "${SESSION_INFO[1]}")
+
+  if [[ "${RELATIVE_PATH}" == "." ]]; then
+    ACTIVE_SESSIONS_PATHS+=("~")
+  else
+    ACTIVE_SESSIONS_PATHS+=("~/${RELATIVE_PATH}")
+  fi
+done
+
+SESSIONS_PATHS=()
+
+# Colour active session paths, add to list shown in output
+for i in "${!ACTIVE_SESSIONS_PATHS[@]}"; do
+  SESSIONS_PATHS+=("${CYAN}${ACTIVE_SESSIONS_PATHS[$i]}${RESET}")
+done
+
+# Collect list of all project paths under selected directories
+read -rd '' -a FIND_PATHS <<< $(find ~/work ~/projects ~/personal -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
+  | xargs realpath --relative-to ~ \
+  | sed -e 's/^/~\//'
+)
+
+# If the path is not already in the list, i.e. it's not active, add it
+for i in "${!FIND_PATHS[@]}"; do
+  if ! [[ "${SESSIONS_PATHS[*]}" =~ "${FIND_PATHS[$i]}" ]]; then
+    SESSIONS_PATHS+=("${FIND_PATHS[$i]}")
+  fi
+done
+
 if [[ $# -eq 1 ]]; then
-  selected=$1
+  # If a session name is given as an argument, just use that instead
+  SELECTED=$1
 else
-  selected=$(
-    find ~/work ~/projects ~/personal -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
-    | xargs realpath --relative-to ~ \
-    | sed -e 's/^/~\//' \
-    | fzf --reverse)
+  # Prompt user to select a session with FZF
+  SELECTED=$(printf '%b\n' ${SESSIONS_PATHS[@]} | fzf --reverse --ansi)
 fi
 
-if [[ -z $selected ]]; then
+if [[ -z $SELECTED ]]; then
   exit 0
 fi
 
-selected_name=$(basename "$selected" | tr . _)
-tmux_running=$(pgrep tmux)
-absolute_selected="${selected//\~/$HOME}"
+SELECTED_NAME=$(basename "$SELECTED" | tr . _)
+TMUX_RUNNING=$(pgrep tmux)
+ABSOLUTE_SELECTED="${SELECTED//\~/$HOME}"
 
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-  tmux new-session -s $selected_name -c "$absolute_selected"
+if [[ -z $TMUX ]] && [[ -z $TMUX_RUNNING ]]; then
+  tmux new-session -s $SELECTED_NAME -c "$ABSOLUTE_SELECTED"
   exit 0
 fi
 
-if ! tmux has-session -t=$selected_name 2> /dev/null; then
-  tmux new-session -ds $selected_name -c "$absolute_selected"
+if ! tmux has-session -t=$SELECTED_NAME 2> /dev/null; then
+  tmux new-session -ds $SELECTED_NAME -c "$ABSOLUTE_SELECTED"
 fi
 
-tmux switch-client -t $selected_name
+tmux switch-client -t $SELECTED_NAME
