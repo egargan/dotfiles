@@ -256,6 +256,7 @@ alias gsn='git show --pretty=format:'' --name-only --relative'  # List filenames
 alias gp='git push'
 alias gpf='git push --force'
 alias gfa='git fetch --all'
+alias gpl='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 
 
 # == Status Messages ==========================================================
