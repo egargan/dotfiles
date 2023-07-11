@@ -15,9 +15,7 @@ autoload -U colors                     # Enable 'colors[..]' for setting term co
 bindkey -e                             # Enable emacs bindings (ctrl-w, ctrl-r, etc.)
 bindkey \^U backward-kill-line         # Don't delete entire line on ctrl-u
 autoload -Uz compinit && compinit      # Initialize zsh tab completion
-
 autoload -Uz vcs_info
-precmd() { vcs_info }
 
 # Enable Ctrl-x Ctrl-e to edit current command line
 autoload -U edit-command-line
@@ -193,9 +191,14 @@ zstyle ':vcs_info:*' stagedstr "'"
 zstyle ':vcs_info:git:*' formats       ' (%b%u%c)'
 zstyle ':vcs_info:git:*' actionformats ' (%b|%a%u%c)'
 
-setopt PROMPT_SUBST
-export PROMPT='%B%F{blue}%2~%b%F{cyan}${vcs_info_msg_0_} %B%F{black}%# %b%f'
+# Preprare variables used in prompt
+precmd() {
+  vcs_info
+  aws_profile=${AWS_DEFAULT_PROFILE:+ [${AWS_DEFAULT_PROFILE}]}
+}
 
+setopt PROMPT_SUBST
+export PROMPT='%B%F{blue}%2~%b%F{cyan}${vcs_info_msg_0_}%b%F{yellow}${aws_profile} %B%F{black}%# %b%f'
 
 # == Env ======================================================================
 
