@@ -59,6 +59,10 @@ return {
         highlights["CodeActionMenuDetailsAddedLine"] = { fg = colors.aurora.green }
         highlights["CodeActionMenuDetailsDeletedLine"] = { fg = colors.aurora.red }
 
+        -- https://github.com/SmiteshP/nvim-navic#-customise
+        highlights["NavicSeparator"] = { fg = colors.frost.artic_ocean, bold = true }
+        highlights["NavicText"] = { fg = colors.snow_storm.origin }
+
         -- Make colors globally available
         vim.g.nord_colors = colors
       end

@@ -9,6 +9,7 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = {
       'nord.nvim',
+      'SmiteshP/nvim-navic',
     },
     lazy = false,
     config = function()
@@ -67,7 +68,22 @@ return {
           },
           lualine_y = {},
           lualine_z = {},
-        }
+        },
+        winbar = {
+          lualine_a = {
+            {
+              function()
+                local navic = require('nvim-navic')
+
+                if (navic.is_available()) then
+                  return navic.get_location({})
+                else
+                  return ""
+                end
+              end,
+            }
+          },
+        },
       })
     end
   },
