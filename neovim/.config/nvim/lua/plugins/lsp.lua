@@ -283,11 +283,9 @@ return {
       local nls = require("null-ls")
       return {
         sources = {
-          nls.builtins.formatting.prettierd.with({
-            config_path = {
-
-            }
-          }),
+          nls.builtins.formatting.prettierd,
+          nls.builtins.formatting.black,
+          nls.builtins.diagnostics.cfn_lint,
         },
       }
     end,
