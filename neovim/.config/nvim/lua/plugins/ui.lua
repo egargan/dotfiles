@@ -69,6 +69,21 @@ return {
           lualine_y = {},
           lualine_z = {},
         },
+        inactive_sections = {
+          lualine_c = {
+            {
+              'filename',
+              path = 4,
+              color = function()
+                return {
+                  fg = vim.g.nord_colors.snow_storm.origin,
+                  bg = vim.g.nord_colors.polar_night.bright,
+                  gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic',
+                }
+              end,
+            }
+          },
+        },
         winbar = {
           lualine_a = {
             {
