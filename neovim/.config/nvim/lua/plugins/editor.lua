@@ -190,6 +190,23 @@ return {
         end,
         desc = "Search for text in buffer"
       },
+      {
+        '<leader>fs',
+        function()
+          require('fzf-lua').lsp_live_workspace_symbols({
+            winopts = {
+              width = 170,
+              height = 40,
+              preview = {
+                layout = 'flex',
+                horizontal = 'right:55%',
+                vertical = 'up:50%',
+              }
+            }
+          })
+        end,
+        desc = "Search workspace symbols"
+      },
     },
   },
 
