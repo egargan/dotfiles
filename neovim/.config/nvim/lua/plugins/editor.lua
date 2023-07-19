@@ -207,6 +207,23 @@ return {
         end,
         desc = "Search workspace symbols"
       },
+      {
+        '<leader><Enter>',
+        function()
+          require('fzf-lua').commands({
+            winopts = {
+              width = 75,
+              height = 30,
+              preview = {
+                hidden = 'hidden',
+                layout = 'vertical',
+                vertical = 'down:60%',
+              }
+            },
+          })
+        end,
+        desc = "Search commands"
+      },
     },
   },
 
