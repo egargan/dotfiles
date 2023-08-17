@@ -41,24 +41,15 @@ return {
           lualine_a = { 'mode' },
           lualine_b = {
             {
-              'filename',
-              path = 4,
-              color = function()
-                return {
-                  fg = vim.g.nord_colors.snow_storm.origin,
-                  gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic',
-                }
-              end,
-            }
-          },
-          lualine_c = {
-            {
               'branch',
               icons_enabled = true,
               icon = '⌥',
               color = { fg = vim.g.terminal_color_7, bg = vim.g.terminal_color_8 },
               padding = { left = 1, right = 2 },
             },
+          },
+          lualine_c = {},
+          lualine_x = {
             {
               'diagnostics',
               diagnostics_color = {
@@ -69,8 +60,6 @@ return {
               },
               sources = { 'nvim_diagnostic' },
             },
-          },
-          lualine_x = {
             'location',
             {
               'progress',
@@ -87,7 +76,43 @@ return {
           lualine_z = {},
         },
         inactive_sections = {
-          lualine_c = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {},
+        },
+        winbar = {
+          lualine_a = {
+            {
+              'filename',
+              path = 4,
+              color = function()
+                return {
+                  fg = vim.g.nord_colors.snow_storm.origin,
+                  bg = vim.g.nord_colors.polar_night.origin,
+                  gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic',
+                }
+              end,
+            }
+          },
+          lualine_b = {
+            {
+              function()
+                local navic = require('nvim-navic')
+                if (navic.is_available()) then
+                  local location = navic.get_location({})
+                  if (location and location ~= "") then
+                    return location
+                  else
+                    return " "
+                  end
+                end
+              end,
+              color = { bg = vim.g.nord_colors.polar_night.origin }
+            }
+          },
+        },
+        inactive_winbar = {
+          lualine_a = {
             {
               'filename',
               path = 4,
@@ -95,24 +120,8 @@ return {
                 return {
                   fg = vim.g.nord_colors.polar_night.brightest,
                   bg = vim.g.nord_colors.polar_night.origin,
-                  gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic,underline,bold' or
-                      'underline,bold'
+                  gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic,bold' or 'bold'
                 }
-              end,
-            }
-          },
-        },
-        winbar = {
-          lualine_a = {
-            {
-              function()
-                local navic = require('nvim-navic')
-
-                if (navic.is_available()) then
-                  return navic.get_location({})
-                else
-                  return ""
-                end
               end,
             }
           },
