@@ -13,9 +13,26 @@ return {
     },
     lazy = false,
     config = function()
+      local nord_theme = require('lualine.themes.nord')
+
+      nord_theme.inactive = {
+        a = {
+          fg = vim.g.nord_colors.polar_night.brightest,
+          gui = 'underline,bold',
+        },
+        b = {
+          fg = vim.g.nord_colors.polar_night.brightest,
+          gui = 'underline,bold',
+        },
+        c = {
+          fg = vim.g.nord_colors.polar_night.brightest,
+          gui = 'underline,bold',
+        },
+      }
+
       require('lualine').setup({
         options = {
-          theme = 'nord',
+          theme = nord_theme,
           icons_enabled = false,
           section_separators = '',
           component_separators = '',
@@ -76,9 +93,10 @@ return {
               path = 4,
               color = function()
                 return {
-                  fg = vim.g.nord_colors.snow_storm.origin,
-                  bg = vim.g.nord_colors.polar_night.bright,
-                  gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic',
+                  fg = vim.g.nord_colors.polar_night.brightest,
+                  bg = vim.g.nord_colors.polar_night.origin,
+                  gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic,underline,bold' or
+                      'underline,bold'
                 }
               end,
             }
