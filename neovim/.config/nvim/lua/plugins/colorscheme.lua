@@ -5,6 +5,10 @@ return {
       comments = { italics = false },
       diff = { mode = "fg" },
       on_highlights = function(highlights, colors)
+        -- use 'ctermfg = White' to hide underline for diff highlight
+        -- (https://github.com/neovim/neovim/issues/9800)
+        highlights["CursorLine"] = { ctermfg = "White", bg = colors.polar_night.bright, blend = 50 }
+
         highlights["@parameter"] = { fg = colors.snow_storm.bright }
         highlights["@variable"] = { fg = colors.snow_storm.bright }
         highlights["@punctuation.bracket"] = { fg = colors.frost.artic_water }
@@ -59,9 +63,23 @@ return {
         highlights["CodeActionMenuDetailsAddedLine"] = { fg = colors.aurora.green }
         highlights["CodeActionMenuDetailsDeletedLine"] = { fg = colors.aurora.red }
 
+        -- nvim-navic colors
         -- https://github.com/SmiteshP/nvim-navic#-customise
         highlights["NavicSeparator"] = { fg = colors.frost.artic_ocean, bold = true }
         highlights["NavicText"] = { fg = colors.snow_storm.origin }
+        highlights["NavicIconsNamespace"] = { fg = colors.frost.polar_water }
+        highlights["NavicIconsProperty"] = { fg = colors.frost.polar_water }
+        highlights["NavicIconsField"] = { fg = colors.frost.polar_water }
+        highlights["NavicIconsVariable"] = { fg = colors.frost.polar_water }
+        highlights["NavicIconsConstant"] = { fg = colors.frost.polar_water }
+        highlights["NavicIconsArray"] = { fg = colors.frost.polar_water }
+        highlights["NavicIconsKey"] = { fg = colors.frost.polar_water }
+        highlights["NavicIconsNull"] = { fg = colors.frost.polar_water }
+        highlights["NavicIconsEnumMember"] = { fg = colors.frost.polar_water }
+        highlights["NavicIconsStruct"] = { fg = colors.frost.polar_water }
+        highlights["NavicIconsEvent"] = { fg = colors.frost.polar_water }
+        highlights["NavicIconsOperator"] = { fg = colors.frost.polar_water }
+        highlights["NavicIconsTypeParameter"] = { fg = colors.frost.polar_water }
 
         -- Make colors globally available
         vim.g.nord_colors = colors
