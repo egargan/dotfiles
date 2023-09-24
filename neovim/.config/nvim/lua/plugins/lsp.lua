@@ -164,14 +164,6 @@ return {
           }
         }, servers[server] or {})
 
-        -- TODO: do we need this setup block?
-        -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L54
-        -- if opts.setup[server] then
-        --   if opts.setup[server](server, server_opts) then return end
-        -- elseif opts.setup["*"] then
-        --   if opts.setup["*"](server, server_opts) then return end
-        -- end
-
         if server == "tsserver" then
           require("typescript").setup({ server = server_opts })
         else
