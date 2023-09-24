@@ -57,7 +57,10 @@ unsetopt share_history         # don't share history between all sessions
 if [ -n "$ZPLUG_HOME" ]; then
   source $ZPLUG_HOME/init.zsh
 else
-  if [[ -f '/usr/local/opt/zplug/init.zsh' ]]; then
+  if [[ -d "$HOMEBREW_PREFIX/opt/zplug" ]]; then
+    export ZPLUG_HOME="$HOMEBREW_PREFIX/opt/zplug/"
+    source "$ZPLUG_HOME/init.zsh"
+  elif [[ -f '/usr/local/opt/zplug/init.zsh' ]]; then
     source /usr/local/opt/zplug/init.zsh
     export ZPLUG_HOME=/usr/local/opt/zplug
   elif [[ -f "$HOME/.zplug/init.zsh" ]]; then
