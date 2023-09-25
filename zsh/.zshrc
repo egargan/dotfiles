@@ -71,6 +71,8 @@ fi
 
 # ----------------------------------------------------------------------------
 
+# TODO: install these with homewbrew instead?
+
 # Have zplug manage itself like the other plugins
 zplug 'zplug/zplug', hook-build: 'zplug --self-manage'
 
@@ -179,6 +181,14 @@ done
 # -- sharkdp/bat -------------------------------------------------------------
 
 export BAT_THEME="Nord"
+
+
+# == Tools ====================================================================
+
+# -- Volta  --------------------------------------------------------------------
+
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$PATH:$VOLTA_HOME/bin"
 
 
 # == Prompt ===================================================================
