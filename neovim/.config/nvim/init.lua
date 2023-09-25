@@ -42,7 +42,7 @@ vim.opt.shiftround = true                -- Round '>>/'<<' indents to nearest ta
 vim.opt.scrolloff = 4                    -- Always keep cursor >= 4 lines away from top and bottom of screen
 vim.opt.linebreak = true                 -- Don't wrap lines in the middle of words
 vim.opt.tw = 100                         -- Set word wrap width to 100
-vim.opt.laststatus = 2                   -- Always show status bar
+vim.opt.laststatus = 3                   -- Always show full-width status bar
 vim.opt.cursorline = true                -- Highlight cursor's line
 
 vim.opt.wildmode = { 'longest', 'list' } -- (on tab, complete to longest common path, or show options if not possible) TODO: do we need these, next to FZF?
