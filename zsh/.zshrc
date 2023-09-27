@@ -154,9 +154,7 @@ _go() {
 }
 
 _ns() {
-  cat package.json | jq -C '.scripts' | sed '1d; $d' |
-    fzf-down-preview --ansi --multi --tac |
-    sed -r 's/^[[:space:]]*"([^"]+)".*$/\1/'
+  [[ "$(cat package.json | jq -C '.scripts' | sed '1d; $d' | fzf-down-preview --ansi --tac --expect='ctrl-l' --header='Enter for name, ctrl-l for full command')" =~ '^(ctrl-l)?[[:space:]]*"([^"]+)":[[:space:]]*"(.+)",?$' ]] && if [[ "$match[1]" == "ctrl-l" ]]; then echo "$match[3]"; else echo "$match[2]"; fi
 }
 
 join-lines() {
