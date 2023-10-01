@@ -65,21 +65,22 @@ return {
 
         -- nvim-navic colors
         -- https://github.com/SmiteshP/nvim-navic#-customise
-        highlights["NavicSeparator"] = { fg = colors.frost.artic_ocean, bold = true }
-        highlights["NavicText"] = { fg = colors.snow_storm.origin }
-        highlights["NavicIconsNamespace"] = { fg = colors.frost.polar_water }
-        highlights["NavicIconsProperty"] = { fg = colors.frost.polar_water }
-        highlights["NavicIconsField"] = { fg = colors.frost.polar_water }
-        highlights["NavicIconsVariable"] = { fg = colors.frost.polar_water }
-        highlights["NavicIconsConstant"] = { fg = colors.frost.polar_water }
-        highlights["NavicIconsArray"] = { fg = colors.frost.polar_water }
-        highlights["NavicIconsKey"] = { fg = colors.frost.polar_water }
-        highlights["NavicIconsNull"] = { fg = colors.frost.polar_water }
-        highlights["NavicIconsEnumMember"] = { fg = colors.frost.polar_water }
-        highlights["NavicIconsStruct"] = { fg = colors.frost.polar_water }
-        highlights["NavicIconsEvent"] = { fg = colors.frost.polar_water }
-        highlights["NavicIconsOperator"] = { fg = colors.frost.polar_water }
-        highlights["NavicIconsTypeParameter"] = { fg = colors.frost.polar_water }
+        highlights["NavicSeparator"] = { fg = colors.polar_night.brightest, bold = true }
+        highlights["NavicText"] = { fg = colors.polar_night.light, bold = true }
+        highlights["NavicIconsFunction"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsNamespace"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsProperty"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsField"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsVariable"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsConstant"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsArray"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsKey"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsNull"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsEnumMember"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsStruct"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsEvent"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsOperator"] = { fg = colors.frost.artic_water }
+        highlights["NavicIconsTypeParameter"] = { fg = colors.frost.artic_water }
 
         -- Make colors globally available
         vim.g.nord_colors = colors
