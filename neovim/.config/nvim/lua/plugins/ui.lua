@@ -85,11 +85,12 @@ return {
             {
               'filename',
               path = 4,
+              file_status = false,
               color = function()
                 return {
                   fg = vim.g.nord_colors.snow_storm.origin,
                   bg = vim.g.nord_colors.polar_night.origin,
-                  gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic',
+                  gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic,bold' or 'bold'
                 }
               end,
             }
@@ -97,15 +98,40 @@ return {
           lualine_b = {
             {
               function()
+                if (vim.api.nvim_buf_get_option(0, 'modified')) then
+                  return '•'
+                elseif (vim.api.nvim_buf_get_option(0, 'readonly')) then
+                  return '∅'
+                else
+                  return ''
+                end
+              end,
+              padding = { left = 0, right = 1 },
+              color = function()
+                local fg_color = vim.g.nord_colors.polar_night.origin
+                if (vim.api.nvim_buf_get_option(0, 'modified')) then
+                  fg_color = vim.g.nord_colors.frost.ice
+                elseif (vim.api.nvim_buf_get_option(0, 'readonly')) then
+                  fg_color = vim.g.nord_colors.aurora.orange
+                end
+                return {
+                  fg = fg_color,
+                  bg = vim.g.nord_colors.polar_night.origin,
+                }
+              end
+            }
+          },
+          lualine_c = {
+            {
+              function()
                 local navic = require('nvim-navic')
                 if (navic.is_available()) then
                   local location = navic.get_location({})
-                  if (location and location ~= "") then
+                  if (location and location ~= nil and location ~= "") then
                     return location
-                  else
-                    return " "
                   end
                 end
+                return " "
               end,
               color = { bg = vim.g.nord_colors.polar_night.origin }
             }
@@ -116,15 +142,43 @@ return {
             {
               'filename',
               path = 4,
+              file_status = false,
               color = function()
                 return {
-                  fg = vim.g.nord_colors.polar_night.brightest,
+                  fg = vim.g.nord_colors.polar_night.light,
                   bg = vim.g.nord_colors.polar_night.origin,
                   gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic,bold' or 'bold'
                 }
               end,
             }
           },
+          lualine_b = {
+            {
+              function()
+                if (vim.api.nvim_buf_get_option(0, 'modified')) then
+                  return '•'
+                elseif (vim.api.nvim_buf_get_option(0, 'readonly')) then
+                  return '∅'
+                else
+                  return ''
+                end
+              end,
+              padding = { left = 0, right = 1 },
+              color = function()
+                local fg_color = vim.g.nord_colors.polar_night.origin
+                if (vim.api.nvim_buf_get_option(0, 'modified')) then
+                  fg_color = vim.g.nord_colors.frost.ice
+                elseif (vim.api.nvim_buf_get_option(0, 'readonly')) then
+                  fg_color = vim.g.nord_colors.aurora.orange
+                end
+                return {
+                  fg = fg_color,
+                  bg = vim.g.nord_colors.polar_night.origin,
+                }
+              end
+            }
+          },
+          lualine_c = {},
         },
       })
     end
