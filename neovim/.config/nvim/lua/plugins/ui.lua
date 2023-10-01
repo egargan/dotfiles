@@ -93,6 +93,12 @@ return {
                   gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic,bold' or 'bold'
                 }
               end,
+              fmt = function(name)
+                if (string.find(name, 'NvimTree_')) then
+                  return 'File Tree'
+                end
+                return name
+              end
             }
           },
           lualine_b = {
@@ -150,6 +156,12 @@ return {
                   gui = (vim.bo.bufhidden == 'wipe' or vim.bo.bufhidden == 'delete') and 'italic,bold' or 'bold'
                 }
               end,
+              fmt = function(name)
+                if (string.find(name, 'NvimTree_')) then
+                  return 'File Tree'
+                end
+                return name
+              end
             }
           },
           lualine_b = {
