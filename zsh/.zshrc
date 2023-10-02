@@ -167,7 +167,6 @@ join-lines() {
 # For each function above, create a widget and register a binding
 for key in gb gt gl gs gn gd gc go ns; do
   eval "fzf-$key-widget() {
-    git rev-parse HEAD > /dev/null 2>&1 || return;
     local result=\$(_$key);
     zle reset-prompt;
     LBUFFER+=\$result
