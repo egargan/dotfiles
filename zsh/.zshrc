@@ -51,58 +51,20 @@ setopt inc_append_history      # write to the history file immediately, not when
 unsetopt share_history         # don't share history between all sessions
 
 
-# == Plugins =================================================================
-
-# Setup zplug
-if [ -n "$ZPLUG_HOME" ]; then
-  source $ZPLUG_HOME/init.zsh
-else
-  if [[ -d "$HOMEBREW_PREFIX/opt/zplug" ]]; then
-    export ZPLUG_HOME="$HOMEBREW_PREFIX/opt/zplug/"
-    source "$ZPLUG_HOME/init.zsh"
-  elif [[ -f '/usr/local/opt/zplug/init.zsh' ]]; then
-    source /usr/local/opt/zplug/init.zsh
-    export ZPLUG_HOME=/usr/local/opt/zplug
-  elif [[ -f "$HOME/.zplug/init.zsh" ]]; then
-    source ~/.zplug/init.zsh
-    export ZPLUG_HOME=$HOME/.zplug
-  fi
-fi
-
-# ----------------------------------------------------------------------------
-
-# TODO: install these with homewbrew instead?
-
-# Have zplug manage itself like the other plugins
-zplug 'zplug/zplug', hook-build: 'zplug --self-manage'
-
-# Multi-purpose fuzzy text searcher
-zplug "junegunn/fzf", as:command, hook-build:"./install --bin", use:"bin/{fzf-tmux,fzf}"
-
-# Command line syntax highlighting
-zplug "zsh-users/zsh-syntax-highlighting"
-
-# ----------------------------------------------------------------------------
-
-# Inform of any uninstalled plugins
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
-fi
-
-# Load plugins
-zplug load
-
-
-# == Plugin Config ===========================================================
+# == Tools ===================================================================
 
 # -- junegunn/fzf ------------------------------------------------------------
 
-# Setup bindings and autocompletion
-source $ZPLUG_REPOS/junegunn/fzf/shell/key-bindings.zsh
-source $ZPLUG_REPOS/junegunn/fzf/shell/completion.zsh
+# Add fzf to PATH, if not already
+if [[ ! "$PATH" == */opt/homebrew/opt/fzf/bin* ]]; then
+  PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
+fi
+
+# Setup completion and keybindings
+[[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2> /dev/null
+
+FZF_BINDINGS_SETUP_PATH="/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
+[[ -f "$FZF_BINDINGS_SETUP_PATH" ]] && source "$FZF_BINDINGS_SETUP_PATH"
 
 # Have fzf use ripgrep
 export FZF_CTRL_T_COMMAND="rg --files --no-ignore-vcs --hidden --follow --glob '!.git'"
@@ -179,10 +141,12 @@ done
 
 export BAT_THEME="Nord"
 
+# -- zsh-syntax-highlighting  -------------------------------------------------
 
-# == Tools ====================================================================
+SYNTAX_HL_SETUP_PATH="/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[[ -f "$SYNTAX_HL_SETUP_PATH" ]] && source "$SYNTAX_HL_SETUP_PATH"
 
-# -- Volta  --------------------------------------------------------------------
+# -- Volta --------------------------------------------------------------------
 
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$PATH:$VOLTA_HOME/bin"
