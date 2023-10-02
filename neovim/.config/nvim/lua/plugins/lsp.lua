@@ -1,5 +1,7 @@
 local keymap_opts = { noremap = true, silent = true }
 
+local formatting_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
 -- TODO: break me down, a la
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L72
 local function on_attach(client, bufnr)
@@ -40,13 +42,48 @@ local function on_attach(client, bufnr)
     signs = false,
   })
 
-  -- TODO: can this be done with  nvim-lspconfig opts = { autoformat = true } ?
-  -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L28
+  -- TODO: clean me up!
   if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_create_autocmd('BufWritePost', {
+    vim.api.nvim_clear_autocmds({ group = formatting_augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = formatting_augroup,
       buffer = bufnr,
-      callback = function() vim.lsp.buf.format({ sync = true }) end
+      callback = function()
+        vim.lsp.buf.format({
+          filter = function(filter_client)
+            if next(require('null-ls').get_source({
+                  filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype'),
+                  method = require("null-ls").methods.FORMATTING,
+                })) ~= nil then
+              return filter_client.name == "null-ls"
+            else
+              return filter_client.name == client.name
+            end
+          end,
+          sync = true,
+        })
+      end,
     })
+  end
+
+  if client.server_capabilities.documentRangeFormattingProvider then
+    vim.keymap.set('v', '<leader>f',
+      function()
+      vim.lsp.buf.format({
+        filter = function(filter_client)
+          if next(require('null-ls').get_source({
+                filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype'),
+                method = require("null-ls").methods.FORMATTING,
+              })) ~= nil then
+            return filter_client.name == "null-ls"
+          else
+            return filter_client.name == client.name
+          end
+        end,
+        sync = true,
+      })
+      end,
+      keymap_opts)
   end
 
   if client.server_capabilities.documentSymbolProvider then
@@ -79,6 +116,7 @@ return {
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
+      'nvimtools/none-ls.nvim',
     },
     opts = {
       servers = {
@@ -270,7 +308,6 @@ return {
     -- Platform for easier LSP features, e.g. formatting and linting
     'nvimtools/none-ls.nvim',
     event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "mason.nvim" },
     opts = function()
       local nls = require("null-ls")
       return {

@@ -217,6 +217,16 @@ end, {
   desc = "Enables or disables LSP diagnostics"
 })
 
+vim.api.nvim_create_user_command('FormattingToggle', function()
+  if not vim.g.formatting_enabled then
+    vim.g.formatting_enabled = true
+  else
+    vim.g.formatting_enabled = false
+  end
+end, {
+  desc = "Enables or disables on-save code formatting"
+})
+
 vim.api.nvim_create_user_command('ReloadAllBuffers', function()
   for bufnr = 1, vim.fn.bufnr('$') do
     if vim.fn.buflisted(bufnr) == 1 then
