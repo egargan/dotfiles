@@ -275,8 +275,15 @@ return {
     'lukas-reineke/indent-blankline.nvim',
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require('indent_blankline').setup({
-        show_current_context = true,
+      require('ibl').setup({
+        indent = {
+          char= '│',
+        },
+        scope = {
+          enabled = true,
+          show_start = false,
+          highlight = { "@keyword", "@label", "@function" },
+        }
       })
       -- Enable indent lines by default
       vim.g.indent_blankline_enabled = true
