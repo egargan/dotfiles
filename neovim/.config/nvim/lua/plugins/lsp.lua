@@ -49,6 +49,7 @@ local function on_attach(client, bufnr)
       group = formatting_augroup,
       buffer = bufnr,
       callback = function()
+        if not vim.g.formatting_enabled then return end
         vim.lsp.buf.format({
           filter = function(filter_client)
             if next(require('null-ls').get_source({
