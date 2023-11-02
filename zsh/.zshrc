@@ -190,6 +190,8 @@ alias sctl='sudo systemctl'
 alias   se='sudo -e'
 alias   cb='xclip -selection clipboard'
 
+alias   lg='lazygit'
+
 # Print path to current SSH socket file
 alias shocket='echo $(find /tmp -path "*/ssh-*" -name "agent*" -uid $(id -u) 2>/dev/null | tail -n1)'
 
