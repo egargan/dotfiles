@@ -44,11 +44,52 @@ return {
               'branch',
               icons_enabled = true,
               icon = '⌥',
-              color = { fg = vim.g.terminal_color_7, bg = vim.g.terminal_color_8 },
-              padding = { left = 1, right = 2 },
+              color = {
+                bg = vim.g.nord_colors.polar_night.brightest,
+              },
             },
           },
-          lualine_c = {},
+          lualine_c = {
+            {
+              'filename',
+              path = 4,
+              color = {
+                fg = vim.g.nord_colors.snow_storm.origin,
+                gui = 'bold',
+              },
+              file_status = false,
+              fmt = function(name)
+                if (string.find(name, 'NvimTree_')) then
+                  return 'File Tree'
+                end
+                return name
+              end
+            },
+            {
+              function()
+                if (vim.api.nvim_buf_get_option(0, 'modified')) then
+                  return '•'
+                elseif (vim.api.nvim_buf_get_option(0, 'readonly')) then
+                  return '∅'
+                else
+                  return ''
+                end
+              end,
+              padding = { left = 0 },
+              color = function()
+                local fg_color = vim.g.nord_colors.polar_night.origin
+                if (vim.api.nvim_buf_get_option(0, 'modified')) then
+                  fg_color = vim.g.nord_colors.frost.ice
+                elseif (vim.api.nvim_buf_get_option(0, 'readonly')) then
+                  fg_color = vim.g.nord_colors.aurora.orange
+                end
+                return {
+                  fg = fg_color,
+                  gui = 'bold',
+                }
+              end
+            }
+          },
           lualine_x = {
             {
               'diagnostics',
@@ -84,7 +125,6 @@ return {
           lualine_a = {
             {
               'filename',
-              path = 4,
               file_status = false,
               color = function()
                 return {
@@ -147,7 +187,6 @@ return {
           lualine_a = {
             {
               'filename',
-              path = 4,
               file_status = false,
               color = function()
                 return {
