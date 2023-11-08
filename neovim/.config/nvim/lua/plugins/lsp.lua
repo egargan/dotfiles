@@ -2,6 +2,9 @@ local keymap_opts = { noremap = true, silent = true }
 
 local formatting_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
+-- Set custom formatting global variable
+vim.g.formatting_enabled = true
+
 -- TODO: break me down, a la
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L72
 local function on_attach(client, bufnr)
@@ -42,7 +45,10 @@ local function on_attach(client, bufnr)
     signs = false,
   })
 
-  -- TODO: clean me up!
+  -- If the client has document formatting capabilities, set up an autocmd to use null-ls if
+  -- available, or the client's formatter if not.
+  -- This overrides the formatting autocommand set up in the null-ls config below.
+  -- TODO: de-dupe this code with the null-ls
   if client.server_capabilities.documentFormattingProvider then
     vim.api.nvim_clear_autocmds({ group = formatting_augroup, buffer = bufnr })
     vim.api.nvim_create_autocmd("BufWritePre", {
@@ -70,19 +76,19 @@ local function on_attach(client, bufnr)
   if client.server_capabilities.documentRangeFormattingProvider then
     vim.keymap.set('v', '<leader>f',
       function()
-      vim.lsp.buf.format({
-        filter = function(filter_client)
-          if next(require('null-ls').get_source({
-                filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype'),
-                method = require("null-ls").methods.FORMATTING,
-              })) ~= nil then
-            return filter_client.name == "null-ls"
-          else
-            return filter_client.name == client.name
-          end
-        end,
-        sync = true,
-      })
+        vim.lsp.buf.format({
+          filter = function(filter_client)
+            if next(require('null-ls').get_source({
+                  filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype'),
+                  method = require("null-ls").methods.FORMATTING,
+                })) ~= nil then
+              return filter_client.name == "null-ls"
+            else
+              return filter_client.name == client.name
+            end
+          end,
+          sync = true,
+        })
       end,
       keymap_opts)
   end
@@ -309,16 +315,40 @@ return {
     -- Platform for easier LSP features, e.g. formatting and linting
     'nvimtools/none-ls.nvim',
     event = { "BufReadPre", "BufNewFile" },
-    opts = function()
+    config = function()
       local nls = require("null-ls")
-      return {
+
+      nls.setup({
         sources = {
           nls.builtins.formatting.prettierd,
           nls.builtins.formatting.black,
           nls.builtins.diagnostics.cfn_lint,
         },
-      }
-    end,
+      })
+
+      vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+        callback = function(opts)
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            group = formatting_augroup,
+            buffer = opts.buf,
+            callback = function()
+              if not vim.g.formatting_enabled then return end
+              vim.lsp.buf.format({
+                filter = function(filter_client)
+                  if next(require('null-ls').get_source({
+                        filetype = vim.api.nvim_buf_get_option(opts.buf, 'filetype'),
+                        method = require("null-ls").methods.FORMATTING,
+                      })) ~= nil then
+                    return filter_client.name == "null-ls"
+                  end
+                end,
+                sync = true,
+              })
+            end,
+          })
+        end
+      })
+    end
   },
 
   {
