@@ -319,7 +319,27 @@ return {
       }
     },
     keys = {
-      { "!", mode = { 'n' }, function() vim.cmd(':ToggleTerm direction=float') end, desc = "Toggle floating terminal" },
+      {
+        "!",
+        mode = { 'n' },
+        function() vim.cmd(':ToggleTerm direction=float') end,
+        desc = "Toggle floating terminal"
+      },
+      {
+        "<leader>g",
+        mode = { 'n' },
+        function()
+          require('toggleterm.terminal').Terminal:new({
+            cmd = "lazygit",
+            direction = "float",
+            float_opts = {
+              width = 120,
+              height = 40,
+            }
+          }):toggle()
+        end,
+        desc = "Toggle floating lazygit terminal"
+      },
     }
   }
 }
