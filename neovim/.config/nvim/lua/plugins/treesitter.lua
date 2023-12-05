@@ -22,8 +22,28 @@ return {
       autotag = {
         enable = true,
       },
-      ensure_installed = { "svelte", "typescript", "lua", "html", "scss", "python", "yaml", "json", "query",
-        "javascript", "tsx" },
+      ensure_installed = {
+        "svelte",
+        "typescript",
+        "lua",
+        "html",
+        "scss",
+        "python",
+        "yaml",
+        "json",
+        "query",
+        "javascript",
+        "tsx"
+      },
+      incremental_selection = {
+        enable = true,
+      },
+      keymaps = {
+        init_selection = "gnn",
+        node_incremental = "grn",
+        scope_incremental = "grc",
+        node_decremental = "grm",
+      },
     },
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
