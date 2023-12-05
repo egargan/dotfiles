@@ -33,7 +33,8 @@ return {
         "json",
         "query",
         "javascript",
-        "tsx"
+        "tsx",
+        "jsonc",
       },
       incremental_selection = {
         enable = true,
