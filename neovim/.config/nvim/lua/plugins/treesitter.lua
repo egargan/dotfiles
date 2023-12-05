@@ -54,4 +54,24 @@ return {
       vim.api.nvim_set_hl(0, '@error', { link = "Normal" })
     end
   },
+
+  {
+    'Wansmer/treesj',
+    keys = {
+      {
+        "<leader>s",
+        "<cmd>:TSJToggle<cr>",
+        desc = "Split/join block"
+      },
+    },
+    cmd = {
+      'TSJToggle',
+      'TSJSplit',
+      'TSJJoin',
+    },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {
+      use_default_keymaps = false,
+    }
+  }
 }
