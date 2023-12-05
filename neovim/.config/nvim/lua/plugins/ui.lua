@@ -16,26 +16,21 @@ return {
       local nord_theme = require('lualine.themes.nord')
 
       nord_theme.inactive = {
-        a = {
-          fg = vim.g.nord_colors.polar_night.brightest,
-          gui = 'underline,bold',
-        },
-        b = {
-          fg = vim.g.nord_colors.polar_night.brightest,
-          gui = 'underline,bold',
-        },
-        c = {
-          fg = vim.g.nord_colors.polar_night.brightest,
-          gui = 'underline,bold',
-        },
+        a = { bg = vim.g.nord_colors.polar_night.origin },
+        b = { bg = vim.g.nord_colors.polar_night.origin },
+        c = { bg = vim.g.nord_colors.polar_night.origin },
       }
 
       require('lualine').setup({
         options = {
           theme = nord_theme,
-          icons_enabled = false,
+          icons_enabled = true,
           section_separators = '',
           component_separators = '',
+          always_divide_middle = true,
+          disabled_filetypes = {
+            winbar = { 'NvimTree' },
+          }
         },
         sections = {
           lualine_a = { 'mode' },
@@ -49,47 +44,7 @@ return {
               },
             },
           },
-          lualine_c = {
-            {
-              'filename',
-              path = 4,
-              color = {
-                fg = vim.g.nord_colors.snow_storm.origin,
-                gui = 'bold',
-              },
-              file_status = false,
-              fmt = function(name)
-                if (string.find(name, 'NvimTree_')) then
-                  return 'File Tree'
-                end
-                return name
-              end
-            },
-            {
-              function()
-                if (vim.api.nvim_buf_get_option(0, 'modified')) then
-                  return '•'
-                elseif (vim.api.nvim_buf_get_option(0, 'readonly')) then
-                  return '∅'
-                else
-                  return ''
-                end
-              end,
-              padding = { left = 0 },
-              color = function()
-                local fg_color = vim.g.nord_colors.polar_night.origin
-                if (vim.api.nvim_buf_get_option(0, 'modified')) then
-                  fg_color = vim.g.nord_colors.frost.ice
-                elseif (vim.api.nvim_buf_get_option(0, 'readonly')) then
-                  fg_color = vim.g.nord_colors.aurora.orange
-                end
-                return {
-                  fg = fg_color,
-                  gui = 'bold',
-                }
-              end
-            }
-          },
+          lualine_c = {},
           lualine_x = {
             {
               'diagnostics',
@@ -100,12 +55,54 @@ return {
                 hint  = 'Hint',
               },
               sources = { 'nvim_diagnostic' },
+              icons_enabled = false,
+            },
+            {
+              function()
+                local buf_clients = vim.lsp.buf_get_clients()
+
+                if #buf_clients == 0 then
+                  return ""
+                elseif #buf_clients == 1 then
+                  return "1 LSP"
+                else
+                  return #buf_clients .. " LSPs"
+                end
+              end,
+              icon = {
+                '•',
+                color = { fg = vim.g.nord_colors.aurora.green }
+              },
+            },
+            {
+              function()
+                if (vim.g.formatting_enabled) then
+                  return "✔"
+                else
+                  return "✘"
+                end
+              end,
+              color = function()
+                local fg_color = nil
+                if (vim.g.formatting_enabled) then
+                  fg_color = vim.g.nord_colors.aurora.green
+                else
+                  fg_color = vim.g.nord_colors.aurora.red
+                end
+                return { fg = fg_color }
+              end
+            },
+            {
+              function()
+                return "Fmt"
+              end,
+              padding = 0,
             },
             'location',
-            {
-              'progress',
-              padding = { left = 1, right = 2 },
-            },
+            -- {
+            --   'progress',
+            --   padding = { left = 1, right = 2 },
+            -- },
             { TabsSpacesInfo },
             {
               'filetype',
@@ -171,6 +168,7 @@ return {
             {
               function()
                 local navic = require('nvim-navic')
+
                 if (navic.is_available()) then
                   local location = navic.get_location({})
                   if (location and location ~= nil and location ~= "") then
@@ -179,8 +177,14 @@ return {
                 end
                 return " "
               end,
-              color = { bg = vim.g.nord_colors.polar_night.origin }
+              color = {
+                bg = vim.g.nord_colors.polar_night.origin,
+              },
             }
+          },
+          lualine_x = {
+          },
+          lualine_y = {
           },
         },
         inactive_winbar = {
