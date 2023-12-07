@@ -168,7 +168,7 @@ zstyle ':vcs_info:git:*' actionformats ' (%b|%a%u%c)'
 # Preprare variables used in prompt
 precmd() {
   vcs_info
-  aws_profile=${AWS_DEFAULT_PROFILE:+ [${AWS_DEFAULT_PROFILE}]}
+  aws_profile=${AWS_PROFILE:+ [${AWS_PROFILE}]}
 }
 
 setopt PROMPT_SUBST
