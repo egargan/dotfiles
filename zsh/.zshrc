@@ -91,7 +91,7 @@ _gl() {
   fzf-down-preview --ansi --no-sort --multi --bind 'ctrl-s:toggle-sort' --delimiter '[a-z0-9\-]{7,}' --nth 3.. \
     --header 'Ctrl-S to toggle sort' \
     --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
-  grep -o "[a-f0-9]\{7,\}"
+  grep -o "[a-f0-9]\{7,\}" | head -1
 }
 
 _gs() {
