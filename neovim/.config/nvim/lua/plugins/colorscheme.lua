@@ -91,6 +91,35 @@ return {
         highlights["NoiceCmdlinePopupBorder"] = { fg = colors.polar_night.brightest }
         highlights["NoiceCmdlinePopupTitle"] = { fg = colors.polar_night.brightest, bold = true }
 
+        -- Symbols outline colours
+        -- These aren't standard highlights, they're linked manually in the plugin config
+        highlights["FocusedSymbol"] = { fg = colors.frost.ice }
+        highlights["SymbolIconFile"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconModule"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconNamespace"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconPackage"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconClass"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconMethod"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconProperty"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconField"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconConstructor"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconEnum"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconInterface"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconFunction"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconVariable"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconConstant"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconString"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconNumber"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconBoolean"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconArray"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconObject"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconKey"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconNull"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconEnumMember"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconStruct"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconEvent"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconOperator"] = { fg = colors.frost.artic_water }
+
         -- Make colors globally available
         vim.g.nord_colors = colors
       end

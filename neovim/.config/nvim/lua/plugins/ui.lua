@@ -190,6 +190,9 @@ return {
                 if (string.find(name, 'NvimTree_')) then
                   return 'File Tree'
                 end
+                if (string.find(name, 'OUTLINE')) then
+                  return 'Symbols'
+                end
                 return name
               end
             }
@@ -258,6 +261,9 @@ return {
               fmt = function(name)
                 if (string.find(name, 'NvimTree_')) then
                   return 'File Tree'
+                end
+                if (string.find(name, 'OUTLINE')) then
+                  return 'Symbols'
                 end
                 return name
               end
