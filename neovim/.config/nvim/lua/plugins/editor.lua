@@ -355,5 +355,23 @@ return {
     },
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
+  },
+
+  {
+    -- Highlight and navigate word under cursor with LSP, TS, or regex
+    'RRethy/vim-illuminate',
+    event = 'VeryLazy',
+    keys = {
+      {
+        ']r',
+        function() require('illuminate').goto_next_reference() end,
+        desc = "Go to next reference under cursor"
+      },
+      {
+        '[r',
+        function() require('illuminate').goto_prev_reference() end,
+        desc = "Go to previous reference under cursor"
+      },
+    }
   }
 }
