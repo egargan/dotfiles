@@ -14,6 +14,11 @@ return {
         highlights["@punctuation.bracket"] = { fg = colors.frost.artic_water }
         highlights["@punctuation.delimiter"] = { fg = colors.frost.artic_water }
 
+        highlights["@error"] = { fg = colors.aurora.red, bg = '' }
+        highlights["Error"] = { fg = colors.aurora.red, bg = '' }
+        highlights["ErrorMsg"] = { fg = colors.aurora.red, bg = '' }
+        highlights["WarningMsg"] = { fg = colors.aurora.yellow, bg = '' }
+
         highlights["LspReferenceText"] = { bg = colors.polar_night.brightest }
         highlights["LspReferenceRead"] = { bg = colors.polar_night.brightest }
         highlights["LspReferenceWrite"] = { bg = colors.polar_night.brightest }
