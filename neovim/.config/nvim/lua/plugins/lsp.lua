@@ -276,7 +276,8 @@ return {
         hint = '•',
         information = '•',
       },
-      use_diagnostic_signs = false
+      use_diagnostic_signs = false,
+      auto_close = true
     },
     keys = {
       { '<Leader>t',  ':TroubleToggle<CR>',                 desc = 'Toggle Trouble' },
