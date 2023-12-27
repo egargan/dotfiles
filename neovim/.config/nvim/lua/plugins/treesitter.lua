@@ -9,8 +9,6 @@ return {
   {
     -- Plugin dev-oriented tree sitter library
     'nvim-treesitter/nvim-treesitter',
-    event = { "BufReadPre", "BufNewFile" },
-    lazy = false,
     opts = {
       highlight = {
         enable = true,

@@ -2,21 +2,21 @@ return {
     {
         -- Plugin dev-oriented tree sitter library
         'windwp/nvim-ts-autotag',
+        event = "VeryLazy",
         config = true,
-        event = { "BufReadPre", "BufNewFile" },
     },
 
     {
         -- Code commenting plugin
         'numToStr/Comment.nvim',
-        event = { "BufReadPre", "BufNewFile" },
+        event = "VeryLazy",
         config = true,
     },
 
     {
         -- Easy surrounding quotes, tags, parens, etc.
         'tpope/vim-surround',
-        event = { "BufReadPre", "BufNewFile" },
+        event = "VeryLazy",
     },
 
     {
@@ -35,7 +35,7 @@ return {
     {
         'zbirenbaum/copilot.lua',
         cmd = "Copilot",
-        event = { "InsertEnter" },
+        event = "VeryLazy",
         config = function()
             require("copilot").setup({
                 suggestion = {

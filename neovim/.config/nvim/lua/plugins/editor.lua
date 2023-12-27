@@ -230,7 +230,7 @@ return {
   {
     -- Show git diff UI in gutter
     'lewis6991/gitsigns.nvim',
-    event = { "BufReadPre", "BufNewFile" },
+    event = "VeryLazy",
     opts = {
       current_line_blame_opts = {
         delay = 500,
@@ -323,7 +323,7 @@ return {
   {
     -- Pretty fold indicators
     'anuvyklack/pretty-fold.nvim',
-    event = { "BufReadPost" },
+    event = "VeryLazy",
   },
 
   {
