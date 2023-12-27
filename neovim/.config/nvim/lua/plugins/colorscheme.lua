@@ -71,21 +71,33 @@ return {
         -- nvim-navic colors
         -- https://github.com/SmiteshP/nvim-navic#-customise
         highlights["NavicSeparator"] = { fg = colors.polar_night.brightest, bold = true }
-        highlights["NavicText"] = { fg = colors.polar_night.light, bold = true }
-        highlights["NavicIconsFunction"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsNamespace"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsProperty"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsField"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsVariable"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsConstant"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsArray"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsKey"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsNull"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsEnumMember"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsStruct"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsEvent"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsOperator"] = { fg = colors.frost.artic_water }
-        highlights["NavicIconsTypeParameter"] = { fg = colors.frost.artic_water }
+        highlights["NavicText"] = { fg = '#A6AFC2' } -- custom mid-grey color
+        highlights['NavicIconsFile'] = highlights['@type']
+        highlights['NavicIconsModule'] = highlights['@type']
+        highlights["NavicIconsNamespace"] = highlights['@type']
+        highlights['NavicIconsPackage'] = highlights['@type']
+        highlights['NavicIconsClass'] = highlights['@type']
+        highlights['NavicIconsMethod'] = highlights['@function']
+        highlights['NavicIconsProperty'] = highlights['@constant.builtin']
+        highlights['NavicIconsField'] = highlights['@constant.builtin']
+        highlights['NavicIconsConstructor'] = highlights['@constructor']
+        highlights['NavicIconsEnum'] = highlights['@type']
+        highlights['NavicIconsInterface'] = highlights['@type']
+        highlights['NavicIconsFunction'] = highlights['@function']
+        highlights['NavicIconsVariable'] = highlights['@variable.builtin']
+        highlights['NavicIconsConstant'] = highlights['@constant.builtin']
+        highlights['NavicIconsString'] = highlights['@string']
+        highlights['NavicIconsNumber'] = highlights['@number']
+        highlights['NavicIconsBoolean'] = highlights['@boolean']
+        highlights['NavicIconsArray'] = highlights['@number']
+        highlights['NavicIconsObject'] = highlights['@constant.builtin']
+        highlights['NavicIconsKey'] = highlights['@constant.builtin']
+        highlights['NavicIconsNull'] = highlights['@constant.builtin']
+        highlights['NavicIconsEnumMember'] = highlights['@constant.builtin']
+        highlights['NavicIconsStruct'] = highlights['@type']
+        highlights['NavicIconsEvent'] = highlights['@character.special']
+        highlights['NavicIconsOperator'] = highlights['@operator']
+        highlights['NavicIconsTypeParameter'] = highlights['@type']
 
         -- Noice UI colors
         highlights["NoiceCmdlinePopupBorder"] = { fg = colors.polar_night.brightest }
@@ -94,31 +106,31 @@ return {
         -- Symbols outline colours
         -- These aren't standard highlights, they're linked manually in the plugin config
         highlights["FocusedSymbol"] = { fg = colors.frost.ice }
-        highlights["SymbolIconFile"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconModule"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconNamespace"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconPackage"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconClass"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconMethod"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconProperty"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconField"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconConstructor"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconEnum"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconInterface"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconFunction"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconVariable"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconConstant"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconString"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconNumber"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconBoolean"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconArray"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconObject"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconKey"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconNull"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconEnumMember"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconStruct"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconEvent"] = { fg = colors.frost.artic_water }
-        highlights["SymbolIconOperator"] = { fg = colors.frost.artic_water }
+        highlights["SymbolIconFile"] = highlights['@type']
+        highlights["SymbolIconModule"] = highlights['@type']
+        highlights["SymbolIconNamespace"] = highlights['@type']
+        highlights["SymbolIconPackage"] = highlights['@type']
+        highlights["SymbolIconClass"] = highlights['@type']
+        highlights["SymbolIconMethod"] = highlights['@function']
+        highlights["SymbolIconProperty"] = highlights['@constant.builtin']
+        highlights["SymbolIconField"] = highlights['@constant.builtin']
+        highlights["SymbolIconConstructor"] = highlights['@constructor']
+        highlights["SymbolIconEnum"] = highlights['@type']
+        highlights["SymbolIconInterface"] = highlights['@type']
+        highlights["SymbolIconFunction"] = highlights['@function']
+        highlights["SymbolIconVariable"] = highlights['@variable.builtin']
+        highlights["SymbolIconConstant"] = highlights['@constant.builtin']
+        highlights["SymbolIconString"] = highlights['@string']
+        highlights["SymbolIconNumber"] = highlights['@number']
+        highlights["SymbolIconBoolean"] = highlights['@boolean']
+        highlights["SymbolIconArray"] = highlights['number']
+        highlights["SymbolIconObject"] = highlights['@constant.builtin']
+        highlights["SymbolIconKey"] = highlights['@constant.builtin']
+        highlights["SymbolIconNull"] = highlights['@constant.builtin']
+        highlights["SymbolIconEnumMember"] = highlights['@constant.builtin']
+        highlights["SymbolIconStruct"] = highlights['@type']
+        highlights["SymbolIconEvent"] = highlights['@character.special']
+        highlights["SymbolIconOperator"] = highlights['@operator']
 
         -- Make colors globally available
         vim.g.nord_colors = colors
