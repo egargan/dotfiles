@@ -71,5 +71,10 @@ return {
     opts = {
       use_default_keymaps = false,
     }
+  },
+
+  {
+    'JoosepAlviste/nvim-ts-context-commentstring',
+    event = "VeryLazy",
   }
 }
