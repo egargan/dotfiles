@@ -41,14 +41,11 @@ return {
           ["vim.lsp.util.stylize_markdown"] = true,
           ["cmp.entry.get_documentation"] = true,
         },
-        signature = {
-          -- This doesn't work quite as well as ray-x/lsp_signature.nvim
-          enabled = false,
-        },
       },
       presets = {
         bottom_search = true,         -- use a classic bottom cmdline for search
         long_message_to_split = true, -- long messages will besent to a split
+        lsp_doc_border = true,        -- add a border to hover docs and signature help
       },
       routes = {
         {

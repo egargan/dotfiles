@@ -250,15 +250,6 @@ return {
   },
 
   {
-    -- Show signature help while typing
-    'ray-x/lsp_signature.nvim',
-    opts = {
-      hint_enable = false,
-      toggle_key = '<C-k>',
-    }
-  },
-
-  {
     -- Diagnostic summary plugin
     'folke/trouble.nvim',
     cmd = {
