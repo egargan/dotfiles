@@ -327,26 +327,6 @@ return {
   },
 
   {
-    -- Show fold contents in popup
-    'anuvyklack/fold-preview.nvim',
-    event = { "BufReadPost" },
-    config = function(_, opts)
-      require('fold-preview').setup({
-        auto = 2000,
-        default_keybindings = false,
-        border = 'rounded',
-      })
-    end,
-    keys = {
-      {
-        'zp',
-        function() require('fold-preview').toggle_preview() end,
-        desc = "Toggle fold preview"
-      },
-    },
-  },
-
-  {
     "iamcco/markdown-preview.nvim",
     cmd = {
       "MarkdownPreviewToggle",
