@@ -105,10 +105,10 @@ return {
             {
               'diagnostics',
               diagnostics_color = {
-                error = 'Error',
-                warn  = 'WarningMsg',
-                info  = { fg = vim.g.terminal_color_0, bg = vim.g.terminal_color_4 },
-                hint  = 'Hint',
+                error = { fg = vim.g.nord_colors.snow_storm.origin, bg = vim.g.nord_colors.aurora.red },
+                warn  = { fg = vim.g.nord_colors.snow_storm.origin, bg = vim.g.nord_colors.aurora.yellow },
+                info  = { fg = vim.g.nord_colors.snow_storm.origin, bg = vim.g.nord_colors.frost.artic_water },
+                hint  = { fg = vim.g.nord_colors.snow_storm.origin, bg = vim.g.nord_colors.frost.artic_ocean },
               },
               sources = { 'nvim_diagnostic' },
               icons_enabled = false,
