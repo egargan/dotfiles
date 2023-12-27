@@ -1,5 +1,3 @@
-local keymap_opts = { noremap = true, silent = true }
-
 local formatting_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 -- Set custom formatting global variable
@@ -51,15 +49,15 @@ local function on_attach(client, bufnr)
   vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<Leader>ca', function() vim.cmd(':CodeActionMenu') end, bufopts)
 
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, keymap_opts)
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, keymap_opts)
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { noremap = true, silent = true })
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { noremap = true, silent = true })
 
   vim.keymap.set('n', '[e', function()
     vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
-  end, keymap_opts)
+  end, { noremap = true, silent = true })
   vim.keymap.set('n', ']e', function()
     vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
-  end, keymap_opts)
+  end, { noremap = true, silent = true })
 
   vim.diagnostic.config({
     float = {
