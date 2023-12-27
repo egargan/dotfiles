@@ -282,7 +282,7 @@ return {
   {
     -- Fancy code action menu
     'weilbith/nvim-code-action-menu',
-    event = { "BufReadPre", "BufNewFile" },
+    event = "LspAttach",
     config = function()
       vim.g.code_action_menu_show_details = false
       vim.g.code_action_menu_show_action_kind = false
@@ -292,7 +292,7 @@ return {
   {
     -- Show lightbulg when code actions available
     'kosayoda/nvim-lightbulb',
-    event = { "BufReadPre", "BufNewFile" },
+    event = "LspAttach",
     opts = {
       sign = { enabled = false },
       virtual_text = { enabled = true },
@@ -354,7 +354,7 @@ return {
   {
     'SmiteshP/nvim-navic',
     dependencies = { 'neovim/nvim-lspconfig' },
-    event = { "BufReadPre", "BufNewFile" },
+    event = "LspAttach",
     config = {
       highlight = true,
       icons = {
