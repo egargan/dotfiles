@@ -12,6 +12,27 @@ return {
   },
 
   {
+    -- Neovim 'component library'
+    'MunifTanjim/nui.nvim',
+  },
+
+  {
+    -- Pretty notifications
+    'rcarriga/nvim-notify',
+    opts = {
+      render = 'wrapped-compact',
+      icons = {
+        ERROR = "✘",
+        WARN = "▲",
+        INFO = "•",
+        DEBUG = "•",
+        TRACE = "•",
+      },
+      timeout = 3500,
+    }
+  },
+
+  {
     -- Automatic session restore and create
     'olimorris/persisted.nvim',
     lazy = false,

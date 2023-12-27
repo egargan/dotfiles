@@ -205,7 +205,6 @@ return {
           on_attach = on_attach,
           handlers = {
             ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' }),
-            ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
           }
         }, servers[server] or {})
 
@@ -252,12 +251,13 @@ return {
     -- LSP server installer configs
     'williamboman/mason-lspconfig.nvim',
   },
+
   {
     -- Show signature help while typing
     'ray-x/lsp_signature.nvim',
     opts = {
       hint_enable = false,
-      toggle_key = '<C-s>',
+      toggle_key = '<C-k>',
     }
   },
 
@@ -314,7 +314,6 @@ return {
   {
     -- Platform for easier LSP features, e.g. formatting and linting
     'nvimtools/none-ls.nvim',
-    event = { "BufReadPre", "BufNewFile" },
     config = function()
       local nls = require("null-ls")
 

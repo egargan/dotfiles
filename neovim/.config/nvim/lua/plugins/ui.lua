@@ -5,6 +5,65 @@ end
 
 return {
   {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    },
+    opts = {
+      cmdline = {
+        format = {
+          cmdline = { icon = ">" },
+          search_down = { icon = " /" },
+          search_up = { icon = " /" },
+          filter = { icon = "$" },
+          lua = { icon = "l" },
+          help = { icon = "?" },
+        },
+      },
+      format = {
+        level = {
+          icons = {
+            error = "✘",
+            warn = "▲",
+            info = "•",
+          },
+        },
+      },
+      popupmenu = {
+        kind_icons = false,
+      },
+      lsp = {
+        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+        signature = {
+          -- This doesn't work quite as well as ray-x/lsp_signature.nvim
+          enabled = false,
+        },
+      },
+      presets = {
+        bottom_search = true,         -- use a classic bottom cmdline for search
+        long_message_to_split = true, -- long messages will besent to a split
+      },
+      routes = {
+        {
+          -- Filter basic 'noise' messages like 'file written', 'search hit TOP', etc
+          filter = {
+            event = "msg_show",
+            kind = { "", "wmsg" }
+          },
+          opts = { skip = true },
+        },
+      },
+    },
+  },
+
+  {
     -- Pretty status line
     'nvim-lualine/lualine.nvim',
     dependencies = {

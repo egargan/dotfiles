@@ -82,6 +82,10 @@ return {
         highlights["NavicIconsOperator"] = { fg = colors.frost.artic_water }
         highlights["NavicIconsTypeParameter"] = { fg = colors.frost.artic_water }
 
+        -- Noice UI colors
+        highlights["NoiceCmdlinePopupBorder"] = { fg = colors.polar_night.brightest }
+        highlights["NoiceCmdlinePopupTitle"] = { fg = colors.polar_night.brightest, bold = true }
+
         -- Make colors globally available
         vim.g.nord_colors = colors
       end
