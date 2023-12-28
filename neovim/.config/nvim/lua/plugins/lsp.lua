@@ -424,6 +424,7 @@ return {
     opts = {
       highlight_hovered_item = false,
       width = 20,
+      autofold_depth = 3,
       keymaps = {
         close = "q",
         toggle_preview = 'P',
