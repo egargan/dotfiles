@@ -438,9 +438,15 @@ return {
             cmd = "lazygit",
             direction = "float",
             float_opts = {
-              width = 120,
+              width = 130,
               height = 40,
-            }
+            },
+            on_open = function(term)
+              vim.cmd("startinsert!")
+              -- Remove global '<Esc> to C-\C-n' map, so that we can actually
+              -- use escape in laygit
+              vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<Esc>", "<Esc>", { noremap = true, silent = true })
+            end,
           }):toggle()
         end,
         desc = "Toggle floating lazygit terminal"
