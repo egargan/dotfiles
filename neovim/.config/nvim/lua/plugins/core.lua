@@ -33,12 +33,14 @@ return {
   },
 
   {
-    -- Automatic session restore and create
-    'olimorris/persisted.nvim',
+    'rmagatti/auto-session',
     lazy = false,
     opts = {
-      use_git_branch = true,
-      autoload = true,
-    },
+      auto_session_suppress_dirs = { "~/", "~/Downloads", "~/Desktop" },
+      auto_save_enableda = true,
+      auto_restore_enabled = true,
+      auto_session_use_git_branch = true,
+      pre_save_cmds = { 'NvimTreeClose', 'tabdo NvimTreeClose', 'SymbolsOutlineClose', 'tabdo SymbolsOutlineClose' },
+    }
   }
 }
