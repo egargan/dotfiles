@@ -395,5 +395,14 @@ return {
         replace_all = "<leader><cr>",
       }
     }
+  },
+
+  {
+    -- Speedy buffer navigation
+    'ggandor/leap.nvim',
+    event = "VeryLazy",
+    config = function()
+      require('leap').create_default_mappings()
+    end
   }
 }
