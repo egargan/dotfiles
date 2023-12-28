@@ -24,6 +24,7 @@ local grep_winopts = {
 return {
   {
     'ibhagwan/fzf-lua',
+    event = "VeryLazy", -- Load before commands/keys so we can 'register_ui_select'
     opts = {
       winopts = {
         preview = {
@@ -61,8 +62,22 @@ return {
     },
     config = function(_, opts)
       require('fzf-lua').setup(opts)
+
       vim.api.nvim_set_hl(0, 'FzfLuaBorder', { link = 'SpecialKey' })
       vim.api.nvim_set_hl(0, 'FzfLuaTitle', { link = 'Conceal' })
+
+      -- Use FzfLua for vim.ui.select prompts
+      require('fzf-lua').register_ui_select({
+        winopts = {
+          width = 75,
+          height = 20,
+          preview = {
+            hidden = 'hidden',
+            layout = 'flex',
+            vertical = 'down:60%',
+          }
+        },
+      })
     end,
     cmd = { 'FzfLua' },
     keys = {
