@@ -1,34 +1,6 @@
 vim.g.mapleader = " "                         -- Set <Leader> to space - '\' is too awkward
 vim.opt.rtp:append(vim.env.HOME .. '/.nvim/') -- Sometimes Neovim doesn't think .nvim should be its runtime path?
 
--- == Plugins ==================================================================
-
--- Install lazy if not installed
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
--- Setup plugins, including LSP and completion config
-require("lazy").setup("plugins", {
-  ui = {
-    border = "rounded",
-  },
-  change_detection = {
-    enabled = false,
-  },
-})
-
-
 -- General Settings ============================================================
 
 vim.opt.updatetime = 500                 -- Time between swap file writes and for CursorHold delay
@@ -78,6 +50,33 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 7
 vim.opt.foldcolumn = '0'
 vim.opt.foldlevelstart = 99
+
+-- == Plugins ==================================================================
+
+-- Install lazy if not installed
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+
+-- Setup plugins, including LSP and completion config
+require("lazy").setup("plugins", {
+  ui = {
+    border = "rounded",
+  },
+  change_detection = {
+    enabled = false,
+  },
+})
 
 
 -- General Mappings ============================================================
