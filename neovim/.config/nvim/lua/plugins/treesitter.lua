@@ -34,6 +34,8 @@ return {
         "javascript",
         "tsx",
         "jsonc",
+        "bash",
+        "regex",
       },
       incremental_selection = {
         enable = true,
