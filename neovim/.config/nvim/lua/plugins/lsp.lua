@@ -99,7 +99,6 @@ return {
       "mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
-      'nvimtools/none-ls.nvim',
     },
     opts = {
       servers = {
@@ -312,6 +311,42 @@ return {
         desc = "Format buffer",
       },
     },
+  },
+
+  {
+    -- Custom LSP sources (linting, code actions, etc)
+    'nvimtools/none-ls.nvim',
+    event = 'VeryLazy',
+    config = function()
+      local nls = require("null-ls")
+
+      nls.setup({
+        sources = {
+          nls.builtins.diagnostics.cfn_lint,
+          nls.builtins.diagnostics.cspell.with({
+            config = {
+              find_json = function(cwd)
+                local found_cspell = vim.fn.findfile('cspell.json', '.;~')
+                if found_cspell ~= '' then return found_cspell end
+                return vim.fn.expand(cwd .. "/cspell.json")
+              end
+            },
+            diagnostics_postprocess = function(diagnostic)
+              diagnostic.severity = vim.diagnostic.severity.HINT
+            end,
+          }),
+          nls.builtins.code_actions.cspell.with({
+            config = {
+              find_json = function(cwd)
+                local found_cspell = vim.fn.findfile('cspell.json', '.;~')
+                if found_cspell ~= '' then return found_cspell end
+                return vim.fn.expand(cwd .. "/cspell.json")
+              end
+            },
+          })
+        },
+      })
+    end
   },
 
   {
