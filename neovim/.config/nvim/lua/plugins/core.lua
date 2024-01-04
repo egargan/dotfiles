@@ -5,13 +5,6 @@ return {
   },
 
   {
-    -- Package manager
-    "folke/lazy.nvim",
-    lazy = false,
-    version = "*",
-  },
-
-  {
     -- Neovim 'component library'
     'MunifTanjim/nui.nvim',
   },
