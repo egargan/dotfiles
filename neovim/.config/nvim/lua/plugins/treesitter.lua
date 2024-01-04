@@ -9,7 +9,7 @@ return {
   {
     -- Plugin dev-oriented tree sitter library
     'nvim-treesitter/nvim-treesitter',
-    event = "VeryLazy",
+    lazy = false,
     opts = {
       highlight = {
         enable = true,
