@@ -1,5 +1,6 @@
--- Set custom formatting global variable
+-- Set custom globals for LSP features
 vim.g.formatting_enabled = true
+vim.g.spellcheck_enabled = true
 
 local symbolIcons = {
   file        = "☰",
@@ -219,6 +220,7 @@ return {
       }
     }
   },
+
   {
     -- LSP server installer configs
     'williamboman/mason-lspconfig.nvim',
@@ -320,30 +322,38 @@ return {
     config = function()
       local nls = require("null-ls")
 
+      local common_cspell_config = {
+        runtime_condition = function()
+          return vim.g.spellcheck_enabled
+        end,
+        disabled_filetypes = { "NvimTree", "SymbolOutline" },
+        config = {
+          find_json = vim.schedule(function(cwd)
+            local found_cspell = vim.fn.findfile('cspell.json', '.;~')
+            if found_cspell ~= '' then return found_cspell end
+            return vim.fn.expand(cwd .. "/cspell.json")
+          end)
+        }
+      }
+
+      local cspell_diags_config = vim.tbl_extend('keep', common_cspell_config, {
+        diagnostics_postprocess = function(diagnostic)
+          diagnostic.severity = vim.diagnostic.severity.HINT
+        end,
+      })
+
+      local cspell_code_actions_config = vim.tbl_extend('keep', common_cspell_config, {
+        filter = function(action)
+          -- filter action if action.title begins with 'Use'
+          return action.title:sub(1, 3) ~= "Use"
+        end,
+      })
+
       nls.setup({
         sources = {
           nls.builtins.diagnostics.cfn_lint,
-          nls.builtins.diagnostics.cspell.with({
-            config = {
-              find_json = function(cwd)
-                local found_cspell = vim.fn.findfile('cspell.json', '.;~')
-                if found_cspell ~= '' then return found_cspell end
-                return vim.fn.expand(cwd .. "/cspell.json")
-              end
-            },
-            diagnostics_postprocess = function(diagnostic)
-              diagnostic.severity = vim.diagnostic.severity.HINT
-            end,
-          }),
-          nls.builtins.code_actions.cspell.with({
-            config = {
-              find_json = function(cwd)
-                local found_cspell = vim.fn.findfile('cspell.json', '.;~')
-                if found_cspell ~= '' then return found_cspell end
-                return vim.fn.expand(cwd .. "/cspell.json")
-              end
-            },
-          })
+          nls.builtins.diagnostics.cspell.with(cspell_diags_config),
+          nls.builtins.code_actions.cspell.with(cspell_code_actions_config),
         },
       })
     end

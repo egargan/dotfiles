@@ -224,6 +224,16 @@ end, {
   desc = "Enables or disables on-save code formatting"
 })
 
+vim.api.nvim_create_user_command('SpellcheckToggle', function()
+  if not vim.g.formatting_enabled then
+    vim.g.spellcheck_enabled = true
+  else
+    vim.g.spellcheck_enabled = false
+  end
+end, {
+  desc = "Enables or disables cspell spell checking"
+})
+
 vim.api.nvim_create_user_command('ReloadAllBuffers', function()
   for bufnr = 1, vim.fn.bufnr('$') do
     if vim.fn.buflisted(bufnr) == 1 then
