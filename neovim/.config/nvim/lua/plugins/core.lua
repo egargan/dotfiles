@@ -56,7 +56,7 @@ return {
     lazy = false,
     opts = {
       auto_session_suppress_dirs = { "~/", "~/Downloads", "~/Desktop" },
-      auto_save_enableda = true,
+      auto_save_enabled = true,
       auto_restore_enabled = true,
       auto_session_use_git_branch = true,
       pre_save_cmds = { 'NvimTreeClose', 'tabdo NvimTreeClose', 'SymbolsOutlineClose', 'tabdo SymbolsOutlineClose' },
