@@ -196,7 +196,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
 vim.api.nvim_create_autocmd({ 'BufModifiedSet', 'TextChangedI', 'TextChanged' }, {
   pattern = '*',
   callback = function(event)
-    if (vim.bo[event.buf].buflisted) then
+    if vim.bo[event.buf].buflisted == 1 then
       vim.bo['bufhidden'] = 'hide'
     end
   end
