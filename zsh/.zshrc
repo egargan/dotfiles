@@ -119,6 +119,10 @@ _ns() {
   [[ "$(cat package.json | jq -C '.scripts' | sed '1d; $d' | fzf-down-preview --ansi --tac --expect='ctrl-l' --header='Enter for name, ctrl-l for full command')" =~ '^(ctrl-l)?[[:space:]]*"([^"]+)":[[:space:]]*"(.+)",?$' ]] && if [[ "$match[1]" == "ctrl-l" ]]; then echo "$match[3]"; else echo "$match[2]"; fi
 }
 
+_np() {
+  jq -r -C '.dependencies,.devDependencies | keys[]' package.json | fzf-down-preview --ansi --multi
+}
+
 join-lines() {
   local item
   while read item; do
@@ -127,7 +131,7 @@ join-lines() {
 }
 
 # For each function above, create a widget and register a binding
-for key in gb gt gl gs gn gd gc go ns; do
+for key in gb gt gl gs gn gd gc go ns np; do
   eval "fzf-$key-widget() {
     local result=\$(_$key);
     zle reset-prompt;
