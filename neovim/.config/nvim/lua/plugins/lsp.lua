@@ -208,7 +208,7 @@ return {
 
   {
     "stevearc/conform.nvim",
-    event = { "BufWritePre" },
+    event = { "BufReadPre" },
     cmd = { "ConformInfo" },
     opts = {
       format_on_save = function(bufnr)
