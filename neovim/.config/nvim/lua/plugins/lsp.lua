@@ -2,32 +2,34 @@
 vim.g.formatting_enabled = true
 vim.g.spellcheck_enabled = true
 
-local symbolIcons = {
-  file        = "☰",
-  module      = "❖",
-  namespace   = "❖",
-  package     = "❖",
-  class       = "𝑪",
-  method      = "𝒇",
-  property    = "◇",
-  field       = "◇",
-  constructor = "𝒇",
-  enum        = "𝒆",
-  interface   = "𝐼",
-  func        = "𝒇",
-  variable    = "𝑥",
-  constant    = "𝑥",
-  string      = '"',
-  number      = "#",
-  boolean     = "𝒃",
-  array       = "[]",
-  object      = "◇",
-  key         = "◇",
-  null        = "ø",
-  enum_member = "◇",
-  struct      = "𝑺",
-  event       = "ϟ",
-  operator    = "+",
+local symbol_icons = {
+  File        = "☰",
+  Module      = "❖",
+  Namespace   = "❖",
+  Package     = "❖",
+  Class       = "𝑪",
+  Method      = "𝒇",
+  Property    = "◇",
+  Field       = "◇",
+  Constructor = "𝒇",
+  Enum        = "𝒆",
+  Interface   = "𝐼",
+  Function    = "𝒇",
+  Variable    = "𝑥",
+  Constant    = "𝑥",
+  String      = '"',
+  Number      = "#",
+  Boolean     = "𝒃",
+  Array       = "[]",
+  Object      = "◇",
+  Key         = "◇",
+  Null        = "ø",
+  EnumMember  = "◇",
+  Struct      = "𝑺",
+  Event       = "ϟ",
+  Operator    = "+",
+  Component   = "<>",
+  Fragment    = "<>",
 }
 
 -- TODO: break me down, a la
@@ -314,36 +316,18 @@ return {
     'SmiteshP/nvim-navic',
     dependencies = { 'neovim/nvim-lspconfig' },
     event = "LspAttach",
-    config = {
-      highlight = true,
-      icons = {
-        File = symbolIcons.file .. ' ',
-        Module = symbolIcons.module .. ' ',
-        Namespace = symbolIcons.namespace .. ' ',
-        Package = symbolIcons.package .. ' ',
-        Class = symbolIcons.class .. ' ',
-        Method = symbolIcons.method .. ' ',
-        Property = symbolIcons.property .. ' ',
-        Field = symbolIcons.field .. ' ',
-        Constructor = symbolIcons.constructor .. ' ',
-        Enum = symbolIcons.enum .. ' ',
-        Interface = symbolIcons.interface .. ' ',
-        Function = symbolIcons.func .. ' ',
-        Variable = symbolIcons.variable .. ' ',
-        Constant = symbolIcons.constant .. ' ',
-        String = symbolIcons.string .. ' ',
-        Number = symbolIcons.number .. ' ',
-        Boolean = symbolIcons.boolean .. ' ',
-        Array = symbolIcons.array .. ' ',
-        Object = symbolIcons.object .. ' ',
-        Key = symbolIcons.key .. ' ',
-        Null = symbolIcons.null .. ' ',
-        EnumMember = symbolIcons.enum_member .. ' ',
-        Struct = symbolIcons.struct .. ' ',
-        Event = symbolIcons.event .. ' ',
-        Operator = symbolIcons.operator .. ' ',
-      }
-    }
+    config = function()
+      formatted_icons = {}
+
+      for key, value in pairs(symbol_icons) do
+        formatted_icons[key] = value .. ' '
+      end
+
+      require('nvim-navic').setup({
+        highlight = true,
+        icons = formatted_icons,
+      })
+    end
   },
 
   {
@@ -354,45 +338,24 @@ return {
       'SymbolsOutlineOpen',
       'SymbolsOutlineClose',
     },
-    opts = {
-      highlight_hovered_item = false,
-      width = 20,
-      autofold_depth = 3,
-      keymaps = {
-        close = "q",
-        toggle_preview = 'P',
-      },
-      symbols = {
-        File = { icon = symbolIcons.file, hl = "SymbolIconFile" },
-        Module = { icon = symbolIcons.module, hl = "SymbolIconModule" },
-        Namespace = { icon = symbolIcons.namespace, hl = "SymbolIconNamespace" },
-        Package = { icon = symbolIcons.package, hl = "SymbolIconPackage" },
-        Class = { icon = symbolIcons.class, hl = "SymbolIconClass" },
-        Method = { icon = symbolIcons.method, hl = "SymbolIconMethod" },
-        Property = { icon = symbolIcons.property, hl = "SymbolIconProperty" },
-        Field = { icon = symbolIcons.field, hl = "SymbolIconField" },
-        Constructor = { icon = symbolIcons.constructor, hl = "SymbolIconConstructor" },
-        Enum = { icon = symbolIcons.enum, hl = "SymbolIconEnum" },
-        Interface = { icon = symbolIcons.interface, hl = "SymbolIconInterface" },
-        Function = { icon = symbolIcons.func, hl = "SymbolIconFunction" },
-        Variable = { icon = symbolIcons.variable, hl = "SymbolIconVariable" },
-        Constant = { icon = symbolIcons.constant, hl = "SymbolIconConstant" },
-        String = { icon = symbolIcons.string, hl = "SymbolIconString" },
-        Number = { icon = symbolIcons.number, hl = "SymbolIconNumber" },
-        Boolean = { icon = symbolIcons.boolean, hl = "SymbolIconBoolean" },
-        Array = { icon = symbolIcons.array, hl = "SymbolIconArray" },
-        Object = { icon = symbolIcons.object, hl = "SymbolIconObject" },
-        Key = { icon = symbolIcons.key, hl = "SymbolIconKey" },
-        Null = { icon = "NULL", hl = "SymbolIconNull" },
-        EnumMember = { icon = symbolIcons.enum_member, hl = "SymbolIconEnumMember" },
-        Struct = { icon = symbolIcons.struct, hl = "SymbolIconStruct" },
-        Event = { icon = symbolIcons.event, hl = "SymbolIconEvent" },
-        Operator = { icon = symbolIcons.operator, hl = "SymbolIconOperator" },
-        TypeParameter = { icon = "𝙏", hl = "SymbolIconTypeParameter" },
-        Component = { icon = "", hl = "SymbolIconComponent" },
-        Fragment = { icon = "", hl = "SymbolIconFragment" },
-      },
-      fold_markers = { '▸', '▾' },
-    }
+    config = function()
+      symbols = {}
+
+      for key, value in pairs(symbol_icons) do
+        symbols[key] = { icon = value, hl = "SymbolIcon" .. key }
+      end
+
+      require('symbols-outline').setup({
+        highlight_hovered_item = false,
+        width = 20,
+        autofold_depth = 3,
+        keymaps = {
+          close = "q",
+          toggle_preview = 'P',
+        },
+        fold_markers = { '▸', '▾' },
+        symbols = symbols,
+      })
+    end,
   }
 }
