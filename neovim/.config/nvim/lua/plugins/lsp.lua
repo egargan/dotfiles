@@ -235,6 +235,7 @@ return {
     keys = {
       {
         "<leader>f",
+        mode = { "n", "v" },
         function()
           require("conform").format({ async = true, lsp_fallback = true })
         end,
