@@ -177,26 +177,11 @@ vim.api.nvim_create_autocmd('BufAdd', {
   end
 })
 
-local group = vim.api.nvim_create_augroup("PersistedHooks", {})
-
--- Keep the buffer around if it's been loaded from a session
-vim.api.nvim_create_autocmd({ "User" }, {
-  pattern = "PersistedLoadPost",
-  group = group,
-  callback = function()
-    for bufnr = 1, vim.fn.bufnr('$') do
-      if vim.fn.buflisted(bufnr) == 1 then
-        vim.bo[bufnr].bufhidden = 'hide'
-      end
-    end
-  end,
-})
-
 -- Keep the buffer around if it's been edited
 vim.api.nvim_create_autocmd({ 'BufModifiedSet', 'TextChangedI', 'TextChanged' }, {
   pattern = '*',
   callback = function(event)
-    if vim.bo[event.buf].buflisted == 1 then
+    if vim.bo[event.buf].buflisted == true then
       vim.bo['bufhidden'] = 'hide'
     end
   end
