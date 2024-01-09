@@ -441,8 +441,8 @@ return {
             cmd = "lazygit",
             direction = "float",
             float_opts = {
-              width = 130,
-              height = 40,
+              width = 150,
+              height = 50,
             },
             on_open = function(term)
               vim.cmd("startinsert!")
