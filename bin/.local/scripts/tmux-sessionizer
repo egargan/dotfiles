@@ -4,9 +4,14 @@ RESET='\e[0m'
 CYAN='\e[0;36m'
 RED='\e[1;31m'
 
-if ! command -v grealpath &> /dev/null; then
-  printf "${RED}[!]${RESET} grealpath not found, install coreutils (brew install coreutils)\n"
-  exit 1
+if [[ $OSTYPE == 'darwin'* ]]; then
+  if ! command -v grealpath &> /dev/null; then
+    printf "${RED}[!]${RESET} grealpath not found, install coreutils (brew install coreutils)\n"
+    exit 1
+  fi
+  safe_realpath="$(command -v grealpath)"
+else
+  safe_realpath="$(command -v realpath)"
 fi
 
 # Collect list of active sessions
@@ -17,7 +22,7 @@ ACTIVE_SESSIONS_PATHS=()
 # Add paths to ACTIVE_SESSIONS_PATHS, relative to home directory, sorted by recently used
 for i in "${!ACTIVE_SESSIONS_INFO[@]}"; do
   IFS=';' read -r -a SESSION_INFO <<< "${ACTIVE_SESSIONS_INFO[$i]}"
-  RELATIVE_PATH=$(grealpath --relative-to ~ -- "${SESSION_INFO[1]}")
+  RELATIVE_PATH=$("$safe_realpath" --relative-to ~ -- "${SESSION_INFO[1]}")
 
   if [[ "${RELATIVE_PATH}" == "." ]]; then
     ACTIVE_SESSIONS_PATHS+=("~")
@@ -35,7 +40,7 @@ done
 
 # Collect list of all project paths under selected directories
 read -rd '' -a FIND_PATHS <<< $(find ~/work ~/projects ~/personal -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
-  | xargs grealpath --relative-to ~ \
+  | xargs "$safe_realpath" --relative-to ~ \
   | sed -e 's/^/~\//'
 )
 
@@ -51,7 +56,7 @@ if [[ $# -eq 1 ]]; then
   SELECTED=$1
 else
   # Prompt user to select a session with FZF
-  SELECTED=$(printf '%b\n' ${SESSIONS_PATHS[@]} | fzf --reverse --ansi)
+  SELECTED=$(printf '%b\n' ${SESSIONS_PATHS[@]} | fzf --reverse --ansi --height 20)
 fi
 
 if [[ -z $SELECTED ]]; then
