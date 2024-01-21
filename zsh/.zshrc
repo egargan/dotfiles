@@ -147,8 +147,12 @@ export BAT_THEME="Nord"
 
 # -- zsh-syntax-highlighting  -------------------------------------------------
 
-SYNTAX_HL_SETUP_PATH="/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-[[ -f "$SYNTAX_HL_SETUP_PATH" ]] && source "$SYNTAX_HL_SETUP_PATH"
+MACOS_SYNTAX_HL_SETUP_PATH="/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[[ -f "$MACOS_SYNTAX_HL_SETUP_PATH" ]] && source "$MACOS_SYNTAX_HL_SETUP_PATH"
+
+LINUX_SYNTAX_HL_SETUP_PATH="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[[ -f "$LINUX_SYNTAX_HL_SETUP_PATH" ]] && source "$LINUX_SYNTAX_HL_SETUP_PATH"
+
 
 # -- Volta --------------------------------------------------------------------
 
