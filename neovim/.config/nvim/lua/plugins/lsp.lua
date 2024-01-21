@@ -259,7 +259,13 @@ return {
         config = {
           find_json = vim.schedule(function(cwd)
             local found_cspell = vim.fn.findfile('cspell.json', '.;~')
+
             if found_cspell ~= '' then return found_cspell end
+
+            if cwd == nil or cwd == '' then
+              cwd = vim.fn.getcwd()
+            end
+
             return vim.fn.expand(cwd .. "/cspell.json")
           end)
         }
