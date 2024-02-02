@@ -90,51 +90,53 @@ return {
 
       local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-      -- TODO: move this to top, or separate file? make config? with types?
+      local ensure_installed = {
+        'cssls', 'html', 'jsonls', 'lua_ls', 'pylsp', 'svelte', 'tsserver', 'yamlls'
+      }
+
+      -- This isn't a list of all enabled servers, just the ones with custom settings!
+      -- TODO: can this be typed?
+      -- TODO: move this somewhere else?
       local servers = {
-        cssls = {},
-        eslint = {},
-        html = {},
-        jsonls = {},
         lua_ls = {
-          Lua = {
-            runtime = { version = 'LuaJIT' },
-            diagnostics = { globals = { 'vim' } },
-            workspace = {
-              library = { vim.api.nvim_get_runtime_file("", true), "${3rd}/luassert/library" }
-            },
-            telemetry = { enable = false },
-            format = {
-              enable = true,
-              defaultConfig = {
-                indent_style = "space",
-                indent_size = "2",
+          settings = {
+            Lua = {
+              runtime = { version = 'LuaJIT' },
+              diagnostics = { globals = { 'vim' } },
+              workspace = {
+                library = { vim.api.nvim_get_runtime_file("", true), "${3rd}/luassert/library" }
+              },
+              telemetry = { enable = false },
+              format = {
+                enable = true,
+                defaultConfig = {
+                  indent_style = "space",
+                  indent_size = "2",
+                }
               }
-            }
-          },
+            },
+          }
         },
-        pylsp = {},
-        -- rust_analyzer = {},
-        svelte = {},
-        -- tailwindcss = {},
-        tsserver = {},
         yamlls = {
-          yaml = { keyOrdering = false }
+          settings = {
+            yaml = { keyOrdering = false }
+          }
         },
       }
 
-      require("mason-lspconfig").setup({ ensure_installed = vim.tbl_keys(servers) })
+      require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
       require("mason-lspconfig").setup_handlers({
         function(server_name)
-          require("lspconfig")[server_name].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = servers[server_name]
-          })
+          require("lspconfig")[server_name].setup(
+            vim.tbl_extend('force', {
+              capabilities = capabilities,
+              on_attach = on_attach,
+            }, servers[server_name] or {})
+          )
         end,
         ['tsserver'] = function()
           require("typescript").setup({ capabilities = capabilities })
-        end
+        end,
       })
     end
   },
@@ -147,7 +149,7 @@ return {
       ui = {
         border = 'rounded',
       }
-    }
+    },
   },
 
   {
