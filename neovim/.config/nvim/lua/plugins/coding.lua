@@ -15,7 +15,7 @@ return {
 
     {
         -- Easy surrounding quotes, tags, parens, etc.
-        'tpope/vim-surround',
+        'kylechui/nvim-surround',
         event = "VeryLazy",
     },
 
