@@ -32,6 +32,16 @@ local symbol_icons = {
   Fragment    = "<>",
 }
 
+vim.api.nvim_create_user_command('DiagnosticsToggle', function()
+  if vim.diagnostic.is_disabled() then
+    vim.diagnostic.enable()
+  else
+    vim.diagnostic.disable()
+  end
+end, {
+  desc = "Enables or disables LSP diagnostics"
+})
+
 -- TODO: break me down, a la
 -- https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/plugins/lsp/init.lua#L72
 local function on_attach(client, bufnr)
@@ -314,6 +324,16 @@ return {
         end
       end, {
         desc = "Enables or disables cspell spell checking"
+      })
+
+      vim.api.nvim_create_user_command('FormattingToggle', function()
+        if not vim.g.formatting_enabled then
+          vim.g.formatting_enabled = true
+        else
+          vim.g.formatting_enabled = false
+        end
+      end, {
+        desc = "Enables or disables on-save code formatting"
       })
     end
   },
