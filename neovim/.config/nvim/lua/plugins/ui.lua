@@ -5,6 +5,48 @@ end
 
 return {
   {
+    -- Pretty notifications
+    'rcarriga/nvim-notify',
+    lazy = false,
+    opts = {
+      render = 'wrapped-compact',
+      icons = {
+        ERROR = "✘",
+        WARN = "▲",
+        INFO = "•",
+        DEBUG = "•",
+        TRACE = "•",
+      },
+      timeout = 3500,
+    },
+    config = function(_, opts)
+      local notify = require("notify")
+
+      vim.notify = notify
+
+      -- Override default print function to use notify
+      print = function(...)
+        local print_safe_args = {}
+        local _ = { ... }
+        for i = 1, #_ do
+          table.insert(print_safe_args, tostring(_[i]))
+        end
+        notify(table.concat(print_safe_args, ' '), "info")
+      end
+
+      require('notify').setup(opts)
+    end,
+    keys = {
+      {
+        '<Bs>',
+        function() require('notify').dismiss() end,
+        mode = { 'n' },
+        desc = 'Dismiss notifications',
+      }
+    }
+  },
+
+  {
     'folke/noice.nvim',
     event = 'VeryLazy',
     dependencies = {
@@ -370,90 +412,4 @@ return {
       { "<leader>5", function() vim.cmd('NvimTreeFindFile') end, desc = "Open NvimTree at %" },
     }
   },
-
-  {
-    -- UIs for viewing git diffs, history, etc.
-    'sindrets/diffview.nvim',
-    cmd = {
-      'DiffviewToggleFiles',
-      'DiffviewOpen',
-      'DiffviewFileHistory',
-      'DiffviewLog',
-      'DiffviewClose',
-      'DiffviewRefresh',
-      'DiffviewFocusFiles',
-    },
-    opts = {
-      enhanced_diff_hl = true,
-      use_icons = false,
-      icons = {
-        folder_closed = "▸ ",
-        folder_open = "▾ ",
-      },
-      signs = {
-        fold_closed = "▸ ",
-        fold_open = "▾ ",
-        done = "✓",
-      },
-    },
-    config = function(_, opts)
-      require('diffview').setup(opts)
-
-      -- Use hatching for 'empty' diff areas
-      vim.opt.fillchars:append { diff = "╱" }
-    end,
-    keys = {
-      { "<leader>+", function() vim.cmd(':DiffviewOpen') end,          desc = "Show diffs UI" },
-      { "<leader>%", function() vim.cmd(':DiffviewFileHistory %') end, desc = "Show file history" },
-    }
-  },
-
-  {
-    -- Toggle-able terminal
-    'akinsho/toggleterm.nvim',
-    cmd = {
-      'ToggleTerm',
-    },
-    config = {
-      highlights = {
-        FloatBorder = {
-          link = "Comment",
-        },
-      },
-      float_opts = {
-        border = 'rounded',
-        width = 100,
-        height = 30,
-      }
-    },
-    keys = {
-      {
-        "!",
-        mode = { 'n' },
-        function() vim.cmd(':ToggleTerm direction=float') end,
-        desc = "Toggle floating terminal"
-      },
-      {
-        "<leader>g",
-        mode = { 'n' },
-        function()
-          require('toggleterm.terminal').Terminal:new({
-            cmd = "lazygit",
-            direction = "float",
-            float_opts = {
-              width = 150,
-              height = 50,
-            },
-            on_open = function(term)
-              vim.cmd("startinsert!")
-              -- Remove global '<Esc> to C-\C-n' map, so that we can actually
-              -- use escape in laygit
-              vim.api.nvim_buf_set_keymap(term.bufnr, "t", "<Esc>", "<Esc>", { noremap = true, silent = true })
-            end,
-          }):toggle()
-        end,
-        desc = "Toggle floating lazygit terminal"
-      },
-    }
-  }
 }

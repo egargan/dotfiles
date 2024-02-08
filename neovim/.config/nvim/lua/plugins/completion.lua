@@ -1,5 +1,4 @@
 return {
-
   -- Auto-complete Framework
   {
     'hrsh7th/nvim-cmp',
@@ -23,7 +22,7 @@ return {
         mapping = cmp.mapping.preset.insert({
           ['<CR>'] = cmp.mapping.confirm({ select = true }),
           -- Scroll complete docs menu
-          ['<C-b>'] = cmp.mapping.scroll_docs( -4),
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
           -- Select next or previous suggestion
           ['<Tab>'] = cmp.mapping.select_next_item(),

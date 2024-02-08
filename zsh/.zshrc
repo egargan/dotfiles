@@ -207,6 +207,7 @@ alias shocket='echo $(find /tmp -path "*/ssh-*" -name "agent*" -uid $(id -u) 2>/
 if [[ "$(command -v nvim)" ]]; then
   alias vim='nvim'
   alias vi='nvim'
+  alias viq='nvim -u ~/.config/nvim/init-light.lua'
 fi
 
 # Alias ls to ls with colours enabled (of course macOS' uses a different option)
