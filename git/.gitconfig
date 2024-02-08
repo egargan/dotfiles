@@ -1,7 +1,7 @@
 [color]
   ui = true
 [core]
-  editor = nvim
+  editor = nvim -u ~/.config/nvim/init-light.lua
   excludesfile = ~/.global-ignore
   pager = less -F -R
 [includeIf "gitdir:~/dotfiles/"]
