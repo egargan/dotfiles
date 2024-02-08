@@ -39,7 +39,10 @@ return {
     keys = {
       {
         '<Bs>',
-        function() require('notify').dismiss() end,
+        function()
+          require('notify').dismiss()
+          vim.cmd('noh')
+        end,
         mode = { 'n' },
         desc = 'Dismiss notifications',
       }
