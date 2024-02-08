@@ -6,7 +6,7 @@ require("keymaps")
 require("autocommands")
 
 require('plugins.init')({
-  "plugins.core",
+  "plugins.lib",
   "plugins.editing",
   "plugins.formatting",
   "plugins.fzf",

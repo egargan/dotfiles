@@ -8,7 +8,8 @@ require("autocommands")
 
 require('plugins.init')({
   "plugins.completion",
-  "plugins.core",
+  "plugins.lib",
+  "plugins.session",
   "plugins.editing",
   "plugins.formatting",
   "plugins.fzf",
