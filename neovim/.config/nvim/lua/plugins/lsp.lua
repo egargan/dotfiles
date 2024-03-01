@@ -44,7 +44,7 @@ local function on_attach(client, bufnr)
   local map_opts = { noremap = true, buffer = bufnr, silent = true }
 
   if client.name == 'tsserver' then
-    vim.keymap.set('n', 'gd', function() vim.cmd(':TypescriptGoToSourceDefinition') end, map_opts)
+    vim.keymap.set('n', 'gd', function() vim.cmd(':TSToolsGoToSourceDefinition') end, map_opts)
   else
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, map_opts)
   end
@@ -150,7 +150,10 @@ return {
           )
         end,
         ['tsserver'] = function()
-          require("typescript").setup({ capabilities = capabilities })
+          require("typescript-tools").setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+          })
         end,
       })
     end
@@ -170,6 +173,7 @@ return {
   {
     -- LSP server installer configs
     'williamboman/mason-lspconfig.nvim',
+    dependencies = { 'mason.nvim' },
   },
 
   {
@@ -224,15 +228,9 @@ return {
   },
 
   {
-    'jose-elias-alvarez/typescript.nvim',
-    cmd = {
-      'TypescriptAddMissingImports',
-      'TypescriptOrganizeImport',
-      'TypescriptRemoveUnused',
-      'TypescriptFixAll',
-      'TypescriptRenameFile',
-      'TypescriptGoToSourceDefinition',
-    },
+    -- A better TS language server
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
   },
 
   {
