@@ -146,6 +146,7 @@ return {
             vim.tbl_extend('force', {
               capabilities = capabilities,
               on_attach = on_attach,
+              flags = { debounce_text_changes = 150 }
             }, servers[server_name] or {})
           )
         end,
