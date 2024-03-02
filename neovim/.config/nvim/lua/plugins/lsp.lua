@@ -100,6 +100,10 @@ return {
         'cssls', 'html', 'jsonls', 'lua_ls', 'pylsp', 'svelte', 'tsserver', 'yamlls'
       }
 
+      local svelte_js_change_group = vim.api.nvim_create_augroup(
+        "svelte_jschange", { clear = true }
+      )
+
       -- This isn't a list of all enabled servers, just the ones with custom settings!
       -- TODO: can this be typed?
       -- TODO: move this somewhere else?
@@ -137,6 +141,20 @@ return {
             yaml = { keyOrdering = false }
           }
         },
+        svelte = {
+          -- Add custom JS/TS file watcher to tell Svelte to reload types
+          -- https://github.com/sveltejs/language-tools/issues/2008
+          on_attach = function(client, bufnr)
+            vim.api.nvim_create_autocmd("BufWritePost", {
+              pattern = { "*.js", "*.ts" },
+              group = svelte_js_change_group,
+              callback = function(ctx)
+                client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+              end,
+            })
+            on_attach(client, bufnr)
+          end,
+        }
       }
 
       require("mason-lspconfig").setup({ ensure_installed = ensure_installed })
