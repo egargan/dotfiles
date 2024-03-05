@@ -132,6 +132,9 @@ return {
         highlights["SymbolIconEvent"] = highlights['@character.special']
         highlights["SymbolIconOperator"] = highlights['@operator']
 
+        -- Glance
+        highlights["GlanceListMatch"] = highlights['CmpItemAbbrMatch']
+
         -- Make colors globally available
         vim.g.nord_colors = colors
       end

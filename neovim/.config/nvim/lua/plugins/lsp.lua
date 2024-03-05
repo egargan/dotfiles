@@ -218,8 +218,6 @@ return {
     },
     keys = {
       { '<Leader>t',  ':TroubleToggle<CR>',                 desc = 'Toggle Trouble' },
-      { 'gr',         ':Trouble lsp_references<CR>',        desc = 'Show references' },
-      { 'gi',         ':Trouble lsp_implementations<CR>',   desc = 'Show implementations' },
       { '<Leader>fd', ':Trouble document_diagnostics<CR>',  desc = 'Show document diagnostics' },
       { '<Leader>fD', ':Trouble workspace_diagnostics<CR>', desc = 'Show workspace diagnostics' },
     }
@@ -297,5 +295,25 @@ return {
         symbols = symbols,
       })
     end,
+  },
+
+  {
+    -- In-place references and definitions UI
+    'DNLHC/glance.nvim',
+    event = "LspAttach",
+    cmd = { 'Glance' },
+    opts = {
+      detached = function(winid)
+        return vim.api.nvim_win_get_width(winid) < 120
+      end,
+      folds = {
+        fold_closed = '▸',
+        fold_open = '▾',
+      }
+    },
+    keys = {
+      { 'gr', ':Glance references<CR>',      desc = 'Show references' },
+      { 'gi', ':Glance implementations<CR>', desc = 'Show implementations' },
+    }
   }
 }
