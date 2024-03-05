@@ -21,7 +21,7 @@ return {
         if not vim.g.formatting_enabled then
           return
         end
-        return { timeout_ms = 500, lsp_fallback = true }
+        return { timeout_ms = 1000, lsp_fallback = true }
       end,
       formatters_by_ft = {
         lua = { "stylua" },
@@ -31,6 +31,8 @@ return {
         javascriptreact = { { "prettierd", "prettier" } },
         typescript = { { "prettierd", "prettier" } },
         typescriptreact = { { "prettierd", "prettier" } },
+        svelte = { "prettierd" },
+        astro = { "prettier" },
         graphql = { { "prettierd", "prettier" } },
         yaml = { { "prettierd", "prettier" } },
         python = { "black" },
