@@ -1,32 +1,4 @@
-local symbol_icons = {
-  File        = "☰",
-  Module      = "❖",
-  Namespace   = "❖",
-  Package     = "❖",
-  Class       = "𝑪",
-  Method      = "𝒇",
-  Property    = "◇",
-  Field       = "◇",
-  Constructor = "𝒇",
-  Enum        = "𝒆",
-  Interface   = "𝐼",
-  Function    = "𝒇",
-  Variable    = "𝑥",
-  Constant    = "𝑥",
-  String      = '"',
-  Number      = "#",
-  Boolean     = "𝒃",
-  Array       = "[]",
-  Object      = "◇",
-  Key         = "◇",
-  Null        = "ø",
-  EnumMember  = "◇",
-  Struct      = "𝑺",
-  Event       = "ϟ",
-  Operator    = "+",
-  Component   = "<>",
-  Fragment    = "<>",
-}
+local symbol_icons = require 'lib.lsp-icons'
 
 vim.api.nvim_create_user_command('DiagnosticsToggle', function()
   if vim.diagnostic.is_disabled() then
