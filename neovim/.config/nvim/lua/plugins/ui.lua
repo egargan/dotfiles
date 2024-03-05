@@ -226,6 +226,7 @@ return {
           lualine_a = {
             {
               'filename',
+              path = 4,
               file_status = false,
               color = function()
                 return {
@@ -298,6 +299,7 @@ return {
           lualine_a = {
             {
               'filename',
+              path = 4,
               file_status = false,
               color = function()
                 return {
