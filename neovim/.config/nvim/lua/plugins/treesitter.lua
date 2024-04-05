@@ -46,6 +46,9 @@ return {
         scope_incremental = "grc",
         node_decremental = "grm",
       },
+      matchup = {
+        enable = true,
+      },
     },
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)

@@ -142,4 +142,9 @@ return {
     event = "VeryLazy",
     config = true,
   },
+
+  {
+    'andymass/vim-matchup',
+    event = "BufReadPost",
+  }
 }
