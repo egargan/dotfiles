@@ -281,7 +281,12 @@ return {
       folds = {
         fold_closed = '▸',
         fold_open = '▾',
-      }
+      },
+      border = {
+        enable = true,
+        top_char = '▁',
+        bottom_char = '▔',
+      },
     },
     keys = {
       { 'gr', ':Glance references<CR>',      desc = 'Show references' },

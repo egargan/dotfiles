@@ -1,6 +1,7 @@
 return {
   {
     'gbprod/nord.nvim',
+    lazy = false,
     opts = {
       comments = { italics = false },
       diff = { mode = "fg" },
@@ -134,6 +135,9 @@ return {
 
         -- Glance
         highlights["GlanceListMatch"] = highlights['CmpItemAbbrMatch']
+        -- Use custom background colour between polar_night.origin and polar_night.bright
+        highlights["GlanceListNormal"] = { bg = "#333947" }
+        highlights["GlanceListEndOfBuffer"] = { bg = "#333947" }
 
         -- Make colors globally available
         vim.g.nord_colors = colors
@@ -143,6 +147,5 @@ return {
       require('nord').setup(opts)
       vim.cmd('colorscheme nord')
     end,
-    lazy = false
   }
 }
