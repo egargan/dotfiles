@@ -134,7 +134,9 @@ return {
     'ggandor/leap.nvim',
     event = "VeryLazy",
     config = function()
-      require('leap').create_default_mappings()
+      -- Only use normal mappings (see :h leap-default-mappings)
+      vim.keymap.set('n', 's', '<Plug>(leap-forward)')
+      vim.keymap.set('n', 'S', '<Plug>(leap-backward)')
     end
   },
 
