@@ -20,7 +20,6 @@ return function(plugin_paths)
   end, plugin_paths)
 
   -- Setup plugins, including LSP and completion config
-  -- TODO: load subset when running with viq
   require("lazy").setup({
     spec = spec,
     ui = {

@@ -1,6 +1,11 @@
 -- Sometimes Neovim doesn't think .nvim should be its runtime path?
 vim.opt.rtp:append(vim.env.HOME .. '/.nvim/')
 
+if vim.g.vscode then
+  require("vscode.init")
+  return
+end
+
 -- Import base config
 require("settings")
 require("keymaps")
