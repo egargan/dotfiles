@@ -31,7 +31,7 @@ return {
         javascriptreact = { { "prettierd", "prettier" } },
         typescript = { { "prettierd", "prettier" } },
         typescriptreact = { { "prettierd", "prettier" } },
-        svelte = { "prettierd" },
+        svelte = { "prettier" },
         astro = { "prettier" },
         graphql = { { "prettierd", "prettier" } },
         yaml = { { "prettierd", "prettier" } },
@@ -39,6 +39,19 @@ return {
         ["_"] = { "trim_whitespace" },
       },
     },
+    config = function(_, opts)
+      require("conform").setup(opts)
+
+      require("conform").formatters.prettier = {
+        options = {
+          ft_parsers = {
+            svelte = 'svelte',
+            astro = 'astro',
+          },
+        },
+      }
+    end,
+
     keys = {
       {
         "<leader>f",
