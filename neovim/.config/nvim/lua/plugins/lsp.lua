@@ -236,6 +236,7 @@ return {
       require('nvim-navic').setup({
         highlight = true,
         icons = formatted_icons,
+        separator = " › ",
       })
     end
   },
