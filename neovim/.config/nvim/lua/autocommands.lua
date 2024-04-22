@@ -35,3 +35,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     if vim.o.filetype == 'help' then vim.cmd.wincmd("L") end
   end
 })
+
+-- Alias 'W' to 'w', no more 'Not an editor command: W'!
+vim.api.nvim_create_user_command("W", "write", { nargs = 0 })
