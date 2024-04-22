@@ -76,7 +76,8 @@ return {
     end,
     keys = {
       { "<leader>+", function() vim.cmd(':DiffviewOpen') end,          desc = "Show diffs UI" },
-      { "<leader>%", function() vim.cmd(':DiffviewFileHistory %') end, desc = "Show file history" },
+      { "<leader>=", function() vim.cmd(':DiffviewFileHistory') end,   desc = "Show git history for current file" },
+      { "<leader>%", function() vim.cmd(':DiffviewFileHistory %') end, desc = "Show git history" },
     }
   },
 
