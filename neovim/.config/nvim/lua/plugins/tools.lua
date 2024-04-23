@@ -162,5 +162,17 @@ return {
         },
       })
     end,
+  },
+
+  {
+    -- Visualise hex colors, RGB values, etc in buffer
+    'NvChad/nvim-colorizer.lua',
+    event = "VeryLazy",
+    opts = {
+      user_default_options = {
+        -- Don't highlight CSS names, e.g. 'white', 'coral', etc
+        names = false
+      }
+    }
   }
 }
