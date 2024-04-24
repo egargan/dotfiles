@@ -174,5 +174,18 @@ return {
         names = false
       }
     }
-  }
+  },
+
+  {
+    'FabijanZulj/blame.nvim',
+    config = true,
+    keys = {
+      {
+        '<Leader>B',
+        mode = { 'n' },
+        function() vim.cmd(':BlameToggle') end,
+        desc = "Toggle Git blame buffer"
+      }
+    }
+  },
 }
