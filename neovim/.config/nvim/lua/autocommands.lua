@@ -38,3 +38,9 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 
 -- Alias 'W' to 'w', no more 'Not an editor command: W'!
 vim.api.nvim_create_user_command("W", "write", { nargs = 0 })
+
+-- Clear jump list on startup, avoid jumping to files from previous sessions
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = vim.api.nvim_create_augroup("clear_jumplist", {}),
+  command = ':clearjumps',
+})
