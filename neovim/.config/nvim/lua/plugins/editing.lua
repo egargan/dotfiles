@@ -114,6 +114,7 @@ return {
     -- Easy surrounding quotes, tags, parens, etc.
     'kylechui/nvim-surround',
     event = "VeryLazy",
+    config = true,
   },
 
   {
