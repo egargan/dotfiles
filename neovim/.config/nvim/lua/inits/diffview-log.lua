@@ -62,7 +62,6 @@ require("lazy").setup({
 local first_param = vim.v.argv[5]
 
 vim.api.nvim_create_autocmd("VimEnter", {
-  group = vim.api.nvim_create_augroup("clear_jumplist", {}),
   callback = function()
     -- Set these after nord's done its thing
     vim.api.nvim_set_hl(0, "StatusLine", { fg = 'none', bg = 'none' })
