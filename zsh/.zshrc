@@ -208,7 +208,7 @@ if [[ "$(command -v nvim)" ]]; then
   alias vim='nvim'
   alias vi='nvim'
   alias v='nvim'
-  alias vl='nvim -u ~/.config/nvim/init-light.lua'
+  alias vl='nvim -u ~/.config/nvim/lua/inits/light.lua'
 fi
 
 # Alias ls to ls with colours enabled (of course macOS' uses a different option)
