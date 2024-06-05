@@ -133,7 +133,7 @@ return {
   {
     -- Plugin dev-oriented tree sitter library
     'windwp/nvim-ts-autotag',
-    event = "VeryLazy",
+    event = { "BufReadPre", "BufNewFile" },
     config = true,
   },
 

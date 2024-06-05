@@ -49,9 +49,6 @@ require("lazy").setup({
         indent = {
           enable = true
         },
-        autotag = {
-          enable = true,
-        },
         ensure_installed = {
           "svelte",
           "typescript",
