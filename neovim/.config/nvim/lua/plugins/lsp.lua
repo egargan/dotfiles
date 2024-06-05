@@ -66,7 +66,12 @@ return {
       require('lspconfig.ui.windows').default_options.border = 'rounded'
       vim.api.nvim_set_hl(0, 'LspInfoBorder', { link = 'Comment' })
 
-      local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      local default_capabilities = {}
+      local capabilities = vim.tbl_deep_extend(
+        "keep",
+        default_capabilities,
+        require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+      )
 
       local ensure_installed = {
         'cssls', 'html', 'jsonls', 'lua_ls', 'pylsp', 'svelte', 'tsserver', 'yamlls'
