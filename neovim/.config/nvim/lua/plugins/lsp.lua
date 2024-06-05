@@ -274,29 +274,4 @@ return {
       })
     end,
   },
-
-  {
-    -- In-place references and definitions UI
-    'DNLHC/glance.nvim',
-    event = "LspAttach",
-    cmd = { 'Glance' },
-    opts = {
-      detached = function(winid)
-        return vim.api.nvim_win_get_width(winid) < 120
-      end,
-      folds = {
-        fold_closed = '▸',
-        fold_open = '▾',
-      },
-      border = {
-        enable = true,
-        top_char = '▁',
-        bottom_char = '▔',
-      },
-    },
-    keys = {
-      { 'gr', ':Glance references<CR>',      desc = 'Show references' },
-      { 'gi', ':Glance implementations<CR>', desc = 'Show implementations' },
-    }
-  }
 }
