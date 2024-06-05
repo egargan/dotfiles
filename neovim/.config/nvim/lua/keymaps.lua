@@ -15,10 +15,6 @@ vim.api.nvim_set_keymap('n', '[T', ':tabclose<Enter>', { noremap = true, silent 
 vim.api.nvim_set_keymap('n', ']q', ':cnext<Enter>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '[q', ':cprev<Enter>', { noremap = true, silent = true })
 
--- 5-line up/down jumps
-vim.api.nvim_set_keymap('', '<S-k>', '5k', { noremap = true })
-vim.api.nvim_set_keymap('', '<S-j>', '5j', { noremap = true })
-
 -- Cuts to black hole buffer
 vim.api.nvim_set_keymap('', '<leader>d', '"_d', { noremap = true })
 vim.api.nvim_set_keymap('', '<leader>D', '"_D', { noremap = true })
