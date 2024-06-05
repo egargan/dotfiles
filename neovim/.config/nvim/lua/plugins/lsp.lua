@@ -181,14 +181,14 @@ return {
       'TroubleToggle',
     },
     opts = {
-      icons = false,
-      fold_open = '▾',
-      fold_closed = '▸',
-      signs = {
-        error = '•',
-        warning = '•',
-        hint = '•',
-        information = '•',
+      icons = {
+        indent = {
+          folder_closed = "▸ ",
+          folder_open = "▾ ",
+        },
+        fold_open = '▾',
+        fold_closed = '▸',
+        kinds = require('lib.lsp-icons'),
       },
       use_diagnostic_signs = false,
       auto_close = true
