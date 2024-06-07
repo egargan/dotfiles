@@ -194,6 +194,8 @@ return {
       auto_close = true
     },
     keys = {
+      { 'gl',         ':Trouble lsp<CR>',                   desc = 'Show LSP info for symbol' },
+      { 'gr',         ':Trouble lsp_references<CR>',        desc = 'Show references for symbol' },
       { '<Leader>t',  ':TroubleToggle<CR>',                 desc = 'Toggle Trouble' },
       { '<Leader>fd', ':Trouble document_diagnostics<CR>',  desc = 'Show document diagnostics' },
       { '<Leader>fD', ':Trouble workspace_diagnostics<CR>', desc = 'Show workspace diagnostics' },
