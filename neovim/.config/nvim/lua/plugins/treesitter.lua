@@ -36,12 +36,12 @@ return {
       },
       incremental_selection = {
         enable = true,
-      },
-      keymaps = {
-        init_selection = "gnn",
-        node_incremental = "grn",
-        scope_incremental = "grc",
-        node_decremental = "grm",
+        keymaps = {
+          init_selection = "<CR>",
+          node_incremental = "<CR>",
+          scope_incremental = "<Tab>",
+          node_decremental = "<S-Tab>",
+        },
       },
       matchup = {
         enable = true,
