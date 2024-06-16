@@ -44,3 +44,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
   group = vim.api.nvim_create_augroup("clear_jumplist", {}),
   command = ':clearjumps',
 })
+
+-- Add .envrc boilerplate
+vim.api.nvim_create_user_command("EnvrcBoilerplate", ":norm ggIsource_up_if_exists .envrc<Enter><Enter><Esc>",
+  { nargs = 0 })
