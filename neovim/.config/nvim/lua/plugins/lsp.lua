@@ -181,6 +181,12 @@ return {
       'TroubleToggle',
     },
     opts = {
+      win = {
+        size = {
+          height = 14,
+          width = 40,
+        }
+      },
       icons = {
         indent = {
           folder_closed = "▸ ",
@@ -194,11 +200,35 @@ return {
       auto_close = true
     },
     keys = {
-      { 'gl',         ':Trouble lsp<CR>',                   desc = 'Show LSP info for symbol' },
-      { 'gr',         ':Trouble lsp_references<CR>',        desc = 'Show references for symbol' },
-      { '<Leader>t',  ':TroubleToggle<CR>',                 desc = 'Toggle Trouble' },
-      { '<Leader>fd', ':Trouble document_diagnostics<CR>',  desc = 'Show document diagnostics' },
-      { '<Leader>fD', ':Trouble workspace_diagnostics<CR>', desc = 'Show workspace diagnostics' },
+      { 'gl',         ':Trouble lsp toggle focus=true results.win.size.height=20<CR>',                           desc = 'Show LSP info for symbol' },
+      { 'gr',         ':Trouble lsp_references toggle pinned=true focus=true<CR>',                               desc = 'Show references for symbol' },
+      { '<Leader>t',  ':Trouble toggle<CR>',                                                                     desc = 'Toggle Trouble' },
+      { '<Leader>fs', ':Trouble symbols toggle pinned=true results.win.relative=win results.win.position=right', desc = 'Toggle Trouble' },
+      { '<Leader>fd', ':Trouble diagnostics toggle filter.buf=0<CR>',                                            desc = 'Show document diagnostics' },
+      { '<Leader>fD', ':Trouble diagnostics toggle<CR>',                                                         desc = 'Show workspace diagnostics' },
+
+      {
+        ']q',
+        function()
+          if require("trouble").is_open() then
+            require("trouble").next()
+          else
+            vim.cmd(':cnext')
+          end
+        end,
+        desc = 'Next in Trouble or quickfix list'
+      },
+      {
+        '[q',
+        function()
+          if require("trouble").is_open() then
+            require("trouble").prev()
+          else
+            vim.cmd(':cprev')
+          end
+        end,
+        desc = 'Previous in Trouble or quickfix list'
+      }
     }
   },
 

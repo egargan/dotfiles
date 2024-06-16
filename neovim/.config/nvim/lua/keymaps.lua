@@ -11,10 +11,6 @@ vim.api.nvim_set_keymap('n', '[t', ':tabprev<Enter>', { noremap = true, silent =
 vim.api.nvim_set_keymap('n', ']T', ':tabnew<Enter>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '[T', ':tabclose<Enter>', { noremap = true, silent = true })
 
--- Quickfix list navigation
-vim.api.nvim_set_keymap('n', ']q', ':cnext<Enter>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '[q', ':cprev<Enter>', { noremap = true, silent = true })
-
 -- Cuts to black hole buffer
 vim.api.nvim_set_keymap('', '<leader>d', '"_d', { noremap = true })
 vim.api.nvim_set_keymap('', '<leader>D', '"_D', { noremap = true })
