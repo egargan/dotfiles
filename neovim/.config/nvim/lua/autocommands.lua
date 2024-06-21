@@ -45,6 +45,12 @@ vim.api.nvim_create_autocmd("VimEnter", {
   command = ':clearjumps',
 })
 
+-- Commands for changing indent mode
+vim.api.nvim_create_user_command("Spaces2", ":set tabstop=2 shiftwidth=2 expandtab | %retab!", { nargs = 0 })
+vim.api.nvim_create_user_command("Spaces4", ":set tabstop=4 shiftwidth=4 expandtab | %retab!", { nargs = 0 })
+vim.api.nvim_create_user_command("Tabs2", ":set tabstop=2 shiftwidth=2 noexpandtab | %retab!", { nargs = 0 })
+vim.api.nvim_create_user_command("Tabs4", ":set tabstop=4 shiftwidth=4 noexpandtab | %retab!", { nargs = 0 })
+
 -- Add .envrc boilerplate
 vim.api.nvim_create_user_command("EnvrcBoilerplate", ":norm ggIsource_up_if_exists .envrc<Enter><Enter><Esc>",
   { nargs = 0 })
