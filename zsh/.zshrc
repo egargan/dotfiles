@@ -60,11 +60,8 @@ if [[ ! "$PATH" == */opt/homebrew/opt/fzf/bin* ]]; then
   PATH="${PATH:+${PATH}:}/opt/homebrew/opt/fzf/bin"
 fi
 
-# Setup completion and keybindings
-[[ $- == *i* ]] && source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2> /dev/null
-
-FZF_BINDINGS_SETUP_PATH="/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
-[[ -f "$FZF_BINDINGS_SETUP_PATH" ]] && source "$FZF_BINDINGS_SETUP_PATH"
+# Setup completions and bindings
+source <(fzf --zsh)
 
 # Have fzf use ripgrep
 export FZF_CTRL_T_COMMAND="rg --files --no-ignore-vcs --hidden --follow --glob '!.git'"
@@ -147,11 +144,15 @@ export BAT_THEME="Nord"
 
 # -- zsh-syntax-highlighting  -------------------------------------------------
 
-MACOS_SYNTAX_HL_SETUP_PATH="/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-[[ -f "$MACOS_SYNTAX_HL_SETUP_PATH" ]] && source "$MACOS_SYNTAX_HL_SETUP_PATH"
-
-LINUX_SYNTAX_HL_SETUP_PATH="/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-[[ -f "$LINUX_SYNTAX_HL_SETUP_PATH" ]] && source "$LINUX_SYNTAX_HL_SETUP_PATH"
+for Item in "/opt/homebrew/share/zsh-syntax-highlighting" \
+            "/usr/share/zsh-syntax-highlighting" \
+            "/usr/local/share/zsh-syntax-highlighting";
+  do
+    if [[ -d "$Item" ]]; then
+      source "$Item/zsh-syntax-highlighting.zsh"
+      break
+    fi
+  done
 
 
 # -- Volta --------------------------------------------------------------------
