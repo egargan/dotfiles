@@ -5,15 +5,11 @@
 # It installs Homebrew and a number of packages, creates and configures personal and work SSH keys
 # for GitHub, clones egargan/dotfiles and stows them, and sets up Node via Volta.
 #
-# TODO: check if macos, exit if no
-# TODO: check git installed, exit if no
 # TODO: neovim setup: install mason and lazy plugins?
-# TODO: check if SSH keys slready exist, prompt to overwrite
 # TODO: cask install iterm2? download + add colorscheme to program files?
 # TODO: cask install raycast?
 
 set -eo pipefail
-
 
 RESET='\e[0m'
 CYAN='\e[1;36m'
@@ -26,6 +22,16 @@ GREEN='\e[1;32m'
 PURPLE='\e[1;35m'
 BOLD_WHITE='\e[1;37m'
 
+
+if [[ "$OSTYPE" != darwin* ]]; then
+  printf "This script is not intended to run on non-macOS systems\n"
+  exit 1
+fi
+
+if ! command -v git &> /dev/null; then
+  printf "This script requires git, install it Homebrew or 'xcode-select --install'"
+  exit 1
+fi
 
 function print_action() {
   printf "${CYAN}(>)${RESET} ${BOLD_WHITE}$1${RESET}\n\n"
@@ -109,7 +115,12 @@ done
 
 print_action "Personal GitHub SSH key setup"
 
-print_question "Add a new SSH key to egargan GitHub?"
+if [[ -f ~/.ssh/egargan ]]; then
+  print_question "~/.ssh/egargan key already exists, delete and create a new one?"
+else
+  print_question "Add a new SSH key to egargan GitHub?"
+fi
+
 printf " ${BOLD_WHITE}(y/n)${RESET} "
 REPLY="$(read_yn)"
 printf "\n"
