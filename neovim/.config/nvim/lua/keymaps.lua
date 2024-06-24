@@ -16,6 +16,13 @@ vim.api.nvim_set_keymap('', '<leader>d', '"_d', { noremap = true })
 vim.api.nvim_set_keymap('', '<leader>D', '"_D', { noremap = true })
 vim.api.nvim_set_keymap('', '<leader>x', '"_x', { noremap = true })
 
+-- 5-line up/down jumps
+vim.api.nvim_set_keymap('', '<S-k>', '5k', { noremap = true })
+vim.api.nvim_set_keymap('', '<S-j>', '5j', { noremap = true })
+
+-- Merge this and below line (usually <S-j>, but that's being used for 5j)
+vim.api.nvim_set_keymap('', '<C-k>', '<S-j>', { noremap = true })
+
 -- Stop j/k working linewise
 vim.api.nvim_set_keymap('', 'j', 'gj', { noremap = true })
 vim.api.nvim_set_keymap('', 'k', 'gk', { noremap = true })
