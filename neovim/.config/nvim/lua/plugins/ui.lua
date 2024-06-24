@@ -134,6 +134,9 @@ return {
           always_divide_middle = true,
           disabled_filetypes = {
             winbar = { 'NvimTree' },
+          },
+          refresh = {
+            statusline = 500
           }
         },
         sections = {
@@ -150,6 +153,16 @@ return {
           },
           lualine_c = {},
           lualine_x = {
+            {
+              function()
+                return require("noice").api.statusline.mode.get():sub(11, -1)
+              end,
+              cond = function()
+                return require("noice").api.statusline.mode.has() and
+                    require("noice").api.statusline.mode.get():sub(1, 9) == "recording"
+              end,
+              icon = { '•', color = { fg = "#D08770" } },
+            },
             {
               'diagnostics',
               diagnostics_color = {
