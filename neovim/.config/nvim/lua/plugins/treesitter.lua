@@ -33,6 +33,7 @@ return {
         "jsonc",
         "bash",
         "regex",
+        "vimdoc",
       },
       incremental_selection = {
         enable = true,
