@@ -61,6 +61,19 @@ function read_yn() {
   done
 }
 
+# -- Env guards -------------------------------------------------------------
+
+if [[ "$OSTYPE" != darwin* ]]; then
+  printf "This script is not intended to run on non-macOS systems\n"
+  exit 1
+else
+
+if ! command -v git &> /dev/null; then
+  printf "This script requires git, install it Homebrew or 'xcode-select --install'"
+  exit 1
+fi
+
+
 # -- Install Homebrew and deps ------------------------------------------------
 
 print_action "Installing Homebrew"
