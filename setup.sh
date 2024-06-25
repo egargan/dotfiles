@@ -6,8 +6,8 @@
 # for GitHub, clones egargan/dotfiles and stows them, and sets up Node via Volta.
 #
 # TODO: neovim setup: install mason and lazy plugins?
-# TODO: cask install iterm2? download + add colorscheme to program files?
 # TODO: cask install raycast?
+# TODO: host somewhere, edg.foo?
 
 set -eo pipefail
 
@@ -228,6 +228,30 @@ if [[ $(brew list node) ]]; then
   print_notice "Homebrew-installed Node unlinked"
 fi
 
-# -- Neovim setup -------------------------------------------------
+# -- Install iTerm2 and colors ------------------------------------------------
+
+print_question "Install iTerm2 and download colorscheme?"
+
+printf " ${BOLD_WHITE}(y/n)${RESET} "
+REPLY="$(read_yn)"
+printf "\n"
+
+if [[ "$REPLY" == "Y" ]]; then
+  print_notice "Downloading colorscheme to ~/Downloads/Nord.itermcolors"
+  print_notice "Opening iTerm2 download page"
+
+  sleep 3
+
+  open "https://iterm2.com/downloads.html"
+  curl --silent -o ~/Downloads/Nord.itermcolors 'https://raw.githubusercontent.com/nordtheme/iterm2/develop/src/xml/Nord.itermcolors'
+
+  sleep 2
+
+  print_question "Press any key to continue once installed"
+  read -k 1
+  printf "\n"
+fi
+
+# -- Rest GUI apps -------------------------------------------------
 
 
