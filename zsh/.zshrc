@@ -204,6 +204,8 @@ alias   lg='lazygit'
 # Print path to current SSH socket file
 alias shocket='echo $(find /tmp -path "*/ssh-*" -name "agent*" -uid $(id -u) 2>/dev/null | tail -n1)'
 
+alias ports='lsof -Pn -i4 | grep LISTENING'
+
 # If nvim is installed, alias vim and vi to it
 if [[ "$(command -v nvim)" ]]; then
   alias vim='nvim'
